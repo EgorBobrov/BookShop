@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for connecting the User class and the database. 
+ * Basically, it executes database queries. 
+ */
+
 package user;
 
 import java.util.List;

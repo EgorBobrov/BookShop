@@ -1,3 +1,9 @@
+/*
+ * This is the Controller. It handles specific requests to some URLs by building specific View using 
+ * some logic and the Model class. 
+ */
+
+
 package book;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +26,7 @@ public class BookController {
         if (name != null)
         	bookDao.persist(new Book(name, author));
  
-        // Prepare the result view (guest.jsp):
+        // Prepare the result view (book.jsp):
         return new ModelAndView("book.jsp", "bookDao", bookDao);
     }
 

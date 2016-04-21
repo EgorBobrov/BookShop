@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for connecting the Book class and the database. 
+ * Basically, it executes database queries. 
+ */
+
 package book;
 
 import java.util.List;

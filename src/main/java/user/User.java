@@ -1,3 +1,8 @@
+/*
+ * In MVC paradigm this class would be the Model.
+ * 
+ */
+
 package user;
 
 import java.io.Serializable;
@@ -8,6 +13,8 @@ import javax.persistence.Id;
  
 @Entity
 public class User implements Serializable {
+	//a universal version identifier for a Serializable class 
+	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
     private static final long serialVersionUID = 1L;
  
     // Persistent Fields:

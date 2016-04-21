@@ -1,3 +1,8 @@
+/*
+ * This is the Controller. It handles specific requests to some URLs by building specific View using 
+ * some logic and the Model class. 
+ */
+
 package user;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +25,7 @@ public class UserController {
         if (name != null)
         	userDao.persist(new User(name, email));
  
-        // Prepare the result view (guest.jsp):
+        // Prepare the result view (users.jsp):
         return new ModelAndView("users.jsp", "userDao", userDao);
     }
 
