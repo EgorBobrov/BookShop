@@ -1,4 +1,4 @@
-package book;
+package user;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller
-public class BookController {
+public class UserController {
  
     @Autowired
-    private BookDao bookDao;
+    private UserDao userDao;
  
-    @RequestMapping(value="/book")
-    public ModelAndView booklist(HttpServletRequest request) {
+    @RequestMapping(value="/users")
+    public ModelAndView userlist(HttpServletRequest request) {
         // Handle a new guest (if any):
-        String name = request.getParameter("title");
-        String author = request.getParameter("author");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
         if (name != null)
-        	bookDao.persist(new Book(name, author));
+        	userDao.persist(new User(name, email));
  
         // Prepare the result view (guest.jsp):
-        return new ModelAndView("book.jsp", "bookDao", bookDao);
+        return new ModelAndView("user.jsp", "userDao", userDao);
     }
 
 }

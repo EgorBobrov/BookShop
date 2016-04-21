@@ -1,28 +1,28 @@
 <%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="book.*"%>
+<%@page import="user.*"%>
  
-<jsp:useBean id="bookDao" type="book.BookDao" scope="request" />
+<jsp:useBean id="userDao" type="user.UserDao" scope="request" />
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
  
 <html>
     <head>
-        <title>JPA Book Shop</title>
+        <title>Users Addition</title>
     </head>
  
     <body>
-        <form method="POST" action="book.html">
-            Title: <input type="text" name="title" /> 
+        <form method="POST" action="users.html">
+            Name: <input type="text" name="name" /> 
             <br>
-            Author: <input type="text" name="author" />
+            Email: <input type="text" name="email" />
             <br>
-            <input type="submit" value="Add the book" />
+            <input type="submit" value="Register" />
         </form>
  
         <hr><ol> 
-        <% for (Book book : bookDao.getAllBooks()) { %>
-            <li> <%= book %> </li>
+        <% for (User user : userDao.getAllUsers()) { %>
+            <li> <%= user %> </li>
         <% } %>
         </ol><hr>
  		

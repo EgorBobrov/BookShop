@@ -1,4 +1,4 @@
-package book;
+package user;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
  
 @Component
-public class BookDao {
+public class UserDao {
     // Injected database connection:
     @PersistenceContext private EntityManager em;
  
-    // Stores a new book:
+    // Stores a new user:
     @Transactional
-    public void persist(Book book) {
-        em.persist(book);
+    public void persist(User user) {
+        em.persist(user);
     }
  
-    // Retrieves all the books:
-    public List<Book> getAllBooks() {
-        TypedQuery<Book> query = em.createQuery(
-            "SELECT b FROM Book b ORDER BY b.id", Book.class);
+    // Retrieves all the registered users:
+    public List<User> getAllUsers() {
+        TypedQuery<User> query = em.createQuery(
+            "SELECT u FROM User u ORDER BY u.id", User.class);
         return query.getResultList();
     }
 }
