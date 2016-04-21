@@ -14,20 +14,22 @@ public class Book implements Serializable {
     @Id @GeneratedValue
     Long id;
     private String title;
+    private String author;
     private Date additonDate;
  
     // Constructors:
     public Book() {
     }
  
-    public Book(String title) {
+    public Book(String title, String author) {
         this.title = title;
+        this.author = author;
         this.additonDate = new Date(System.currentTimeMillis());
     }
  
     // String Representation:
     @Override
     public String toString() {
-        return title + " (added on " + additonDate + ")";
-    }
+        return title + " by " + author + "( added on " + additonDate + ")";
+    } 
 }

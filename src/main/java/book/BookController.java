@@ -16,8 +16,9 @@ public class BookController {
     public ModelAndView guestbook(HttpServletRequest request) {
         // Handle a new guest (if any):
         String name = request.getParameter("title");
+        String author = request.getParameter("author");
         if (name != null)
-        	bookDao.persist(new Book(name));
+        	bookDao.persist(new Book(name, author));
  
         // Prepare the result view (guest.jsp):
         return new ModelAndView("book.jsp", "bookDao", bookDao);

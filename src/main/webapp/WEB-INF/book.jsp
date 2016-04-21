@@ -13,7 +13,10 @@
  
     <body>
         <form method="POST" action="book.html">
-            Title: <input type="text" name="title" />
+            Title: <input type="text" name="title" /> 
+            <br>
+            Author: <input type="text" name="author" />
+            <br>
             <input type="submit" value="Add" />
         </form>
  
