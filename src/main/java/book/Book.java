@@ -13,21 +13,21 @@ public class Book implements Serializable {
     // Persistent Fields:
     @Id @GeneratedValue
     Long id;
-    private String name;
+    private String title;
     private Date additonDate;
  
     // Constructors:
     public Book() {
     }
  
-    public Book(String name) {
-        this.name = name;
+    public Book(String title) {
+        this.title = title;
         this.additonDate = new Date(System.currentTimeMillis());
     }
  
     // String Representation:
     @Override
     public String toString() {
-        return name + " (added on " + additonDate + ")";
+        return title + " (added on " + additonDate + ")";
     }
 }

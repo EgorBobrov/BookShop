@@ -15,7 +15,7 @@ public class BookController {
     @RequestMapping(value="/book")
     public ModelAndView guestbook(HttpServletRequest request) {
         // Handle a new guest (if any):
-        String name = request.getParameter("name");
+        String name = request.getParameter("title");
         if (name != null)
         	bookDao.persist(new Book(name));
  
