@@ -21,7 +21,7 @@ public class UserController {
         	userDao.persist(new User(name, email));
  
         // Prepare the result view (guest.jsp):
-        return new ModelAndView("user.jsp", "userDao", userDao);
+        return new ModelAndView("users.jsp", "userDao", userDao);
     }
 
 }

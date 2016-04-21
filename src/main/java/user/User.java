@@ -30,6 +30,6 @@ public class User implements Serializable {
     // String Representation on page:
     @Override
     public String toString() {
-        return name + ", whose email is " + email + "( registered on " + registrationDate + ")";
+        return name + ", whose email is " + email + " (registered on " + registrationDate + ")";
     } 
 }
