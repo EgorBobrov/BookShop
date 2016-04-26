@@ -26,7 +26,7 @@ public class BookDao {
     // Retrieves all the books:
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = em.createQuery(
-            "SELECT b FROM Book b ORDER BY b.id", Book.class);
+            "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors ORDER BY b.id", Book.class);
         return query.getResultList();
     }
 }

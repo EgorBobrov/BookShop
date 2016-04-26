@@ -13,9 +13,13 @@
  
     <body>
         <form method="POST" action="book.html">
+        	ISBN: <input type="text" name="ISBN" /> 
+            <br>
             Title: <input type="text" name="title" /> 
             <br>
-            Author: <input type="text" name="author" />
+            Author 1: <input type="text" name="author1" />
+            <br>
+            Author 2 (if applicable): <input type="text" name="author2" />
             <br>
             <input type="submit" value="Add the book" />
         </form>
