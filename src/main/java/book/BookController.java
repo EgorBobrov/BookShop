@@ -34,7 +34,8 @@ public class BookController {
     	Set<String> authors = new HashSet<>();
     	String isbn = request.getParameter("ISBN");
         String name = request.getParameter("title");
-        authors.add(request.getParameter("author"));
+        authors.add(request.getParameter("author1"));
+        authors.add(request.getParameter("author2"));
 
         if (isbn!= null && name != null){
         	Book entity = new Book(isbn, name, authors);
