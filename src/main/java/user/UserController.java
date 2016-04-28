@@ -22,8 +22,9 @@ public class UserController {
         // Handle a new guest (if any):
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String password = request.getParameter("password");
         if (name != null)
-        	userDao.persist(new User(name, email));
+        	userDao.persist(new User(name, email, password));
  
         // Prepare the result view (users.jsp):
         return new ModelAndView("users.jsp", "userDao", userDao);

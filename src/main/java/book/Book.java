@@ -22,11 +22,9 @@ import javax.validation.constraints.Size;
  
 @Entity
 public class Book implements Serializable {
-	
 	//a universal version identifier for a Serializable class 
 	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
     private static final long serialVersionUID = 2L;
- 
     // Persistent Fields:
     @Id @GeneratedValue
     Long id;
@@ -42,7 +40,6 @@ public class Book implements Serializable {
     // now we are able to directly access the Genre for a given Book
     @ManyToOne
     private Set<Genre> category;
-
     
     /*
      * @ElementCollection means that the collection is not a collection of entities, but a collection of simple types 
@@ -51,7 +48,7 @@ public class Book implements Serializable {
      * they're modified when the entity is modified, deleted when the entity is deleted, etc. 
      * They can't have their own lifecycle.
      */
-    // @OneToMany
+    // @OneToMany - has the same meaning, but is used for entities
     @ElementCollection 
     private Set<String> authors;
     

@@ -22,16 +22,18 @@ public class User implements Serializable {
     Long id;
     private String name;
     private String email;
+    private String password;
     private Date registrationDate;
  
     // Constructors:
     public User() {
     }
  
-    public User(String name, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.registrationDate = new Date(System.currentTimeMillis());
+        this.password = password;
     }
  
     // String Representation on page:
