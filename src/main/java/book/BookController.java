@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ public class BookController {
     //a log4j logger
     static final Logger logger = Logger.getLogger(BookController.class);
  
-    @RequestMapping(value="/book")
+    @RequestMapping(value="/books")
     public ModelAndView booklist(HttpServletRequest request) {
         // Handle a new guest (if any):
     	BasicConfigurator.configure();
@@ -43,7 +44,13 @@ public class BookController {
         	bookDao.persist(entity);
         }
         // Prepare the result view (book.jsp):
-        return new ModelAndView("book.jsp", "bookDao", bookDao);
+        return new ModelAndView("books.jsp", "bookDao", bookDao);
+    }
+    @RequestMapping("/book")
+    // @RequestParam binds HTTP request parameters to method arguments in the controller
+    // takes the 'id' request parameter from the URL, and maps it to the countryId parameter of the method
+    public Book getBook(@RequestParam(value="id", required=true) Long bookId) {
+    	return bookDao.getBookById(bookId);
     }
 
 }

@@ -22,7 +22,7 @@
  
         <hr><ol> 
         <% for (User user : userDao.getAllUsers()) { %>
-            <li> <%= user %> </li>
+            <li> <%= user %> registered; </li>
         <% } %>
         </ol><hr>
  		

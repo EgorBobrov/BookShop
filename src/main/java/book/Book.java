@@ -31,16 +31,27 @@ public class Book implements Serializable {
     @Id @GeneratedValue
     Long id;
     
-    @Column(name = "isbn", length = 15)
+    //By default, all fields of the class are mapped to table columns with the same name. 
+    //Use the @Column annotation when the field and column names differ
+    @Column(name = "isbn", length = 15) 
     @NotNull
     @Size(max = 15)
     @Id 
     private String isbn;
     
+    // now we are able to directly access the Genre for a given Book
     @ManyToOne
     private Set<Genre> category;
 
-    @OneToMany
+    
+    /*
+     * @ElementCollection means that the collection is not a collection of entities, but a collection of simple types 
+     * (Strings, etc.) or a collection of embeddable elements (class annotated with @Embeddable).
+     * It also means that the elements are completely owned by the containing entities: 
+     * they're modified when the entity is modified, deleted when the entity is deleted, etc. 
+     * They can't have their own lifecycle.
+     */
+    // @OneToMany
     @ElementCollection 
     private Set<String> authors;
     

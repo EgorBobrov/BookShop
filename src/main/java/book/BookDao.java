@@ -29,4 +29,9 @@ public class BookDao {
             "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors ORDER BY b.id", Book.class);
         return query.getResultList();
     }
+    
+    public Book getBookById(Long id) {
+    	// TODO: fill in the functionality
+    	return null;
+    }
 }

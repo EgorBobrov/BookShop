@@ -8,10 +8,22 @@
  
 <html>
     <head>
-        <title><% %></title>
+        <title>JPA Book Shop</title>
     </head>
  
     <body>
+        <form method="POST" action="books.html">
+        	ISBN: <input type="text" name="ISBN" /> 
+            <br>
+            Title: <input type="text" name="title" /> 
+            <br>
+            Author 1: <input type="text" name="author1" />
+            <br>
+            Author 2 (if applicable): <input type="text" name="author2" />
+            <br>
+            <input type="submit" value="Add the book" />
+        </form>
+ 
         <hr><ol> 
         <% for (Book book : bookDao.getAllBooks()) { %>
             <li> <%= book %> added;</li> 
