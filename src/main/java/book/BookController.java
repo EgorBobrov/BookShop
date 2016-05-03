@@ -49,8 +49,8 @@ public class BookController {
     @RequestMapping("/book")
     // @RequestParam binds HTTP request parameters to method arguments in the controller
     // takes the 'id' request parameter from the URL, and maps it to the countryId parameter of the method
-    public Book getBook(@RequestParam(value="id", required=true) Long bookId) {
-    	return bookDao.getBookById(bookId);
+    public Book getBook(@RequestParam(value="isbn", required=true) String isbn) {
+    	return bookDao.getBookByIsbn(isbn);
     }
 
 }

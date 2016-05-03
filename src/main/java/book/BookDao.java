@@ -5,6 +5,6 @@ import java.util.List;
 public interface BookDao {
 	public void persist(Book book);
 	public List<Book> getAllBooks();
-	public Book getBookById(Long id);
+	public Book getBookByIsbn(String isbn);
 	public void delete(Book book);
 }

@@ -23,17 +23,17 @@ public class BookDaoImpl implements BookDao {
         em.persist(book);
     }
     public void delete(Book book) {
-    	//TODO: actual implementation
+    	em.remove(book);
     }
  
     // Retrieves all the books:
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = em.createQuery(
-            "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors ORDER BY b.id", Book.class);
+            "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors ORDER BY b.isbn", Book.class);
         return query.getResultList();
     }
     
-    public Book getBookById(Long id) {
+    public Book getBookByIsbn(String isbn) {
     	// TODO: fill in the functionality
     	return null;
     }

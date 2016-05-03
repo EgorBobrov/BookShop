@@ -26,9 +26,9 @@ public class Book implements Serializable {
 	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
     private static final long serialVersionUID = 2L;
     // Persistent Fields:
-    @Id @GeneratedValue
+/*    @Id @GeneratedValue
     Long id;
-    
+*/    
     //By default, all fields of the class are mapped to table columns with the same name. 
     //Use the @Column annotation when the field and column names differ
     @Column(name = "isbn", length = 15) 
