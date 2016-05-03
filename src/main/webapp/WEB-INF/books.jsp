@@ -23,6 +23,11 @@
             <br>
             <input type="submit" value="Add the book" />
         </form>
+        
+         <form method="POST" action="dropbooks.html">
+        	ISBN: <input type="text" name="ISBN" /> 
+            <input type="submit" value="Delete the book" />
+        </form>
  
         <hr><ol> 
         <% for (Book book : bookDao.getAllBooks()) { %>

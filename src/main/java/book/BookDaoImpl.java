@@ -22,8 +22,13 @@ public class BookDaoImpl implements BookDao {
     public void persist(Book book) {
         em.persist(book);
     }
-    public void delete(Book book) {
+    
+    @Transactional
+    public void delete(String isbn) {
+    	//em.getTransaction().begin();
+    	Book book = em.find(Book.class, isbn);
     	em.remove(book);
+    	//em.getTransaction().commit();
     }
  
     // Retrieves all the books:

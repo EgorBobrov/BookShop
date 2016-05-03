@@ -46,6 +46,19 @@ public class BookController {
         // Prepare the result view (book.jsp):
         return new ModelAndView("books.jsp", "bookDao", bookDao);
     }
+    
+    @RequestMapping(value="/dropbooks")
+    public ModelAndView dropped (HttpServletRequest request) {
+        // Handle a new guest (if any):
+    	BasicConfigurator.configure();
+    	String isbn = request.getParameter("ISBN");
+        if (isbn!= null){
+        	bookDao.delete(isbn);
+        }
+        // Prepare the result view (book.jsp):
+        return new ModelAndView("books.jsp", "bookDao", bookDao);
+    }
+
     @RequestMapping("/book")
     // @RequestParam binds HTTP request parameters to method arguments in the controller
     // takes the 'id' request parameter from the URL, and maps it to the countryId parameter of the method
