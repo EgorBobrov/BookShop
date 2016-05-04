@@ -40,6 +40,6 @@ public class BookDaoImpl implements BookDao {
     
     public Book getBookByIsbn(String isbn) {
     	// TODO: fill in the functionality
-    	return null;
+    	return em.find(Book.class, isbn);
     }
 }

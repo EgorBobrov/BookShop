@@ -34,12 +34,19 @@ public class BookController {
     	BasicConfigurator.configure();
     	Set<String> authors = new HashSet<>();
     	String isbn = request.getParameter("ISBN");
-        String name = request.getParameter("title");
-        authors.add(request.getParameter("author1"));
-        authors.add(request.getParameter("author2"));
-
-        if (isbn!= null && name != null){
-        	Book entity = new Book(isbn, name, authors);
+        String title = request.getParameter("title");
+        // taking data from the "author(s)" field
+        String authorsInput = request.getParameter("authors");
+        // if there are more than 1 author we create an array of them
+        if (authorsInput != null) {
+	        String[] authorsArray = authorsInput.split(",");
+	        // and adding author(s) to the set
+	        for (String author : authorsArray) {
+	        	authors.add(author);
+	        }
+        }
+        if (isbn!= null && title != null){
+        	Book entity = new Book(isbn, title, authors);
         	logger.info("received "+entity.toString()+" via user input");
         	bookDao.persist(entity);
         }
@@ -62,8 +69,8 @@ public class BookController {
     @RequestMapping("/book")
     // @RequestParam binds HTTP request parameters to method arguments in the controller
     // takes the 'id' request parameter from the URL, and maps it to the countryId parameter of the method
-    public Book getBook(@RequestParam(value="isbn", required=true) String isbn) {
-    	return bookDao.getBookByIsbn(isbn);
+    public ModelAndView goToBook(@RequestParam(value="isbn", required=true) String isbn) {
+    	return new ModelAndView("book.jsp", "bookDao", bookDao);
     }
 
 }

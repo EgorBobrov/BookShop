@@ -8,16 +8,18 @@
  
 <html>
     <head>
-        <title><% %></title>
+        <title></title>
     </head>
  
     <body>
-        <hr><ol> 
-        <% for (Book book : bookDao.getAllBooks()) { %>
-            <li> <%= book %> added;</li> 
-        <% } %>
-        </ol><hr>
- 		
+    <%String isbn = request.getParameter("isbn"); %>
+    <%Book book = bookDao.getBookByIsbn(isbn); %>
+    The <%= book.getTitle() %> page. 
+    <br>
+    
+      
+    <!--  The ${param.isbn} page --> 
+ 		 
  		<a href="/BookList/">Go to the home page</a>
  
         <iframe src="http://www.objectdb.com/pw.html?spring-eclipse"

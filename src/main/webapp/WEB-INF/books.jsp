@@ -17,9 +17,7 @@
             <br>
             Title: <input type="text" name="title" /> 
             <br>
-            Author 1: <input type="text" name="author1" />
-            <br>
-            Author 2 (if applicable): <input type="text" name="author2" />
+            Author(s): <input type="text" name="authors" />
             <br>
             <input type="submit" value="Add the book" />
         </form>
@@ -31,7 +29,7 @@
  
         <hr><ol> 
         <% for (Book book : bookDao.getAllBooks()) { %>
-            <li> <%= book %> added;</li> 
+           <a href="book.html?isbn=<%= book.getIsbn() %>" ><li> <%= book %> added;</li></a> 
         <% } %>
         </ol><hr>
  		

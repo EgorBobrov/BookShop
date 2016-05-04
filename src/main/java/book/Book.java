@@ -77,4 +77,14 @@ public class Book implements Serializable {
 
         return "ISBN:"+ isbn+ "; "+ title + " by " + authors;
     } 
+    public String getIsbn() {
+		return isbn;
+	}
+    public String getTitle() {
+    	return title;
+    }
+    // TODO: something is wrong with this method, returns null when used in jsp
+    public Set<String> getAuthors() {
+		return authors;
+	}
 }
