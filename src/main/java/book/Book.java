@@ -14,15 +14,24 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
  
 @Entity
+@NamedQueries({
+    @NamedQuery(name = Book.SEARCH, query = "SELECT b FROM Book b LEFT JOIN FETCH b.authors WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title")
+
+})
 public class Book implements Serializable {
 	//a universal version identifier for a Serializable class 
 	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
     private static final long serialVersionUID = 2L;
+    public static final String SEARCH = "Book.search";
+    
     // Persistent Fields:
 /*    @Id @GeneratedValue
     Long id;
@@ -57,6 +66,9 @@ public class Book implements Serializable {
     @NotNull
     @Column(name = "title")
     private String title;
+    
+    @Column(name = "description")
+    private String description;
  
     // Constructors:
     public Book() {

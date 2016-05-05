@@ -7,4 +7,6 @@ public interface BookDao {
 	public List<Book> getAllBooks();
 	public Book getBookByIsbn(String isbn);
 	public void delete(String isbn);
+	public List<Book> doSearch();
+	public void setKeyword(String searchInput);
 }

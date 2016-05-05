@@ -7,6 +7,7 @@
 package book;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class BookController {
         // taking data from the "author(s)" field
         String authorsInput = request.getParameter("authors");
         // if there are more than 1 author we create an array of them
+        
+        String searchInput = request.getParameter("search");
+        
         if (authorsInput != null) {
 	        String[] authorsArray = authorsInput.split(",");
 	        // and adding author(s) to the set
@@ -45,10 +49,16 @@ public class BookController {
 	        	authors.add(author);
 	        }
         }
+        
         if (isbn!= null && title != null){
         	Book entity = new Book(isbn, title, authors);
         	logger.info("received "+entity.toString()+" via user input");
         	bookDao.persist(entity);
+        }
+        
+        if (searchInput != null){
+        	bookDao.setKeyword(searchInput);
+        	bookDao.doSearch();
         }
         // Prepare the result view (book.jsp):
         return new ModelAndView("books.jsp", "bookDao", bookDao);

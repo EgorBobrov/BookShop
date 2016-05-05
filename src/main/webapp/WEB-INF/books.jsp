@@ -26,10 +26,22 @@
         	ISBN: <input type="text" name="ISBN" /> 
             <input type="submit" value="Delete the book" />
         </form>
+        
+        <form method="POST" action="books.html">
+        	Part of title or description: <input type="text" name="search" /> 
+            <input type="submit" value="Search" />
+        </form>
  
         <hr><ol> 
         <% for (Book book : bookDao.getAllBooks()) { %>
            <a href="book.html?isbn=<%= book.getIsbn() %>" ><li> <%= book %> added;</li></a> 
+        <% } %>
+        </ol><hr>
+        
+        <hr><ol> 
+        Search results:
+        <% for (Book book : bookDao.doSearch()) { %>
+           <a href="book.html?isbn=<%= book.getIsbn() %>" ><li> <%= book %> found;</li></a> 
         <% } %>
         </ol><hr>
  		

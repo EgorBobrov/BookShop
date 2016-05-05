@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
  
 @Component
 public class BookDaoImpl implements BookDao {
+	
+	private String keyword = null;
     // Injected database connection:
     @PersistenceContext private EntityManager em;
  
@@ -37,6 +39,22 @@ public class BookDaoImpl implements BookDao {
             "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors ORDER BY b.isbn", Book.class);
         return query.getResultList();
     }
+    
+    public List<Book> doSearch() {
+    	if (keyword == null){
+    		//the intention here is to return an empty query always when there's no keyword typed in
+    		return  em.createQuery(
+    	            "SELECT DISTINCT b FROM Book b WHERE b.title = null", Book.class).getResultList();
+    	}
+        TypedQuery<Book> typedQuery = em.createNamedQuery(Book.SEARCH, Book.class);
+        typedQuery.setParameter("keyword", "%" + keyword.toUpperCase() + "%");
+        return typedQuery.getResultList();
+    }
+    
+    public void setKeyword(String keyword) {
+    	this.keyword = keyword;
+    }
+
     
     public Book getBookByIsbn(String isbn) {
     	// TODO: fill in the functionality
