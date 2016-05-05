@@ -7,6 +7,7 @@ import book.Book;
 public interface UserDao {
     public void persist(User user); 
     public List<User> getAllUsers(); 
-	public Book getUserById(Long id);
-	public void delete(User user);
+	public User getUserByEmail(String email);
+	public Boolean isAdmin(String email);
+	public void delete(String email);
 }

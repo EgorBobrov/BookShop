@@ -28,19 +28,26 @@ public class UserDaoImpl implements UserDao {
     // Retrieves all the registered users:
     public List<User> getAllUsers() {
         TypedQuery<User> query = em.createQuery(
-            "SELECT u FROM User u ORDER BY u.id", User.class);
+            "SELECT u FROM User u ORDER BY u.email", User.class);
         return query.getResultList();
     }
 
 	@Override
-	public Book getUserById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserByEmail(String email) {
+		return em.find(User.class, email);
+	}
+	
+
+	@Override
+	@Transactional
+	public void delete(String email) {
+		User user = em.find(User.class, email);
+		em.remove(user);
 	}
 
 	@Override
-	public void delete(User user) {
-		// TODO Auto-generated method stub
-		
+	public Boolean isAdmin(String email) {
+		User user = em.find(User.class, email);
+		return user.isAdmin();
 	}
 }

@@ -17,15 +17,20 @@
             <br>
             Email: <input type="text" name="email" />
             <br>
-            Password: <input type="text" name="password" />
+            Password: <input type="password" name="password" />
             <br>
-            
+            Register as admin? <input type="checkbox" name="admin"/>
+            <br>
             <input type="submit" value="Register" />
+        </form>
+          <form method="POST" action="dropuser.html">
+        	Email: <input type="text" name="email" /> 
+            <input type="submit" value="Delete user" />
         </form>
  
         <hr><ol> 
         <% for (User user : userDao.getAllUsers()) { %>
-            <li> <%= user %> registered; </li>
+            <a href="user.html?email=<%= user.getEmail() %>"><li> <%= user %> registered; </li></a>
         <% } %>
         </ol><hr>
  		
