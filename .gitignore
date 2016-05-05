@@ -1,2 +1,13 @@
 **/pom.properties
 /.settings/*
+*.jar
+Thumbs.db
+*.log
+target
+*.class
+*.war
+*.ear
+.classpath
+.project
+.settings
+WebContent
