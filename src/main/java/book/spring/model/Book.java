@@ -112,6 +112,15 @@ public class Book implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    public void setTitle(String title) {
+		this.title = title;
+	}
+    public void setNbOfPages(Integer nbOfPages) {
+		this.nbOfPages = nbOfPages;
+	}
+    public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
     // TODO: something is wrong with this method, returns null when used in jsp
 /*    public Set<String> getAuthors() {
 		return authors;

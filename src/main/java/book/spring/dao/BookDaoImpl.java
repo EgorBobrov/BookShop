@@ -38,12 +38,14 @@ public class BookDaoImpl implements BookDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(book);
         logger.info("Book added successfully. Details: " + book);
+        System.out.println("Book added successfully. Details: " + book);
     }
     
     public void updateBook(Book book) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(book);
         logger.info("Book updated successfully. Details: " + book);
+        System.out.println("Book updated successfully. Details: " + book);
 	}
     public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -51,7 +53,8 @@ public class BookDaoImpl implements BookDao {
         if(b != null){
             session.delete(b);
         }
-        logger.info("Person deleted successfully, person details="+b);
+        logger.info("Book deleted successfully, book details = " + b);
+        System.out.println("Book deleted successfully, book details = " + b);
     }   
  
     // Retrieves all the books:
@@ -84,7 +87,8 @@ public class BookDaoImpl implements BookDao {
     public Book getBookById(Long id) {
     	Session session = this.sessionFactory.getCurrentSession();      
         Book b = (Book) session.load(Book.class, id);
-        logger.info("Book loaded successfully, Book details="+b);
+        logger.info("Book loaded successfully, Book details = " + b);
+        System.out.println("Book loaded successfully, Book details = " + b);
         return b;
     }
 }
