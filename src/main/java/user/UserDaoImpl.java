@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import book.Book;
+import book.spring.model.Book;
  
 @Component
 public class UserDaoImpl implements UserDao {

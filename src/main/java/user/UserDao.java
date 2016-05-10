@@ -2,7 +2,7 @@ package user;
 
 import java.util.List;
 
-import book.Book;
+import book.spring.model.Book;
 
 public interface UserDao {
     public void persist(User user); 

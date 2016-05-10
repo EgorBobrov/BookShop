@@ -117,7 +117,7 @@
        <configuration>
         <mainClass>com.objectdb.Enhancer</mainClass>
         <arguments>
-         <argument>book.Book</argument>
+         <argument>spring.model.Book</argument>
         </arguments>
        </configuration>
       </execution>

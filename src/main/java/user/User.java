@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xpath.internal.operations.Bool;
  
