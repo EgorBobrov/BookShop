@@ -37,14 +37,14 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
-	public Book getBookByIsbn(String isbn) {
-		return this.bookDao.getBookByIsbn(isbn);
+	public Book getBookById(Long id) {
+		return this.bookDao.getBookById(id);
 	}
 
 	@Override
 	@Transactional
-	public void delete(String isbn) {
-		this.bookDao.delete(isbn);
+	public void delete(Long id) {
+		this.bookDao.delete(id);
 	}
 
 }

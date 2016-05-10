@@ -45,9 +45,9 @@ public class BookDaoImpl implements BookDao {
         session.update(book);
         logger.info("Book updated successfully. Details: " + book);
 	}
-    public void delete(String isbn) {
+    public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Book b = (Book) session.load(Book.class, isbn);
+        Book b = (Book) session.load(Book.class, id);
         if(b != null){
             session.delete(b);
         }
@@ -81,9 +81,9 @@ public class BookDaoImpl implements BookDao {
     }
 */
     
-    public Book getBookByIsbn(String isbn) {
+    public Book getBookById(Long id) {
     	Session session = this.sessionFactory.getCurrentSession();      
-        Book b = (Book) session.load(Book.class, isbn);
+        Book b = (Book) session.load(Book.class, id);
         logger.info("Book loaded successfully, Book details="+b);
         return b;
     }

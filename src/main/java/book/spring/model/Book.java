@@ -12,6 +12,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -37,12 +39,13 @@ public class Book implements Serializable {
     //public static final String SEARCH = "Book.search";
     
     // Persistent Fields:
-/*    @Id @GeneratedValue
+    @Id 
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     Long id;
-*/    
+  
     //By default, all fields of the class are mapped to table columns with the same name. 
     //Use the @Column annotation when the field and column names differ
-    @Id 
     @Column(name = "isbn", length = 15) 
     @NotNull
     @Size(max = 15)
@@ -92,8 +95,7 @@ public class Book implements Serializable {
     // String Representation:
     @Override
     public String toString() {
-
-        return "ISBN:"+ isbn+ "; "+ title;
+        return "id: "+ id + "; "+ title;
     } 
     public String getIsbn() {
 		return isbn;
@@ -104,6 +106,12 @@ public class Book implements Serializable {
     public Integer getNbOfPages() {
 		return nbOfPages;
 	}
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     // TODO: something is wrong with this method, returns null when used in jsp
 /*    public Set<String> getAuthors() {
 		return authors;

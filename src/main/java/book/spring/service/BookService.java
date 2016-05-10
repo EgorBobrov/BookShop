@@ -8,7 +8,7 @@ public interface BookService {
 	public void persistBook(Book book);
 	public void updateBook(Book book);
 	public List<Book> getAllBooks();
-	public Book getBookByIsbn(String isbn);
-	public void delete(String isbn);
+	public Book getBookById(Long id);
+	public void delete(Long id);
 
 }
