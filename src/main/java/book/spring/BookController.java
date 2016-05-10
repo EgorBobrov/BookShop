@@ -46,14 +46,14 @@ public class BookController {
         this.bookService = bs;
     }
    
-    @RequestMapping(value="/book", method = RequestMethod.GET)
+    @RequestMapping(value="/books", method = RequestMethod.GET)
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
     	model.addAttribute("listBooks", this.bookService.getAllBooks());
-    	return "book";
+    	return "books";
     }
     //For book addition and update
-    @RequestMapping(value= "/book/add", method = RequestMethod.POST)
+    @RequestMapping(value= "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book){
          
         if(book.getId() == null){
@@ -65,20 +65,20 @@ public class BookController {
             this.bookService.updateBook(book);
         }
          
-        return "redirect:/book";
+        return "redirect:/books";
     }
     
     @RequestMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id){
          
         this.bookService.delete(id);
-        return "redirect:/book";
+        return "redirect:/books";
     }
     @RequestMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model){
         model.addAttribute("book", this.bookService.getBookById(id));
         model.addAttribute("listBooks", this.bookService.getAllBooks());
-        return "book";
+        return "books";
     }
     
 }

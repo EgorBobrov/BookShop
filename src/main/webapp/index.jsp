@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Welcome</h1>
-<a href="/BookList/book.html">Go to book page</a>
+<a href="/BookList/books.html">Go to book addition/deletion page</a>
 </body>
 </html>

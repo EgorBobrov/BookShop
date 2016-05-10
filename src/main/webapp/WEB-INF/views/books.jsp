@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>Person Page</title>
+<title>Books Page</title>
 <style type="text/css">
 .tg {
 	border-collapse: collapse;
@@ -47,7 +47,7 @@
 <body>
 	<h1>Add a Book</h1>
 
-	<c:url var="addAction" value="/book/add"></c:url>
+	<c:url var="addAction" value="/books/add"></c:url>
 
 	<form:form action="${addAction}" commandName="book">
 		<table>
