@@ -88,19 +88,24 @@
 		</table>
 	</form:form>
 	<br>
+		
+	<c:url var="searchAction" value="/books/search"></c:url>
+	<form action="${searchAction}">
+	
+         <input type="text" name="keyword" class="form-control input-lg" placeholder="enter the keyword(s)" tabindex="1" required="required">
+         <input type="submit" value="Submit" />
+    </form >
+    <br>
 	<h3>Book List</h3>
-	<c:if test="${!empty listBooks}">
+	<c:if test="${!empty foundBooks}">
 		<table class="tg">
 			<tr>
 				<th width="80">Book ID</th>
 				<th width="120">Book Title</th>
 				<th width="120">Book ISBN</th>
-
 				<th width="120">Number of Pages</th>
-				<th width="60">Edit</th>
-				<th width="60">Delete</th>
 			</tr>
-			<c:forEach items="${listBooks}" var="book">
+			<c:forEach items="${foundBooks}" var="book">
 				<tr>
 					<td>${book.id}</td>
 					<td>${book.title}</td>
@@ -112,5 +117,6 @@
 			</c:forEach>
 		</table>
 	</c:if>
+	
 </body>
 </html>

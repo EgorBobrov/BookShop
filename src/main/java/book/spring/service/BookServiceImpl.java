@@ -46,5 +46,18 @@ public class BookServiceImpl implements BookService {
 	public void delete(Long id) {
 		this.bookDao.delete(id);
 	}
+	
+	@Override
+	@Transactional
+	public List<Book> findBook(String searchInput){
+		this.bookDao.setKeyword(searchInput);
+		return this.bookDao.doSearch();
+	}
+	
+	@Override
+	@Transactional
+	public List<Book> getFoundBooks(){
+		return this.bookDao.doSearch();
+	}
 
 }

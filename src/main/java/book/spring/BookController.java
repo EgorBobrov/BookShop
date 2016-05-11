@@ -6,12 +6,6 @@
 
 package book.spring;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,14 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import book.spring.dao.BookDao;
 import book.spring.model.Book;
 import book.spring.service.BookService;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 
 @Controller
 public class BookController {
@@ -50,6 +40,7 @@ public class BookController {
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
     	model.addAttribute("listBooks", this.bookService.getAllBooks());
+    	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
     	return "books";
     }
     //For book addition and update
@@ -80,5 +71,12 @@ public class BookController {
         model.addAttribute("listBooks", this.bookService.getAllBooks());
         return "books";
     }
+    
+    @RequestMapping(value="/books/search")
+	public String searchResults(@RequestParam(value = "keyword", required = true) String keyword, Model model) {
+    	this.bookService.findBook(keyword);
+	    return "redirect:/books";
+	}
+
     
 }

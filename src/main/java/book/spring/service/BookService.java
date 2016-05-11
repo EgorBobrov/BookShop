@@ -10,5 +10,6 @@ public interface BookService {
 	public List<Book> getAllBooks();
 	public Book getBookById(Long id);
 	public void delete(Long id);
-
+	public List<Book> findBook(String keyword);
+	public List<Book> getFoundBooks();
 }

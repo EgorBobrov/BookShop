@@ -27,16 +27,12 @@ import book.Genre;
 
 @Entity
 @Table(name="BOOK")
-/*@NamedQueries({
-    @NamedQuery(name = Book.SEARCH, query = "SELECT b FROM Book b LEFT JOIN FETCH b.authors WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title")
 
-})
-*/
+
 public class Book implements Serializable {
 	//a universal version identifier for a Serializable class 
 	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
     private static final long serialVersionUID = 2L;
-    //public static final String SEARCH = "Book.search";
     
     // Persistent Fields:
     @Id 

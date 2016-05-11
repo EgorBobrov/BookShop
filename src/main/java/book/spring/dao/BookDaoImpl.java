@@ -6,6 +6,7 @@
 package book.spring.dao;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -24,7 +25,7 @@ import book.spring.model.Book;
 public class BookDaoImpl implements BookDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
-	//private String keyword = null;
+	private String keyword = null;
 	
 	@Autowired
     private SessionFactory sessionFactory; 
@@ -45,8 +46,8 @@ public class BookDaoImpl implements BookDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(book);
         logger.info("Book updated successfully. Details: " + book);
-        System.out.println("Book updated successfully. Details: " + book);
 	}
+    
     public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         Book b = (Book) session.load(Book.class, id);
@@ -54,7 +55,6 @@ public class BookDaoImpl implements BookDao {
             session.delete(b);
         }
         logger.info("Book deleted successfully, book details = " + b);
-        System.out.println("Book deleted successfully, book details = " + b);
     }   
  
     // Retrieves all the books:
@@ -68,21 +68,25 @@ public class BookDaoImpl implements BookDao {
         return booksList;
     }
     
-/*    public List<Book> doSearch() {
+    //search via title/keyword
+    @SuppressWarnings("unchecked")
+	public List<Book> doSearch() {
+    	Session session = this.sessionFactory.getCurrentSession();
     	if (keyword == null){
-    		//the intention here is to return an empty query always when there's no keyword typed in
-    		return  em.createQuery(
-    	            "SELECT DISTINCT b FROM Book b WHERE b.title = null", Book.class).getResultList();
+    		return session.createQuery("from Book").list();
     	}
-        TypedQuery<Book> typedQuery = em.createNamedQuery(Book.SEARCH, Book.class);
-        typedQuery.setParameter("keyword", "%" + keyword.toUpperCase() + "%");
-        return typedQuery.getResultList();
+    	logger.info("keyword is: "+keyword);
+    	List<Book> bookList = session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    	for(Book b : bookList){
+    		logger.info("among found books::"+b);
+        }
+        return bookList;
     }
-*/    
-/*    public void setKeyword(String keyword) {
+    
+    public void setKeyword(String keyword) {
     	this.keyword = keyword;
     }
-*/
+
     
     public Book getBookById(Long id) {
     	Session session = this.sessionFactory.getCurrentSession();      

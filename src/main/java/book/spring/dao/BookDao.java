@@ -10,6 +10,6 @@ public interface BookDao {
 	public List<Book> getAllBooks();
 	public Book getBookById(Long id);
 	public void delete(Long id);
-	//public List<Book> doSearch();
-	//public void setKeyword(String searchInput);
+	public List<Book> doSearch();
+	public void setKeyword(String searchInput);
 }
