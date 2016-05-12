@@ -110,6 +110,7 @@
 				<th width="120">Book Title</th>
 				<th width="120">Book ISBN</th>
 				<th width="120">Number of Pages</th>
+				<th width="120">Authors</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
@@ -117,6 +118,7 @@
 					<td>${book.title}</td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
+					<td>${book.authors}</td>
 					<td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td>
 					<td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td>
 				</tr>

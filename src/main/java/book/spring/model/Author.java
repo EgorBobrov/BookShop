@@ -63,6 +63,8 @@ public class Author {
         return this.books;
     }
     
+    protected Author(){}
+    
     public Author(String lastname){
     	this.lastName = lastname;
     }

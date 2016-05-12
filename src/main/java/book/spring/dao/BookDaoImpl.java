@@ -69,15 +69,12 @@ public class BookDaoImpl implements BookDao {
 	public List<Book> doSearch() {
     	Session session = this.sessionFactory.getCurrentSession();
     	if (keyword == null){
-    		return session.createQuery("from Book").list();
+    		return session.createQuery("from Book b").list();
     	}
+
     	logger.info("keyword is: "+keyword);
-    	List<Book> bookList = session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
-    	for(Book b : bookList){
-    		logger.info("among found books::"+b);
-        }
-        return bookList;
-    }
+    	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+       }
     
     public void setKeyword(String keyword) {
     	this.keyword = keyword;

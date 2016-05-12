@@ -75,7 +75,7 @@ public class Book implements Serializable {
     @Column(name = "description")
     private String description;
     
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Author.class) 
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
     @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_id"))  
     private Set<Author> authors = new HashSet<>();
  
@@ -87,17 +87,13 @@ public class Book implements Serializable {
     	this.isbn = isbn;
         this.title = title;
         this.nbOfPages = nbOfPages;
-        System.out.println("Book constructor: trying to initiate authors:" + authors.toString());
         this.authors = authors;
-        System.out.println("Book constructor: trying to initiate authors - OK"+ authors.toString());
-        //authors = new HashSet<String>();
-        //this.authors.addAll(authorsSet);
     }
  
     // String Representation:
     @Override
     public String toString() {
-        return "id: "+ id + "; "+ title;
+        return "id: "+ id + "; "+ title + " authors: "+ authors;
     } 
     public String getIsbn() {
 		return isbn;
