@@ -87,7 +87,9 @@ public class Book implements Serializable {
     	this.isbn = isbn;
         this.title = title;
         this.nbOfPages = nbOfPages;
+        System.out.println("Book constructor: trying to initiate authors:" + authors.toString());
         this.authors = authors;
+        System.out.println("Book constructor: trying to initiate authors - OK"+ authors.toString());
         //authors = new HashSet<String>();
         //this.authors.addAll(authorsSet);
     }

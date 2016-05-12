@@ -79,6 +79,12 @@
 				<td><form:input path="nbOfPages" /></td>
 			</tr>
 			<tr>
+				<td><form:label path="authors">
+						<spring:message text="Authors"/>
+					</form:label></td>
+				<td><form:input path="authors" /></td>
+			</tr>
+			<tr>
 				<td colspan="2"><c:if test="${!empty book.title}">
 						<input type="submit" value="<spring:message text="Edit Book"/>" />
 					</c:if> <c:if test="${empty book.title}">

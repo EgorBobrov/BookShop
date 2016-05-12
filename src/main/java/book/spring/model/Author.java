@@ -30,12 +30,11 @@ public class Author {
     // attributes
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     protected Long id;
 
-    @Column(length = 50, name = "first_name", nullable = false)
-    @NotNull
+    @Column(length = 50, name = "first_name")
     @Size(min = 2, max = 50)
     protected String firstName;
 
@@ -62,6 +61,10 @@ public class Author {
     @ManyToMany(mappedBy = "BOOK")
     public Set<Book> getBooks() {
         return this.books;
+    }
+    
+    public Author(String lastname){
+    	this.lastName = lastname;
     }
 
     // lifecycle methods  
@@ -165,7 +168,7 @@ public class Author {
 
     @Override
     public String toString() {
-        String result = getClass().getSimpleName() + " ";
+        String result = " "+ getClass().getSimpleName() + " ";
         if (firstName != null && !firstName.trim().isEmpty())
             result += "firstName: " + firstName;
         if (lastName != null && !lastName.trim().isEmpty())
@@ -176,6 +179,6 @@ public class Author {
             result += ", dateOfBirth: " + dateOfBirth;
         if (age != null)
             result += ", age: " + age;
-        return result;
+        return "id: "+ this.id + result;
     }
 }

@@ -10,14 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import book.spring.model.Author;
 import book.spring.model.Book;
 import book.spring.service.BookService;
+import book.spring.service.conversion.AuthorConverter;
 
 
 @Controller
@@ -35,6 +39,9 @@ public class BookController {
     public void setBookService(BookService bs){
         this.bookService = bs;
     }
+    
+    @Autowired 
+    private AuthorConverter authorConverter; 
    
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public String listBooks(Model model) {
@@ -43,10 +50,15 @@ public class BookController {
     	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
     	return "books";
     }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Author.class, this.authorConverter);
+    }
+    
     //For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book){
-         
         if(book.getId() == null){
             //new book, add it
             this.bookService.persistBook(book);

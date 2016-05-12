@@ -32,6 +32,7 @@ public class BookDaoImpl implements BookDao {
    // Stores a new book:
     public void persistBook(Book book) {
         Session session = this.sessionFactory.getCurrentSession();
+        System.out.println("persistBook: will start adding "+ book);
         session.persist(book);
         logger.info("Book added successfully. Details: " + book);
         System.out.println("Book added successfully. Details: " + book);
