@@ -20,7 +20,6 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public void persistBook(Book book) {
 		this.bookDao.persistBook(book);
-		
 	}
 
 	@Override

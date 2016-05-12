@@ -9,21 +9,20 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import book.Genre;
+import javax.persistence.JoinColumn; 
 
 @Entity
 @Table(name="BOOK")
@@ -75,15 +74,20 @@ public class Book implements Serializable {
     
     @Column(name = "description")
     private String description;
+    
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Author.class) 
+    @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_id"))  
+    private Set<Author> authors = new HashSet<>();
  
     // Constructors:
     public Book() {
     }
  
-    public Book(String isbn, String title, Integer nbOfPages) {
+    public Book(String isbn, String title, Integer nbOfPages, Set<Author> authors) {
     	this.isbn = isbn;
         this.title = title;
         this.nbOfPages = nbOfPages;
+        this.authors = authors;
         //authors = new HashSet<String>();
         //this.authors.addAll(authorsSet);
     }
@@ -117,8 +121,12 @@ public class Book implements Serializable {
     public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-    // TODO: something is wrong with this method, returns null when used in jsp
-/*    public Set<String> getAuthors() {
-		return authors;
-	}
-*/}
+
+    public Set<Author> getAuthors() {
+        return this.authors;
+    }
+
+    public void setAuthors(final Set<Author> authors) {
+        this.authors = authors;
+    }
+}
