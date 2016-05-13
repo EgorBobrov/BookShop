@@ -51,6 +51,13 @@ public class BookController {
     	return "books";
     }
     
+    @RequestMapping(value="/book/{id}")
+    public String displayBook(@PathVariable("id") Long id, Model model) {
+    	System.out.println("Beginning of the method");
+    	model.addAttribute("book", this.bookService.getBookById(id));
+    	return "book";
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Author.class, this.authorConverter);

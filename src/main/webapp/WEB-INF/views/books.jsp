@@ -115,7 +115,7 @@
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
 					<td>${book.id}</td>
-					<td>${book.title}</td>
+					<td><a href="/BookList/book/${book.id}">${book.title}</a></td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.authors}</td>
