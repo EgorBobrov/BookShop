@@ -115,7 +115,7 @@
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
 					<td>${book.id}</td>
-					<td><a href="/BookList/book/${book.id}">${book.title}</a></td>
+					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.authors}</td>
@@ -125,6 +125,6 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	
+	<a href="${pageContext.request.contextPath}/">Home page</a><br/></p>
 </body>
 </html>

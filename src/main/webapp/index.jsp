@@ -8,6 +8,13 @@
 </head>
 <body>
 <h1>Welcome</h1>
-<a href="/BookList/books.html">Go to book addition/deletion page</a>
+<p>This is the Home page. It's available for all users.<br/>
+
+<a href="${pageContext.request.contextPath}/sec/moderation.html">Moderation page</a><br/>
+<a href="${pageContext.request.contextPath}/admin/first.html">First Admin page</a><br/>
+<a href="${pageContext.request.contextPath}/admin/second.html">Second Admin page</a><br/>
+
+<a href="${pageContext.request.contextPath}/books.html">Go to book addition/deletion page</a>
+</p>
 </body>
 </html>

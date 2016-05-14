@@ -62,5 +62,7 @@
 			<td>${book.authors}</td>
 		</tr>
 	</table>
+	<br>
+	<a href="${pageContext.request.contextPath}/books.html">Go back</a>
 </body>
 </html>
