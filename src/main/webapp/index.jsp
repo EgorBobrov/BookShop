@@ -10,7 +10,7 @@
 <h1>Welcome</h1>
 <p>This is the Home page. It's available for all users.<br/>
 
-<a href="${pageContext.request.contextPath}/sec/moderation.html">Moderation page</a><br/>
+<a href="${pageContext.request.contextPath}/sec/user.html">User personal page</a><br/>
 <a href="${pageContext.request.contextPath}/admin/first.html">First Admin page</a><br/>
 <a href="${pageContext.request.contextPath}/admin/second.html">Second Admin page</a><br/>
 
