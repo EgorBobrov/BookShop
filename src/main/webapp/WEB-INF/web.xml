@@ -11,10 +11,10 @@
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
-	<listener>
+<!-- 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+ -->
 	<!-- Spring Security is based on filters, so we need to add declaration of the filter in the deployment descriptor -->
 <!-- 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
