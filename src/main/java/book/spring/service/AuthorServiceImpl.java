@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import book.spring.model.Author;
 
 @Service
+@Transactional
 public class AuthorServiceImpl  implements AuthorService {
 
 	@Autowired @Qualifier("authorDao")
@@ -19,7 +20,7 @@ public class AuthorServiceImpl  implements AuthorService {
     }
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public void persistAuthor(Author author) {
 		this.authorDao.persistAuthor(author);
 	}

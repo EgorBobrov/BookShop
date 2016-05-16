@@ -1,30 +1,26 @@
 package user.spring.init;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration.Dynamic;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class Initializer implements WebApplicationInitializer {
+@Order(1)
+public class Initializer extends
+		AbstractAnnotationConfigDispatcherServletInitializer {
 
-	public void onStartup(ServletContext servletContext)
-			throws ServletException {
-		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-		ctx.register(WebAppConfig.class);
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		return new Class[] { RootConfig.class, SecurityConfig.class };
+	}
 
-		servletContext.addListener(new ContextLoaderListener(ctx));
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class[] { WebAppConfig.class };
+	}
 
-		ctx.setServletContext(servletContext);
-
-		Dynamic servlet = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(ctx));
-		servlet.addMapping("/");
-		servlet.setLoadOnStartup(1);
-
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
 	}
 
 }

@@ -26,8 +26,6 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="BOOK")
-
-
 public class Book implements Serializable {
 	//a universal version identifier for a Serializable class 
 	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object

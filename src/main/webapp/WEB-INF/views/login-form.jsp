@@ -24,8 +24,9 @@
 			<b class="error">Invalid login or password.</b>
 		</c:if>
 	</p>
+	<c:url value="/j_spring_security_check" var="/sec/user.html" />
 
-	<form method="post" action="<c:url value='j_spring_security_check'/>">
+	<form action="${loginUrl}" method="post">
 		<table>
 			<tbody>
 				<tr>
@@ -44,6 +45,8 @@
 				</tr>
 			</tbody>
 		</table>
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
 	</form>
 
 	<p>

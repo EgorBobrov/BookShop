@@ -27,11 +27,11 @@ import book.spring.service.conversion.AuthorConverter;
 @Controller
 public class BookController {
  
-    @Autowired(required=true)
+    @Autowired//(required=true)
     // in a situation when you create more than one bean of the same type and want to wire only one of them with a property
     // you can use @Qualifier annotation along with @Autowired to remove the confusion 
     // by specifying which exact bean will be wired
-    @Qualifier(value="bookService")
+    //@Qualifier(value="bookService")
     private BookService bookService;
     
     //@Autowired(required=true)

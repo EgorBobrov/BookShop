@@ -2,12 +2,17 @@ package book.spring.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import book.spring.dao.BookDao;
 import book.spring.model.Book;
 
+@Service
+@Transactional
 public class BookServiceImpl implements BookService {
 
 	@Autowired
@@ -17,44 +22,44 @@ public class BookServiceImpl implements BookService {
     }
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public void persistBook(Book book) {
 		this.bookDao.persistBook(book);
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public void updateBook(Book book) {
 		this.bookDao.updateBook(book);
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public List<Book> getAllBooks() {
 		return this.bookDao.getAllBooks();
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public Book getBookById(Long id) {
 		return this.bookDao.getBookById(id);
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public void delete(Long id) {
 		this.bookDao.delete(id);
 	}
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public List<Book> findBook(String searchInput){
 		this.bookDao.setKeyword(searchInput);
 		return this.bookDao.doSearch();
 	}
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public List<Book> getFoundBooks(){
 		return this.bookDao.doSearch();
 	}
