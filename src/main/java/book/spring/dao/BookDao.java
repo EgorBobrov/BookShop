@@ -1,7 +1,9 @@
 package book.spring.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import book.spring.model.Author;
 import book.spring.model.Book;
 
 public interface BookDao {
@@ -12,4 +14,5 @@ public interface BookDao {
 	public void delete(Long id);
 	public List<Book> doSearch();
 	public void setKeyword(String searchInput);
+	public void persistAuthors(Set<Author> authors);
 }

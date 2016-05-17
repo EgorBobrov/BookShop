@@ -6,6 +6,7 @@
 package book.spring.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import book.spring.model.Author;
 import book.spring.model.Book;
  
 @Component
@@ -32,7 +34,7 @@ public class BookDaoImpl implements BookDao {
    // Stores a new book:
     public void persistBook(Book book) {
         Session session = this.sessionFactory.getCurrentSession();
-        System.out.println("persistBook: will start adding "+ book);
+        System.out.println("dao persistBook: will start adding "+ book);
         session.persist(book);
         logger.info("Book added successfully. Details: " + book);
         System.out.println("Book added successfully. Details: " + book);
@@ -73,7 +75,9 @@ public class BookDaoImpl implements BookDao {
     	}
 
     	logger.info("keyword is: "+keyword);
-    	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    //	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.lastName) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    	//select s from Song s, IN (s.soundsLike) sl where sl.soundsLikeSearchId = ?
        }
     
     public void setKeyword(String keyword) {
@@ -87,5 +91,11 @@ public class BookDaoImpl implements BookDao {
         logger.info("Book loaded successfully, Book details = " + b);
         System.out.println("Book loaded successfully, Book details = " + b);
         return b;
+    }
+    
+    // Stores a new book:
+    public void persistAuthors(Set <Author> authors) {
+        Session session = this.sessionFactory.getCurrentSession();
+        authors.stream().forEach(author -> session.persist(author));
     }
 }

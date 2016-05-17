@@ -6,6 +6,8 @@
 
 package book.spring;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -40,8 +42,9 @@ public class BookController {
         this.bookService = bs;
     }
     
-    @Autowired 
-    private AuthorConverter authorConverter; 
+   // @Autowired
+    //@Qualifier(value="authorConverter")
+    //private AuthorConverter authorConverter; 
    
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public String listBooks(Model model) {
@@ -53,21 +56,23 @@ public class BookController {
     
     @RequestMapping(value="/book/{id}")
     public String displayBook(@PathVariable("id") Long id, Model model) {
-    	System.out.println("Beginning of the method");
     	model.addAttribute("book", this.bookService.getBookById(id));
     	return "book";
     }
-
+/*
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Author.class, this.authorConverter);
-    }
-    
-    //For book addition and update
+       // binder.registerCustomEditor(Author.class, this.authorConverter);
+        binder.registerCustomEditor(Set.class, "authors", new AuthorConverter(this.bookService));
+    }*/
+
+	//For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book){
+    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth){
+    	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
         if(book.getId() == null){
             //new book, add it
+        	
             this.bookService.persistBook(book);
         }
         else {
@@ -96,6 +101,6 @@ public class BookController {
     	this.bookService.findBook(keyword);
 	    return "redirect:/books";
 	}
-
+    
     
 }

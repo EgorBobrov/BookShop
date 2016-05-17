@@ -1,37 +1,49 @@
 package book.spring.service.conversion;
 
 import java.beans.PropertyEditorSupport; 
+import java.util.HashSet;
+import java.util.Set;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Component;
 
 import book.spring.model.Author;
-import book.spring.service.AuthorService;
+import book.spring.service.BookService;
 
 @Component 
 public class AuthorConverter extends PropertyEditorSupport { 
  
 	@Autowired
-    private AuthorService authorService; 
+    private BookService bookService;
+	
+	@SuppressWarnings("unused")
+	private AuthorConverter() {}
+	
+	public AuthorConverter (BookService bService){
+		this.bookService=bService;
+	}
  
     /**
      * {@inheritDoc} 
      */ 
     @Override 
     public void setAsText(final String text) { 
-        try { 
-            final Author author = this.toAuthor(text); 
-            System.out.println("Will try to persist author");
-            this.authorService.persistAuthor(author);
+        try {
+            final Set<Author> authors = toAuthor(text); 
+            System.out.println("AuthorConverter: "+authors.size()+ " authors");
+            this.bookService.persistAuthors(authors);
 
         } catch (final Exception e) { 
  
         } 
     } 
     
-    public Author toAuthor (String text){
-    	//this is to be redone yet
-    	return new Author (text);
+    public static Set<Author> toAuthor (String text){
+    	String[] authors = text.replaceAll("\\[|\\]", "").split(";");
+    	Set<Author> setAuthors = new HashSet<Author>();
+    	for (String a: authors){
+    		setAuthors.add(new Author(a.trim()));
+    	}
+    	return setAuthors;
     }
 }
