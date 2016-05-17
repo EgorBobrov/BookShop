@@ -51,6 +51,6 @@
                 </div>
             </div>
         </div>
-    <a href="${pageContext.request.contextPath}/">Go to the main page</a>
+    <p style="font-size:100%;"><a href="${pageContext.request.contextPath}/">Go to the main page</a></p>
     </body>
 </html>

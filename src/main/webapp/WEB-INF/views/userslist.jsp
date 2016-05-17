@@ -14,7 +14,9 @@
  
 <body>
     <div class="generic-container">
+    <sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
         <%@include file="authheader.jsp" %>   
+        </sec:authorize>
         <div class="panel panel-default">
               <!-- Default panel contents -->
             <div class="panel-heading"><span class="lead">List of Users </span></div>
@@ -58,6 +60,6 @@
             </div>
         </sec:authorize>
     </div>
-    <a href="${pageContext.request.contextPath}/">Go to the main page</a>
+    <p style="font-size:100%;"><a href="${pageContext.request.contextPath}/">Go to the main page</a></p>
 </body>
 </html>

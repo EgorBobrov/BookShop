@@ -59,8 +59,6 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
     
-    // TODO: COPY-PASTE
-    
     @Autowired
     private BookService bookService;
     
@@ -70,24 +68,12 @@ public class AppController {
     @Autowired 
     private AuthorConverter authorConverter; 
     
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String listBooksOnMainPage(Model model) {
-    	model.addAttribute("book", new Book());
-    	model.addAttribute("listBooks", this.bookService.getAllBooks());
-    	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
-    	return "books";
-    }
-    @RequestMapping(value="/search")
-	public String searchResultsOnMainPage(@RequestParam(value = "keyword", required = true) String keyword, Model model) {
-    	this.bookService.findBook(keyword);
-	    return "redirect:/";
-	}
-
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
     	model.addAttribute("listBooks", this.bookService.getAllBooks());
     	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
+    	model.addAttribute("loggedinuser", getPrincipal());
     	return "books";
     }
     
@@ -95,6 +81,7 @@ public class AppController {
     public String displayBook(@PathVariable("id") Long id, Model model) {
     	System.out.println("Beginning of the method");
     	model.addAttribute("book", this.bookService.getBookById(id));
+    	model.addAttribute("loggedinuser", getPrincipal());
     	return "book";
     }
 
@@ -120,7 +107,7 @@ public class AppController {
     
     @RequestMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id){
-         
+        
         this.bookService.delete(id);
         return "redirect:/books";
     }
@@ -128,16 +115,17 @@ public class AppController {
     public String editBook(@PathVariable("id") Long id, Model model){
         model.addAttribute("book", this.bookService.getBookById(id));
         model.addAttribute("listBooks", this.bookService.getAllBooks());
+        model.addAttribute("loggedinuser", getPrincipal());
         return "books";
     }
     
     @RequestMapping(value="/books/search")
 	public String searchResults(@RequestParam(value = "keyword", required = true) String keyword, Model model) {
     	this.bookService.findBook(keyword);
+    	model.addAttribute("loggedinuser", getPrincipal());
 	    return "redirect:/books";
 	}
 
-    // TODO: COPY-PASTE
     /**
      * This method will list all existing users.
      */

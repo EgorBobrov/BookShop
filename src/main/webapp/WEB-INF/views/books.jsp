@@ -1,13 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<%-- <%@ page session="false"%> --%>
 <html>
 <head>
-<title>Books Page</title>
+<title>Book Shop</title>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 <body>
+<sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+<%@include file="authheader.jsp" %>
+</sec:authorize>
+<p style="font-size:160%;"><a href="${pageContext.request.contextPath}/login">Log in/Change user</a></p>
+<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+<p style="font-size:160%;"><a href="${pageContext.request.contextPath}/list">User list</a></p>
+</sec:authorize>
+  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 	<h1>Add a Book</h1>
 
 	<c:url var="addAction" value="/books/add"></c:url>
@@ -56,8 +66,9 @@
 			</tr>
 		</table>
 	</form:form>
+	</sec:authorize>
 	<br>
-		
+	Search:
 	<c:url var="searchAction" value="/books/search"></c:url>
 	<form action="${searchAction}">
 	
@@ -82,12 +93,11 @@
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.authors}</td>
-					<td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td>
-					<td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td>
+					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td></sec:authorize>
+					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td></sec:authorize>
 				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
-	<a href="${pageContext.request.contextPath}/">Home page</a><br/></p>
 </body>
 </html>
