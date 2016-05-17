@@ -11,7 +11,7 @@
 
 
 
-<a href="${pageContext.request.contextPath}/books.html">Go to the book addition/deletion page</a>
+<a href="${pageContext.request.contextPath}/books">Go to the book addition/deletion page</a>
 <br>
 <a href="${pageContext.request.contextPath}/login">Login page</a>
 <br>
