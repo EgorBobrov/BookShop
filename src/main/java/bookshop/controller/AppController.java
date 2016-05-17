@@ -69,7 +69,20 @@ public class AppController {
     }
     @Autowired 
     private AuthorConverter authorConverter; 
-   
+    
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String listBooksOnMainPage(Model model) {
+    	model.addAttribute("book", new Book());
+    	model.addAttribute("listBooks", this.bookService.getAllBooks());
+    	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
+    	return "books";
+    }
+    @RequestMapping(value="/search")
+	public String searchResultsOnMainPage(@RequestParam(value = "keyword", required = true) String keyword, Model model) {
+    	this.bookService.findBook(keyword);
+	    return "redirect:/";
+	}
+
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
