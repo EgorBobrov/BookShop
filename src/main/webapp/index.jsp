@@ -4,17 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome page</title>
+<title>Book Shop</title>
 </head>
 <body>
-<h1>Welcome</h1>
-<p>This is the Home page. It's available for all users.<br/>
+<h1>Weclome</h1>
 
-<a href="${pageContext.request.contextPath}/sec/user.html">User personal page</a><br/>
-<a href="${pageContext.request.contextPath}/admin/first.html">First Admin page</a><br/>
-<a href="${pageContext.request.contextPath}/admin/second.html">Second Admin page</a><br/>
 
-<a href="${pageContext.request.contextPath}/books.html">Go to book addition/deletion page</a>
-</p>
+
+<a href="${pageContext.request.contextPath}/books.html">Go to the book addition/deletion page</a>
+<br>
+<a href="${pageContext.request.contextPath}/login">Login page</a>
 </body>
 </html>
