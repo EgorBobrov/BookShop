@@ -113,5 +113,6 @@
             </div>
         </form:form>
     </div>
+    <a href="${pageContext.request.contextPath}/">Go to the main page</a>
 </body>
 </html>

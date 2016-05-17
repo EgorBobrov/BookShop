@@ -14,5 +14,8 @@
 <a href="${pageContext.request.contextPath}/books.html">Go to the book addition/deletion page</a>
 <br>
 <a href="${pageContext.request.contextPath}/login">Login page</a>
+<br>
+<a href="${pageContext.request.contextPath}/list">User list</a>
+
 </body>
 </html>
