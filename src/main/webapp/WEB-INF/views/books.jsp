@@ -52,6 +52,12 @@
 				<td><form:input path="nbOfPages" /></td>
 			</tr>
 			<tr>
+				<td><form:label path="description">
+						<spring:message text="Description"/>
+					</form:label></td>
+				<td><form:input path="description" /></td>
+			</tr>
+			<tr>
 				<td><form:label path="authors">
 						<spring:message text="Authors"/>
 					</form:label></td>
@@ -84,6 +90,7 @@
 				<th width="120">Book Title</th>
 				<th width="120">Book ISBN</th>
 				<th width="120">Number of Pages</th>
+				<th width="200">Description</th>
 				<th width="120">Authors</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
@@ -92,6 +99,7 @@
 					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
+					<td>${book.description}</td>
 					<td>${book.authors}</td>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td></sec:authorize>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td></sec:authorize>

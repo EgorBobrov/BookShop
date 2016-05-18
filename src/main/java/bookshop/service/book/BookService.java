@@ -1,7 +1,9 @@
 package bookshop.service.book;
 
 import java.util.List;
+import java.util.Set;
 
+import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 
 public interface BookService {
@@ -12,4 +14,6 @@ public interface BookService {
 	public void delete(Long id);
 	public List<Book> findBook(String keyword);
 	public List<Book> getFoundBooks();
+	public void persistAuthors(Set<Author> authors);
+
 }

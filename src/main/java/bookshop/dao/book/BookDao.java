@@ -1,7 +1,9 @@
 package bookshop.dao.book;
 
 import java.util.List;
+import java.util.Set;
 
+import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 
 public interface BookDao {
@@ -12,4 +14,5 @@ public interface BookDao {
 	public void delete(Long id);
 	public List<Book> doSearch();
 	public void setKeyword(String searchInput);
+	public void persistAuthors(Set<Author> authors);
 }

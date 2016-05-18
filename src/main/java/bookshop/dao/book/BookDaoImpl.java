@@ -6,16 +6,16 @@
 package bookshop.dao.book;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import bookshop.model.book.Author;
 import bookshop.model.book.Book;
  
 //@Component
@@ -42,10 +42,8 @@ public class BookDaoImpl implements BookDao {
 	//@Transactional
     public void persistBook(Book book) {
         Session session = openSession();
-        System.out.println("persistBook: will start adding "+ book);
         session.persist(book);
         logger.info("Book added successfully. Details: " + book);
-        System.out.println("Book added successfully. Details: " + book);
     }
 	//@Transactional
     public void updateBook(Book book) {
@@ -83,9 +81,10 @@ public class BookDaoImpl implements BookDao {
     	if (keyword == null){
     		return session.createQuery("from Book b").list();
     	}
-
     	logger.info("keyword is: "+keyword);
-    	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    //	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.lastName) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+    	//select s from Song s, IN (s.soundsLike) sl where sl.soundsLikeSearchId = ?
        }
     
     public void setKeyword(String keyword) {
@@ -99,5 +98,12 @@ public class BookDaoImpl implements BookDao {
         logger.info("Book loaded successfully, Book details = " + b);
         System.out.println("Book loaded successfully, Book details = " + b);
         return b;
+    }
+    
+    // Stores a new book:
+    @Override
+    public void persistAuthors(Set <Author> authors) {
+        Session session = this.sessionFactory.getCurrentSession();
+        authors.stream().forEach(author -> session.persist(author));
     }
 }

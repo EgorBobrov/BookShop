@@ -67,6 +67,7 @@ public class Author {
     
     public Author(String lastname){
     	this.lastName = lastname;
+    	System.out.println("new Author created "+this.toString());
     }
 
     // lifecycle methods  
@@ -96,6 +97,9 @@ public class Author {
         return this.id;
     }
 
+    @Id 
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public void setId(final Long id) {
         this.id = id;
     }
@@ -103,7 +107,8 @@ public class Author {
     public String getFirstName() {
         return firstName;
     }
-
+    
+    @Column(name = "first_name")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -112,10 +117,12 @@ public class Author {
         return lastName;
     }
 
+    @Column(name = "last_name", nullable = false)
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    @Column(name = "bio")
     public String getBio() {
         return bio;
     }
@@ -128,6 +135,7 @@ public class Author {
         return dateOfBirth;
     }
 
+    @Column(name = "date_of_birth")
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -136,6 +144,7 @@ public class Author {
         return age;
     }
 
+    @Column(name = "age")
     public void setAge(Integer age) {
         this.age = age;
     }
@@ -163,14 +172,14 @@ public class Author {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode())+((this.lastName == null) ? 0 : this.lastName.hashCode());
         return result;
     }
 
 
     @Override
     public String toString() {
-        String result = " "+ getClass().getSimpleName() + " ";
+       /* String result = " "+ getClass().getSimpleName() + " ";
         if (firstName != null && !firstName.trim().isEmpty())
             result += "firstName: " + firstName;
         if (lastName != null && !lastName.trim().isEmpty())
@@ -181,6 +190,7 @@ public class Author {
             result += ", dateOfBirth: " + dateOfBirth;
         if (age != null)
             result += ", age: " + age;
-        return "id: "+ this.id + result;
+        return "id: "+ this.id + result;*/
+    	return this.lastName;
     }
 }
