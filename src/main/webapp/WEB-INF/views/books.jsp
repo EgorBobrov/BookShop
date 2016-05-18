@@ -68,7 +68,7 @@
 	</form:form>
 	</sec:authorize>
 	<br>
-	Search:
+	Search books:
 	<c:url var="searchAction" value="/books/search"></c:url>
 	<form action="${searchAction}">
 	
@@ -76,7 +76,7 @@
          <input type="submit" value="Submit" />
     </form >
     <br>
-	<h3>Book List</h3>
+	<h3>Books in our shop:</h3>
 	<c:if test="${!empty foundBooks}">
 		<table class="tg">
 			<tr>
