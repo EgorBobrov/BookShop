@@ -15,6 +15,7 @@
 <%@include file="authheader.jsp" %>
 </sec:authorize>
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/login">Log in/Change user</a></p>
+<p style="font-size:160%;"><a href="${pageContext.request.contextPath}/newuser">Sign up as a new user</a></p>
 <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/list">User list</a></p>
 </sec:authorize>
