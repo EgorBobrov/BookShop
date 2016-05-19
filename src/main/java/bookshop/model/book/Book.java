@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn; 
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name="BOOK")
 public class Book implements Serializable {
@@ -59,17 +61,32 @@ public class Book implements Serializable {
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
     @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_id"))
     private Set<Author> authors = new HashSet<Author>();
-     
+
+    @Column(name = "price")
+    protected Integer price;
+    
+    @Column(name = "discount")
+    // decimal, meant to be [0.00-1.00]
+    protected Double discount;
+    
+    @Column(name = "amountInStock")
+    protected Integer amountInStock;
+
+    @Formula("price*discount")
+    protected Integer priceWDiscount;
+   
     // Constructors:
     public Book() {
     }
  
-    public Book(String isbn, String title, Integer nbOfPages, String description, Set<Author> authors) {
+    public Book(String isbn, String title, Integer nbOfPages, String description, Set<Author> authors, Integer price, Double discount) {
     	this.isbn = isbn;
         this.title = title;
         this.nbOfPages = nbOfPages;
         this.description = description;
         this.authors = authors;
+        this.price = price;
+        this.discount = discount;
     }
  
     // String Representation:
@@ -91,6 +108,18 @@ public class Book implements Serializable {
     public Long getId() {
         return id;
     }
+    public Integer getPrice() {
+		return price;
+	}
+    public Double getDiscount() {
+		return discount;
+	}
+    public Integer getAmountInStock() {
+		return this.amountInStock;
+    }
+    public Integer getPriceWDiscount() {
+		return this.priceWDiscount;
+	}
     public void setId(Long id) {
         this.id = id;
     }
@@ -117,4 +146,16 @@ public class Book implements Serializable {
     public void setAuthors(final Set<Author> authors) {
         this.authors = authors;
     }
+    public void setPrice(Integer price) {
+		this.price = price;
+	}
+    public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+    public void setPriceWDiscount(Integer priceWDiscount) {
+		this.priceWDiscount = priceWDiscount;
+	}
+    public void setAmount(Integer amount) {
+		this.amountInStock = amount;
+	}
 }

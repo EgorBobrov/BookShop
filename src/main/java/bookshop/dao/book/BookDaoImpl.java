@@ -7,6 +7,7 @@ package bookshop.dao.book;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,6 +36,7 @@ public class BookDaoImpl implements BookDao {
     }
 */
 	private Session openSession() {
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -81,10 +83,8 @@ public class BookDaoImpl implements BookDao {
     	if (keyword == null){
     		return session.createQuery("from Book b").list();
     	}
-    	logger.info("keyword is: "+keyword);
-    //	return session.createQuery("from Book b WHERE UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword ORDER BY b.title").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
-    	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.lastName) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
-    	//select s from Song s, IN (s.soundsLike) sl where sl.soundsLikeSearchId = ?
+    	System.out.println();
+     	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.lastName) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword  LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
        }
     
     public void setKeyword(String keyword) {

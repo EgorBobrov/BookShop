@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- <%@ page session="false"%> --%>
 <html>
@@ -64,6 +65,24 @@
 				<td><form:input path="authors" /></td>
 			</tr>
 			<tr>
+				<td><form:label path="price">
+						<spring:message text="Price"/>
+					</form:label></td>
+				<td><form:input path="price" /></td>
+			</tr>
+			<tr>
+				<td><form:label path="discount">
+						<spring:message text="Discount (%)"/>
+					</form:label></td>
+				<td><form:input path="discount" /></td>
+			</tr>
+			<tr>
+				<td><form:label path="amountInStock">
+						<spring:message text="Amount in Stock"/>
+					</form:label></td>
+				<td><form:input path="amountInStock" /></td>
+			</tr>
+			<tr>
 				<td colspan="2"><c:if test="${!empty book.title}">
 						<input type="submit" value="<spring:message text="Edit Book"/>" />
 					</c:if> <c:if test="${empty book.title}">
@@ -92,6 +111,8 @@
 				<th width="120">Number of Pages</th>
 				<th width="200">Description</th>
 				<th width="120">Authors</th>
+				<th width="80">Discounted Price</th>
+				<th width="80">Discount</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
@@ -101,6 +122,9 @@
 					<td>${book.nbOfPages}</td>
 					<td>${book.description}</td>
 					<td>${book.authors}</td>
+					<td>${book.priceWDiscount}</td>
+					<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
+					
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td></sec:authorize>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td></sec:authorize>
 				</tr>
