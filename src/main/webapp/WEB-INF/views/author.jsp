@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,10 +26,31 @@
 					<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a><br>
 			</c:forEach></td>
 			<td>${author.bio}</td>
-			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit-author/${author.name}' />">[TBD]Edit</a></td></sec:authorize>
 		</tr>
 	</table>
 	<br>
 	<a href="${pageContext.request.contextPath}/">Go back</a>
+	<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+	<h1>Edit an Author</h1>
+
+	<c:url var="editAction" value="/edit-author/${author.name}"></c:url>
+
+	<form:form action="${editAction}" commandName="author">
+		<table>
+			<tr>
+			    <spring:message text="Name" />
+				<form:input path="name" class="form-control" type="text" readonly="true"/>
+			</tr>
+			<tr>
+				<td><form:label path="bio">
+						<spring:message text="Biography" />
+					</form:label></td>
+				<td><form:input path="bio" /></td>
+				
+			</tr>
+		</table>
+		<input type="submit" value="<spring:message text="Confirm"/>" />
+	</form:form>
+	</sec:authorize>
 </body>
 </html>

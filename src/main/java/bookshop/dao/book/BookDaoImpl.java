@@ -113,4 +113,9 @@ public class BookDaoImpl implements BookDao {
     	System.out.println (a.toString());
 	    return a;
 	}
+    
+    public void updateAuthor(Author author) {
+        Session session = openSession();
+        session.update(author);
+	}
 }

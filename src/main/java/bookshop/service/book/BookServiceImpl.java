@@ -33,6 +33,12 @@ public class BookServiceImpl implements BookService {
 	public void updateBook(Book book) {
 		this.bookDao.updateBook(book);
 	}
+	
+	@Override
+	//@Transactional
+	public void updateAuthor(Author author) {
+		this.bookDao.updateAuthor(author);
+	}
 
 	@Override
 	//@Transactional

@@ -127,10 +127,11 @@ public class AppController {
         return "books";
     }
     
-    @RequestMapping("/edit-author/{author.name}")
-    public String editAuthor(@PathVariable("author.name") String name, Model model){
-        System.out.println(getClass().getSimpleName());
-    	model.addAttribute("author", this.bookService.getAuthor(name));
+    @RequestMapping(value = "/edit-author/{author.name}", method = RequestMethod.POST)
+    public String editAuthor(@ModelAttribute("author") Author author, Model model){
+    //	Author author = this.bookService.getAuthor(name);
+    	this.bookService.updateAuthor(author);
+    	model.addAttribute("author", this.bookService.getAuthor(author.getname()));
     	model.addAttribute("loggedinuser", getPrincipal());
     	return "author";
     }
