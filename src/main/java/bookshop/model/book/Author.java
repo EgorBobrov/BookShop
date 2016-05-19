@@ -1,125 +1,59 @@
 package bookshop.model.book;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostUpdate;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="AUTHOR")
+//@Proxy(lazy=false) 
 public class Author {
 
     // attributes
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    protected Long id;
-
-    @Column(length = 50, name = "first_name")
-    @Size(min = 2, max = 50)
-    protected String firstName;
-
-    @Column(length = 50, name = "last_name", nullable = false)
+	@Id
+    @Column(length = 50, name = "name", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
-    protected String lastName;
+    protected String name;
 
     @Column(length = 5000)
     @Size(max = 5000)
     protected String bio;
 
-    @Column(name = "date_of_birth")
-    @Temporal(TemporalType.DATE)
-    @Past
-    protected Date dateOfBirth;
-
-    @Transient
-    protected Integer age;
-    
-    @Transient
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<Book>();
     
-    @ManyToMany(mappedBy = "BOOK")
     public Set<Book> getBooks() {
         return this.books;
     }
     
+    public void setBooks(Set<Book> b) {
+        this.books = b;
+    }
+    
     protected Author(){}
     
-    public Author(String lastname){
-    	this.lastName = lastname;
+    public Author(String name){
+    	this.name = name;
     	System.out.println("new Author created "+this.toString());
     }
 
-    // lifecycle methods  
-    @PostLoad
-    @PostPersist
-    @PostUpdate
-    private void calculateAge() {
-        if (dateOfBirth == null) {
-            age = null;
-            return;
-        }
-
-        Calendar birth = new GregorianCalendar();
-        birth.setTime(dateOfBirth);
-        Calendar now = new GregorianCalendar();
-        now.setTime(new Date());
-        int adjust = 0;
-        if (now.get(Calendar.DAY_OF_YEAR) - birth.get(Calendar.DAY_OF_YEAR) < 0) {
-            adjust = -1;
-        }
-        age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR) + adjust;
+    public String getname() {
+        return name;
     }
 
-    // getters and setters 
-    
-    public Long getId() {
-        return this.id;
-    }
-
-    @Id 
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    @Column(name = "first_name")
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Column(name = "last_name", nullable = false)
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Column(name = "name", nullable = false)
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Column(name = "bio")
@@ -129,24 +63,6 @@ public class Author {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    @Column(name = "date_of_birth")
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    @Column(name = "age")
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     // hash, equals, toString
@@ -160,8 +76,8 @@ public class Author {
             return false;
         }
         Author other = (Author) obj;
-        if (id != null) {
-            if (!id.equals(other.id)) {
+        if (name != null) {
+            if (!name.equals(other.name)) {
                 return false;
             }
         }
@@ -172,25 +88,13 @@ public class Author {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode())+((this.lastName == null) ? 0 : this.lastName.hashCode());
+        result = prime * result +((this.name == null) ? 0 : this.name.hashCode());
         return result;
     }
 
 
     @Override
     public String toString() {
-       /* String result = " "+ getClass().getSimpleName() + " ";
-        if (firstName != null && !firstName.trim().isEmpty())
-            result += "firstName: " + firstName;
-        if (lastName != null && !lastName.trim().isEmpty())
-            result += ", lastName: " + lastName;
-        if (bio != null && !bio.trim().isEmpty())
-            result += ", bio: " + bio;
-        if (dateOfBirth != null)
-            result += ", dateOfBirth: " + dateOfBirth;
-        if (age != null)
-            result += ", age: " + age;
-        return "id: "+ this.id + result;*/
-    	return this.lastName;
+        return this.name;
     }
 }

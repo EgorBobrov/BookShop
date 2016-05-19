@@ -14,5 +14,7 @@ public interface BookDao {
 	public void delete(Long id);
 	public List<Book> doSearch();
 	public void setKeyword(String searchInput);
-	public void persistAuthors(Set<Author> authors);
+	
+//	public void persistAuthors(Set<Author> authors);
+	public Author getAuthor(String name);
 }

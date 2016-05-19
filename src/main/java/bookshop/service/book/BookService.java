@@ -15,5 +15,5 @@ public interface BookService {
 	public List<Book> findBook(String keyword);
 	public List<Book> getFoundBooks();
 	public void persistAuthors(Set<Author> authors);
-
+	public Author getAuthor(String name);
 }

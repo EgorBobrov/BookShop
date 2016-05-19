@@ -59,7 +59,7 @@ public class Book implements Serializable {
     private String description;
     
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
-    @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_id"))
+    @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_name"))
     private Set<Author> authors = new HashSet<Author>();
 
     @Column(name = "price")
@@ -92,7 +92,7 @@ public class Book implements Serializable {
     // String Representation:
     @Override
     public String toString() {
-        return "id: "+ id + "; "+ title + " authors: "+ authors;
+        return "id: "+ id + "; "+ title;
     }
     
     public String getIsbn() {

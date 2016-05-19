@@ -44,7 +44,7 @@ public class BookDaoImpl implements BookDao {
 	//@Transactional
     public void persistBook(Book book) {
         Session session = openSession();
-        session.persist(book);
+        session.merge(book);
         logger.info("Book added successfully. Details: " + book);
     }
 	//@Transactional
@@ -100,10 +100,17 @@ public class BookDaoImpl implements BookDao {
         return b;
     }
     
-    // Stores a new book:
-    @Override
+  /*  @Override
     public void persistAuthors(Set <Author> authors) {
         Session session = this.sessionFactory.getCurrentSession();
         authors.stream().forEach(author -> session.persist(author));
-    }
+    }*/
+    
+    public Author getAuthor(String name){
+    	System.out.println(getClass().getSimpleName());
+    	Session session = openSession();
+    	Author a = (Author) session.createQuery("select a from Author a where a.name = :name").setParameter("name", name).list().get(0);
+    	System.out.println (a.toString());
+	    return a;
+	}
 }

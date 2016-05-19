@@ -29,7 +29,9 @@
 			<td>${book.isbn}</td>
 			<td>${book.nbOfPages}</td>
 			<td>${book.description}</td>
-			<td>${book.authors}</td>
+			<td><c:forEach items="${book.authors}" var="author">
+					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a><br>
+			</c:forEach></td>
 			<td>${book.priceWDiscount}</td>
 			<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 		</tr>

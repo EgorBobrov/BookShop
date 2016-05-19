@@ -82,6 +82,19 @@ public class AppController {
     	model.addAttribute("loggedinuser", getPrincipal());
     	return "book";
     }
+    
+    @RequestMapping(value="/author/{author.name}")
+    public String displayAuthor(@PathVariable("author.name") String name, Model model) {
+    	System.out.println(getClass().getSimpleName());
+    	model.addAttribute("author", this.bookService.getAuthor(name));
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	return "author";
+    }
+    
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+       binder.registerCustomEditor(Set.class, "authors", new AuthorConverter(this.bookService));
+    }*/
 
    
     //For book addition and update
@@ -112,6 +125,14 @@ public class AppController {
         model.addAttribute("listBooks", this.bookService.getAllBooks());
         model.addAttribute("loggedinuser", getPrincipal());
         return "books";
+    }
+    
+    @RequestMapping("/edit-author/{author.name}")
+    public String editAuthor(@PathVariable("author.name") String name, Model model){
+        System.out.println(getClass().getSimpleName());
+    	model.addAttribute("author", this.bookService.getAuthor(name));
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	return "author";
     }
     
     @RequestMapping(value="/books/search")

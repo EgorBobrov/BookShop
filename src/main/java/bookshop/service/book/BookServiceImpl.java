@@ -3,7 +3,6 @@ package bookshop.service.book;
 import java.util.List;
 import java.util.Set;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -67,9 +66,14 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public void persistAuthors(Set <Author> authors) {
-		this.bookDao.persistAuthors(authors);
+	//	this.bookDao.persistAuthors(authors);
+	}
+	
+	@Override
+	public Author getAuthor(String name){
+		return this.bookDao.getAuthor(name);
 	}
 
 }
