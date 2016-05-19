@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
  
 <html>
  
@@ -91,14 +92,22 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="userProfiles">Roles</label>
                     <div class="col-md-7">
-                        <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
-                        <div class="has-error">
+                    <form:select path="userProfiles" multiple="false" class="form-control input-sm">
+                    <c:if test="${loggedinuser eq 'anonymousUser'}">
+                    <form:option value="1" label="USER" />
+                    </c:if>
+                    <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+                    <form:options items="${roles}"  itemValue="id" itemLabel="type" />
+                    </sec:authorize>
+                    
+                    </form:select>
+<%--                         <form:select path="userProfiles" items="${roles}" multiple="false" itemValue="id" itemLabel="type" class="form-control input-sm" />
+ --%>                        <div class="has-error">
                             <form:errors path="userProfiles" class="help-inline"/>
                         </div>
                     </div>
                 </div>
             </div>
-     
             <div class="row">
                 <div class="form-actions floatRight">
                     <c:choose>
