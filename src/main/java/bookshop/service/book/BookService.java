@@ -16,4 +16,5 @@ public interface BookService {
 	public List<Book> getFoundBooks();
 	public void persistAuthors(Set<Author> authors);
 	public Author getAuthor(String name);
+	public void updateAuthor(Author author);
 }

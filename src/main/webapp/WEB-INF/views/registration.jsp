@@ -93,9 +93,15 @@
                     <label class="col-md-3 control-lable" for="userProfiles">Roles</label>
                     <div class="col-md-7">
                     <form:select path="userProfiles" multiple="false" class="form-control input-sm">
+                    <!-- for signing up as anonymous - you can only create users with USER privileges -->
                     <c:if test="${loggedinuser eq 'anonymousUser'}">
                     <form:option value="1" label="USER" />
                     </c:if>
+                    <!-- for creating new account as an existing user - you can only create users with USER privileges -->
+                    <sec:authorize access="hasRole('USER')">
+                    <form:option value="1" label="USER" />
+                    </sec:authorize>
+                    <!-- for creating new users as admin - you can create users with any privileges -->
                     <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
                     <form:options items="${roles}"  itemValue="id" itemLabel="type" />
                     </sec:authorize>

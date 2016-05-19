@@ -17,9 +17,6 @@
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/login">Log in/Change user</a></p>
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/newuser">Sign up as a new user</a></p>
 
-<c:if test="${loggedinuser eq 'anonymousUser'}">
-<strong>You are anonymous!</strong>
-</c:if>
 <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/list">User list</a></p>
 </sec:authorize>
@@ -106,6 +103,12 @@
          <input type="submit" value="Submit" />
     </form >
     <br>
+    
+    <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+<p style="font-size:160%;"><a href="${pageContext.request.contextPath}/list">User list</a></p>
+</sec:authorize>
+    
+    
 	<h3>Books in our shop:</h3>
 	<c:if test="${!empty foundBooks}">
 		<table class="tg">

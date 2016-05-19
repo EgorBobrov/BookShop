@@ -17,4 +17,5 @@ public interface BookDao {
 	
 //	public void persistAuthors(Set<Author> authors);
 	public Author getAuthor(String name);
+	public void updateAuthor(Author author);
 }

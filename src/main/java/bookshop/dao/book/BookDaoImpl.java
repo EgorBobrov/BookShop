@@ -84,7 +84,7 @@ public class BookDaoImpl implements BookDao {
     		return session.createQuery("from Book b").list();
     	}
     	System.out.println();
-     	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.lastName) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword  LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+     	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
        }
     
     public void setKeyword(String keyword) {
@@ -112,5 +112,10 @@ public class BookDaoImpl implements BookDao {
     	Author a = (Author) session.createQuery("select a from Author a where a.name = :name").setParameter("name", name).list().get(0);
     	System.out.println (a.toString());
 	    return a;
+	}
+    
+    public void updateAuthor(Author author) {
+        Session session = openSession();
+        session.update(author);
 	}
 }
