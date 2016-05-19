@@ -72,7 +72,7 @@ public class Book implements Serializable {
     @Column(name = "amountInStock")
     protected Integer amountInStock;
 
-    @Formula("price*discount")
+    @Formula("price*(1-discount)")
     protected Integer priceWDiscount;
    
     // Constructors:
