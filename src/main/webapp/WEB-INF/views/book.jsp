@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-	
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,9 +14,9 @@
 <body>
 	<table class="tg">
 		<tr>
-			<th width="80">Book ID</th>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="80">Book ID</th></sec:authorize>
 			<th width="120">Book Title</th>
-			<th width="120">Book ISBN</th>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="120">Book ISBN</th></sec:authorize>
 			<th width="120">Number of Pages</th>
 			<th width="200">Description</th>
 			<th width="120">Authors</th>
@@ -24,9 +24,9 @@
 			<th width="120">Discount</th>
 		</tr>
 		<tr>
-			<td>${book.id}</td>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
 			<td>${book.title}</td>
-			<td>${book.isbn}</td>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.isbn}</td></sec:authorize>
 			<td>${book.nbOfPages}</td>
 			<td>${book.description}</td>
 			<td><c:forEach items="${book.authors}" var="author">

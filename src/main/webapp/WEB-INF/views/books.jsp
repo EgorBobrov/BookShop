@@ -58,7 +58,7 @@
 				<td><form:label path="description">
 						<spring:message text="Description"/>
 					</form:label></td>
-				<td><form:input path="description" /></td>
+				<td><form:textarea path="description" rows="5" cols="30" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="authors">
@@ -113,9 +113,9 @@
 	<c:if test="${!empty foundBooks}">
 		<table class="tg">
 			<tr>
-				<th width="80">Book ID</th>
+				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="80">Book ID</th></sec:authorize>
 				<th width="120">Book Title</th>
-				<th width="120">Book ISBN</th>
+				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="120">Book ISBN</th></sec:authorize>
 				<th width="120">Number of Pages</th>
 				<th width="200">Description</th>
 				<th width="120">Authors</th>
@@ -124,9 +124,9 @@
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
-					<td>${book.id}</td>
+					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
 					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
-					<td>${book.isbn}</td>
+					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.isbn}</td></sec:authorize>
 					<td>${book.nbOfPages}</td>
 					<td>${book.description}</td>
 				 	<td>
