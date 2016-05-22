@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +68,9 @@ public class BookServiceImpl implements BookService {
 	@Override
 	//@Transactional
 	public List<Book> findBook(Genre genre){
-		return this.bookDao.doSearch(genre);
+		this.bookDao.setKeyword(null);
+		this.bookDao.setGenre(genre);
+		return this.bookDao.doSearch();
 	}
 	
 	@Override

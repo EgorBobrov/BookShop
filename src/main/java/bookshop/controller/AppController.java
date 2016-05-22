@@ -101,7 +101,7 @@ public class AppController {
    
     //For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, @RequestParam("genres") Set <Genre> gen){
+    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, @RequestParam(value = "genres", required = false) Set <Genre> gen){
     	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
     	book.setGenres(gen);
     	

@@ -15,6 +15,7 @@ public interface BookDao {
 	public List<Book> doSearch();
 	public List<Book> doSearch(Genre genre);
 	public void setKeyword(String searchInput);
+	public void setGenre(Genre g);
 	
 //	public void persistAuthors(Set<Author> authors);
 	public Author getAuthor(String name);

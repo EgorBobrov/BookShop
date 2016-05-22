@@ -27,6 +27,7 @@ public class BookDaoImpl implements BookDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
 	private String keyword = null;
+	private Genre selectedGenre = null;
 	
 	@Autowired
     private SessionFactory sessionFactory; 
@@ -82,11 +83,12 @@ public class BookDaoImpl implements BookDao {
     //@Transactional
 	public List<Book> doSearch() {
     	Session session = openSession();
-    	if (keyword == null){
-    		return session.createQuery("from Book b").list();
-    	}
-     	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
-       }
+     	if (keyword != null)
+     			return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+     	if (selectedGenre!=null)	
+     		return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(selectedGenre)).list();
+     	return session.createQuery("from Book b").list();
+    }
     
     //search via genre
     @SuppressWarnings("unchecked")
@@ -98,6 +100,10 @@ public class BookDaoImpl implements BookDao {
     
     public void setKeyword(String keyword) {
     	this.keyword = keyword;
+    }
+    
+    public void setGenre(Genre g) {
+    	this.selectedGenre = g;
     }
 
    // @Transactional
