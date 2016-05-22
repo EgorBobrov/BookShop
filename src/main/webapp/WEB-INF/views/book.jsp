@@ -20,6 +20,7 @@
 			<th width="120">Number of Pages</th>
 			<th width="200">Description</th>
 			<th width="120">Authors</th>
+			<th width="100">Genres</th>
 			<th width="120">Price</th>
 			<th width="120">Discount</th>
 		</tr>
@@ -31,6 +32,9 @@
 			<td>${book.description}</td>
 			<td><c:forEach items="${book.authors}" var="author">
 					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a><br>
+			</c:forEach></td>
+			<td><c:forEach items="${book.genres}" var="genre">
+					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a><br>
 			</c:forEach></td>
 			<td>${book.priceWDiscount}</td>
 			<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>

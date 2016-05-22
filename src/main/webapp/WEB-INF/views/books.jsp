@@ -85,6 +85,12 @@
 				<td><form:input path="amountInStock" /></td>
 			</tr>
 			<tr>
+			<td><form:select multiple="true" path="genres">
+     			 <form:options items="${genre}"/>
+   				</form:select>
+			</td>
+			</tr>
+			<tr>
 				<td colspan="2"><c:if test="${!empty book.title}">
 						<input type="submit" value="<spring:message text="Edit Book"/>" />
 					</c:if> <c:if test="${empty book.title}">
@@ -119,6 +125,7 @@
 				<th width="120">Number of Pages</th>
 				<th width="200">Description</th>
 				<th width="120">Authors</th>
+				<th width="100">Genres</th>
 				<th width="80">Discounted Price</th>
 				<th width="80">Discount</th>
 			</tr>
@@ -134,6 +141,9 @@
 					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a><br>
 					</c:forEach>
 					</td>
+					<td><c:forEach items="${book.genres}" var="genre">
+					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a><br>
+					</c:forEach></td>
 					<td>${book.priceWDiscount}</td>
 					<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 					

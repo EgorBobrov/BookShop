@@ -1,10 +1,10 @@
 package bookshop.dao.book;
 
 import java.util.List;
-import java.util.Set;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
 
 public interface BookDao {
 	public void persistBook(Book book);
@@ -13,6 +13,7 @@ public interface BookDao {
 	public Book getBookById(Long id);
 	public void delete(Long id);
 	public List<Book> doSearch();
+	public List<Book> doSearch(Genre genre);
 	public void setKeyword(String searchInput);
 	
 //	public void persistAuthors(Set<Author> authors);

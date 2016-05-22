@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bookshop.dao.book.BookDao;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
 
 @Service
 @Transactional
@@ -63,6 +64,12 @@ public class BookServiceImpl implements BookService {
 	public List<Book> findBook(String searchInput){
 		this.bookDao.setKeyword(searchInput);
 		return this.bookDao.doSearch();
+	}
+	
+	@Override
+	//@Transactional
+	public List<Book> findBook(Genre genre){
+		return this.bookDao.doSearch(genre);
 	}
 	
 	@Override

@@ -7,8 +7,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
 import bookshop.model.user.User;
 import bookshop.model.user.UserProfile;
 import bookshop.service.book.BookService;
@@ -72,6 +74,7 @@ public class AppController {
     	model.addAttribute("book", new Book());
     	model.addAttribute("listBooks", this.bookService.getAllBooks());
     	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
+    	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());
     	return "books";
     }
@@ -95,12 +98,13 @@ public class AppController {
     public void initBinder(WebDataBinder binder) {
        binder.registerCustomEditor(Set.class, "authors", new AuthorConverter(this.bookService));
     }*/
-
    
     //For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth){
+    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, @RequestParam("genres") Set <Genre> gen){
     	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
+    	book.setGenres(gen);
+    	
         if(book.getId() == null){
             //new book, add it
             this.bookService.persistBook(book);
@@ -122,6 +126,7 @@ public class AppController {
     @RequestMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model){
         model.addAttribute("book", this.bookService.getBookById(id));
+        model.addAttribute("genre", Genre.values());
         model.addAttribute("listBooks", this.bookService.getAllBooks());
         model.addAttribute("loggedinuser", getPrincipal());
         return "books";
@@ -139,6 +144,14 @@ public class AppController {
     @RequestMapping(value="/books/search")
 	public String searchResults(@RequestParam(value = "keyword", required = true) String keyword, Model model) {
     	this.bookService.findBook(keyword);
+    	model.addAttribute("loggedinuser", getPrincipal());
+	    return "redirect:/books";
+	}
+    
+    @RequestMapping(value="/books/{genre}")
+	public String genreFilter(@ModelAttribute("genre") Genre genre, Model model) {
+    	System.out.println ("will search for "+genre.toString());
+    	this.bookService.findBook(genre);
     	model.addAttribute("loggedinuser", getPrincipal());
 	    return "redirect:/books";
 	}

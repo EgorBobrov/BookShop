@@ -44,7 +44,6 @@ public class Author {
     
     public Author(String name){
     	this.name = name;
-    	System.out.println("new Author created "+this.toString());
     }
 
     public String getname() {
