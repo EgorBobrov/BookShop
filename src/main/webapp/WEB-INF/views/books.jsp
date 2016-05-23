@@ -156,7 +156,7 @@
 				<td rowspan="8">${book.id}</td>
 			</sec:authorize>
 			<td rowspan="8"><a href="${pageContext.request.contextPath}/book/${book.id}"><img
-				src="${pageContext.request.contextPath}/img/books/${book.cover}"
+				src="/BookList/img/books/${book.cover}"
 				width="150px" alt="No picture available" /></a></td>
 			<td>Title: <br> <a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 		</tr>
