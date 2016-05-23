@@ -188,5 +188,9 @@ public class Book implements Serializable {
     public void setCover(String cover) {
 		this.cover = cover;
 	}
+    
+    public Boolean removeAuthor (Author a){
+    	return this.getAuthors().remove(a);
+    }
 
 }

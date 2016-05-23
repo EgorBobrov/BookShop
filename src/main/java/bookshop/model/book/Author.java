@@ -40,6 +40,10 @@ public class Author {
         this.books = b;
     }
     
+    public Boolean removeBook(Book b){
+    	return this.books.remove(b);
+    }
+    
     protected Author(){}
     
     public Author(String name){

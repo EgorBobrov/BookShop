@@ -6,6 +6,7 @@
 package bookshop.dao.book;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -61,6 +62,14 @@ public class BookDaoImpl implements BookDao {
         Session session = openSession();
         Book b = (Book) session.load(Book.class, id);
         if(b != null){
+        	b.getAuthors().stream().forEach(a -> {
+        		a.removeBook(b);
+        		//author will be removed automatically by cascade if she's an orphan, otherwise we need to take care of this
+        		if (a.getBooks().size()!=0) {
+        			b.removeAuthor(a);
+        			session.update(b);
+        		}
+        	});
             session.delete(b);
         }
         logger.info("Book deleted successfully, book details = " + b);
