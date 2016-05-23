@@ -126,22 +126,17 @@
 	<c:if test="${!empty foundBooks}">
 		<table class="tg">
 			<tr>
-				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="80">Book ID</th></sec:authorize>
-				<th width="120">Book Title</th>
-				<th width="200">Cover</th>
-				<th width="120">Book ISBN</th>
-				<th width="120">Number of Pages</th>
-				<th width="200">Description</th>
-				<th width="120">Authors</th>
-				<th width="100">Genres</th>
-				<th width="80">Discounted Price</th>
-				<th width="80">Discount</th>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+				<th width="80">Book ID</th>
+			</sec:authorize>
+			<th width="180">Cover</th>
+			<th width="300">Book info</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
 				<tr>
-					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
+<%-- 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
 					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
-					<td><img src="${pageContext.request.contextPath}/img/books/${book.cover}" /></td>
+					<td><img src="${pageContext.request.contextPath}/img/books/${book.cover}" width="150px" /></td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.description}</td>
@@ -155,7 +150,47 @@
 					</c:forEach></td>
 					<td>${book.priceWDiscount}</td>
 					<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
-					
+ --%>					
+ 		<tr>
+			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+				<td rowspan="8">${book.id}</td>
+			</sec:authorize>
+			<td rowspan="8"><a href="${pageContext.request.contextPath}/book/${book.id}"><img
+				src="${pageContext.request.contextPath}/img/books/${book.cover}"
+				width="150px" alt="No picture available" /></a></td>
+			<td>Title: <br> <a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
+		</tr>
+		<tr>
+			<td>Authors: <br> <c:forEach items="${book.authors}" var="author">
+					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a>
+					<br>
+				</c:forEach></td>
+		</tr>
+		<tr>
+		
+			<td>Genre(s): <br>
+			<c:forEach items="${book.genres}" var="genre">
+					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a>
+					<br>
+				</c:forEach></td>
+		</tr>
+		<tr>
+			<td>Number of pages: <br> ${book.nbOfPages}</td>
+		</tr>
+		<tr>
+			<td>ISBN: <br> ${book.isbn}</td>
+		</tr>
+		<tr>
+			<td>Description: <br> ${book.description}</td>
+		</tr>
+		<tr>
+			<td>Price: <br> ${book.priceWDiscount}</td>
+		</tr>
+		<tr>
+			<td>Discount: <br> <fmt:formatNumber type="percent"
+					maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
+		</tr>
+ 
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td></sec:authorize>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td></sec:authorize>
 				</tr>
