@@ -136,7 +136,7 @@
 				<tr>
 <%-- 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
 					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
-					<td><img src="${pageContext.request.contextPath}/img/books/${book.cover}" width="150px" /></td>
+					<td><img src="${pageContext.request.contextPath}/resources/img/books/${book.cover}" width="150px" /></td>
 					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.description}</td>

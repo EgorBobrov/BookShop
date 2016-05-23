@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
@@ -98,7 +99,8 @@ public class AppController {
    
     //For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, @RequestParam(value = "genres", required = false) Set <Genre> gen){
+    public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, 
+    		@RequestParam(value = "genres", required = false) Set <Genre> gen, @RequestParam("file") MultipartFile file){
     	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
     	book.setGenres(gen);
     	
@@ -129,9 +131,8 @@ public class AppController {
         return "books";
     }
     
-    @RequestMapping(value = "/edit-author/{author.name}", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit-author/{author.name}")
     public String editAuthor(@ModelAttribute("author") Author author, Model model){
-    //	Author author = this.bookService.getAuthor(name);
     	this.bookService.updateAuthor(author);
     	model.addAttribute("author", this.bookService.getAuthor(author.getname()));
     	model.addAttribute("loggedinuser", getPrincipal());

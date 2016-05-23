@@ -17,15 +17,18 @@
 	<table class="tg">
 		<tr>
 			<th width="100">Author Name</th>
+			<th width="120">${pageContext.request.contextPath}</th>
 			<th width="120">Books</th>
 			<th width="120">Biography</th>
 		</tr>
 		<tr>
 			<td>${author.name}</td>
+			<td><img src="${pageContext.request.contextPath}/img/authors/${author.picture}" /></td>
 			<td><c:forEach items="${author.books}" var="book">
 					<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a><br>
 			</c:forEach></td>
 			<td>${author.bio}</td>
+
 		</tr>
 	</table>
 	<br>
@@ -46,10 +49,19 @@
 						<spring:message text="Biography" />
 					</form:label></td>
 				<td><form:input path="bio" /></td>
+			</tr>	<tr>
+				<td><form:label path="picture">
+					<spring:message text="Picture" />
+				</form:label></td>
+				<td><form:input path="picture"/></td>
 				
 			</tr>
 		</table>
 		<input type="submit" value="<spring:message text="Confirm"/>" />
+		
+	
+        
+        
 	</form:form>
 	</sec:authorize>
 </body>

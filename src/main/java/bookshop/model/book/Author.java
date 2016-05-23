@@ -32,6 +32,9 @@ public class Author {
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<Book>();
     
+    @Column(name = "picture")
+    private String picture;
+    
     public Set<Book> getBooks() {
         return this.books;
     }
@@ -66,6 +69,14 @@ public class Author {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+    
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picAdress) {
+        this.picture = picAdress;
     }
 
     // hash, equals, toString
