@@ -5,6 +5,7 @@
 
 package bookshop.dao.book;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
  
 //@Component
 @Repository
@@ -25,6 +27,7 @@ public class BookDaoImpl implements BookDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
 	private String keyword = null;
+	private Genre selectedGenre = null;
 	
 	@Autowired
     private SessionFactory sessionFactory; 
@@ -80,15 +83,27 @@ public class BookDaoImpl implements BookDao {
     //@Transactional
 	public List<Book> doSearch() {
     	Session session = openSession();
-    	if (keyword == null){
-    		return session.createQuery("from Book b").list();
-    	}
-    	System.out.println();
-     	return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
-       }
+     	if (keyword != null)
+     			return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+     	if (selectedGenre!=null)	
+     		return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(selectedGenre)).list();
+     	return session.createQuery("from Book b").list();
+    }
+    
+    //search via genre
+    @SuppressWarnings("unchecked")
+    //@Transactional
+	public List<Book> doSearch(Genre genre) {
+    	Session session = openSession();
+     	return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(genre)).list();
+    }
     
     public void setKeyword(String keyword) {
     	this.keyword = keyword;
+    }
+    
+    public void setGenre(Genre g) {
+    	this.selectedGenre = g;
     }
 
    // @Transactional

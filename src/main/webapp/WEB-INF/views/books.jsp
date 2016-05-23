@@ -16,7 +16,7 @@
 </sec:authorize>
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/login">Log in/Change user</a></p>
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/newuser">Sign up as a new user</a></p>
-<img alt="NOPE" src="${pageContext.request.contextPath}/img/Capture.JPG">
+
 <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 <p style="font-size:160%;"><a href="${pageContext.request.contextPath}/list">User list</a></p>
 </sec:authorize>
@@ -42,6 +42,13 @@
 					</form:label></td>
 				<td><form:input path="title" /></td>
 			</tr>
+			<tr>
+				<td><form:label path="cover">
+						<spring:message text="Cover" />
+					</form:label></td>
+				<td><form:input path="cover" value="No-image-available.jpg" /></td>
+			</tr>
+			
 			<tr>
 				<td><form:label path="isbn">
 						<spring:message text="ISBN: " />
@@ -85,6 +92,12 @@
 				<td><form:input path="amountInStock" /></td>
 			</tr>
 			<tr>
+			<td><form:select multiple="true" path="genres">
+     			 <form:options items="${genre}"/>
+   				</form:select>
+			</td>
+			</tr>
+			<tr>
 				<td colspan="2"><c:if test="${!empty book.title}">
 						<input type="submit" value="<spring:message text="Edit Book"/>" />
 					</c:if> <c:if test="${empty book.title}">
@@ -115,10 +128,12 @@
 			<tr>
 				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="80">Book ID</th></sec:authorize>
 				<th width="120">Book Title</th>
-				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><th width="120">Book ISBN</th></sec:authorize>
+				<th width="200">Cover</th>
+				<th width="120">Book ISBN</th>
 				<th width="120">Number of Pages</th>
 				<th width="200">Description</th>
 				<th width="120">Authors</th>
+				<th width="100">Genres</th>
 				<th width="80">Discounted Price</th>
 				<th width="80">Discount</th>
 			</tr>
@@ -126,7 +141,8 @@
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
 					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
-					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.isbn}</td></sec:authorize>
+					<td><img src="${pageContext.request.contextPath}/img/books/${book.cover}" /></td>
+					<td>${book.isbn}</td>
 					<td>${book.nbOfPages}</td>
 					<td>${book.description}</td>
 				 	<td>
@@ -134,6 +150,9 @@
 					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a><br>
 					</c:forEach>
 					</td>
+					<td><c:forEach items="${book.genres}" var="genre">
+					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a><br>
+					</c:forEach></td>
 					<td>${book.priceWDiscount}</td>
 					<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 					

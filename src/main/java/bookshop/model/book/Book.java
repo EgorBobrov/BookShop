@@ -10,8 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -55,6 +59,9 @@ public class Book implements Serializable {
     @Column(name = "title")
     private String title;
     
+    @Column(name = "cover")
+    private String cover;
+
     @Column(name = "description")
     private String description;
     
@@ -74,7 +81,17 @@ public class Book implements Serializable {
 
     @Formula("price*(1-discount)")
     protected Integer priceWDiscount;
-   
+    
+    @ElementCollection(fetch=FetchType.EAGER,targetClass = Genre.class)
+    @Enumerated(value = EnumType.STRING)
+    @CollectionTable(
+            name = "GENRE_BOOK", 
+            joinColumns = @JoinColumn(name = "book_id")
+    )
+    @Column(name = "genre")
+    protected Set<Genre> genres= new HashSet<Genre>();
+    
+    
     // Constructors:
     public Book() {
     }
@@ -120,6 +137,9 @@ public class Book implements Serializable {
     public Integer getPriceWDiscount() {
 		return this.priceWDiscount;
 	}
+    public String getCover() {
+    	return this.cover;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -146,6 +166,13 @@ public class Book implements Serializable {
     public void setAuthors(final Set<Author> authors) {
         this.authors = authors;
     }
+    public Set<Genre> getGenres() {
+        return this.genres;
+    }
+
+    public void setGenres(final Set<Genre> genres) {
+        this.genres = genres;
+    }
     public void setPrice(Integer price) {
 		this.price = price;
 	}
@@ -158,4 +185,8 @@ public class Book implements Serializable {
     public void setAmount(Integer amount) {
 		this.amountInStock = amount;
 	}
+    public void setCover(String cover) {
+		this.cover = cover;
+	}
+
 }

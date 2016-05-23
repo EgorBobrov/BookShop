@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.dao.book.BookDao;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
 
 @Service
 @Transactional
@@ -62,6 +62,14 @@ public class BookServiceImpl implements BookService {
 	//@Transactional
 	public List<Book> findBook(String searchInput){
 		this.bookDao.setKeyword(searchInput);
+		return this.bookDao.doSearch();
+	}
+	
+	@Override
+	//@Transactional
+	public List<Book> findBook(Genre genre){
+		this.bookDao.setKeyword(null);
+		this.bookDao.setGenre(genre);
 		return this.bookDao.doSearch();
 	}
 	

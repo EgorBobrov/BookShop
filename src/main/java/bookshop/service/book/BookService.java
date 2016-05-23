@@ -5,6 +5,7 @@ import java.util.Set;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Genre;
 
 public interface BookService {
 	public void persistBook(Book book);
@@ -13,6 +14,7 @@ public interface BookService {
 	public Book getBookById(Long id);
 	public void delete(Long id);
 	public List<Book> findBook(String keyword);
+	public List<Book> findBook(Genre genre);
 	public List<Book> getFoundBooks();
 	public void persistAuthors(Set<Author> authors);
 	public Author getAuthor(String name);

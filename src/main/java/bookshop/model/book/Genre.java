@@ -4,5 +4,18 @@ public enum Genre {
 	PROGRAMMING,
 	FICTION,
 	BIOGRAPHY,
-	ROMANCE
+	ROMANCE,
+	COMEDY,
+	DRAMA,
+	NONFICTION,
+	SATIRE,
+	TRAGEDY,
+	HORROR;
+	
+	@Override
+	public String toString(){
+		if (this == Genre.NONFICTION){
+			return "non-fiction";
+		} else return name().toLowerCase();
+	}
 }

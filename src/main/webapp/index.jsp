@@ -8,6 +8,6 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 <body>
-<c:redirect url="/books"/>
+<c:redirect url="/books"/> 
 </body>
 </html>
