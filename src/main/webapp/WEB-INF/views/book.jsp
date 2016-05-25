@@ -1,3 +1,6 @@
+<%@page import="java.time.ZonedDateTime"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="bookshop.model.user.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -5,9 +8,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,33 +35,39 @@
 			<td rowspan="8"><img
 				src="${pageContext.request.contextPath}/img/books/${book.cover}"
 				width="150px" alt="No picture available" /></td>
-			<td>Title: <br> ${book.title}</td>
+			<td>Title: <br> ${book.title}
+			</td>
 		</tr>
 		<tr>
-			<td>Authors: <br> <c:forEach items="${book.authors}" var="author">
+			<td>Authors: <br> <c:forEach items="${book.authors}"
+					var="author">
 					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a>
 					<br>
 				</c:forEach></td>
 		</tr>
 		<tr>
-		
-			<td>Genre(s): <br>
-			<c:forEach items="${book.genres}" var="genre">
+
+			<td>Genre(s): <br> <c:forEach items="${book.genres}"
+					var="genre">
 					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a>
 					<br>
 				</c:forEach></td>
 		</tr>
 		<tr>
-			<td>Number of pages: <br> ${book.nbOfPages}</td>
+			<td>Number of pages: <br> ${book.nbOfPages}
+			</td>
 		</tr>
 		<tr>
-			<td>ISBN: <br> ${book.isbn}</td>
+			<td>ISBN: <br> ${book.isbn}
+			</td>
 		</tr>
 		<tr>
-			<td>Description: <br> ${book.description}</td>
+			<td>Description: <br> ${book.description}
+			</td>
 		</tr>
 		<tr>
-			<td>Price: <br> ${book.priceWDiscount}</td>
+			<td>Price: <br> ${book.priceWDiscount}
+			</td>
 		</tr>
 		<tr>
 			<td>Discount: <br> <fmt:formatNumber type="percent"
@@ -66,33 +75,37 @@
 		</tr>
 	</table>
 	<br>
-	
-	<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
 
-	<form:form action="${postCommentAction}" commandName="comment">
-				<tr>
-				<td><form:label path="date" value="CURRENT YEAR" >
-						<spring:message text="Date" />
+	<sec:authorize
+		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+		<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
+
+		<form:form action="${postCommentAction}" commandName="comment">
+ 			<tr>
+				<td><form:label path="date" value="CURRENT YEAR">
+						<%-- <spring:message text="Date" /> --%>
 					</form:label></td>
-				<td><form:input path="date" value="CURRENT YEAR"/></td>
+				<td><form:hidden path="date" value="<%= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME) %>" />
+				</td>
 			</tr>
 			<tr>
 				<td><form:label path="user">
-						<spring:message text="User" />
+						<%-- <spring:message text="User" /> --%>
 					</form:label></td>
-				<td><form:input path="user" value="CURRENT USER" /></td>
+				<td><form:hidden path="user" value="${loggedinuser}" /> </td>
 			</tr>
-			
+
 			<tr>
 				<td><form:label path="text">
-						<spring:message text="Text: " />
+						<spring:message text="Enter your comment: " /> 
 					</form:label></td>
 				<td><form:textarea path="text" /></td>
 			</tr>
-	<input type="submit" value="<spring:message text="Add Comment"/>" />
-	</form:form>
-	
+			<input type="submit" value="<spring:message text="Add Comment"/>" />
+		</form:form>
+	</sec:authorize>
 	<c:if test="${!empty comments}">
+		<h3>Comments</h3>
 		<table>
 			<tr>
 				<td>Post date</td>
@@ -100,11 +113,11 @@
 				<td>Text</td>
 			</tr>
 			<c:forEach items="${comments}" var="comment">
-			<tr>
-				<td>${comment.date}</td>
-				<td>${comment.user}</td>
-				<td>${comment.text}</td>
-			</tr>
+				<tr>
+					<td>${comment.date}</td>
+					<td>${comment.user}</td>
+					<td>${comment.text}</td>
+				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
