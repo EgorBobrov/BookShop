@@ -6,7 +6,9 @@
 package bookshop.model.book;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -93,13 +95,13 @@ public class Book implements Serializable {
     protected Set<Genre> genres= new HashSet<Genre>();
     
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comment.class) 
-    private Set<Comment> comments = new HashSet<Comment>();
+    private List<Comment> comments = new ArrayList<Comment>();
     
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
