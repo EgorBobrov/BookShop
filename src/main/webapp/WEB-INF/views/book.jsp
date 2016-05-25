@@ -1,9 +1,13 @@
+<%@page import="bookshop.model.user.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,6 +66,48 @@
 		</tr>
 	</table>
 	<br>
+	
+	<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
+
+	<form:form action="${postCommentAction}" commandName="comment">
+				<tr>
+				<td><form:label path="date" value="CURRENT YEAR" >
+						<spring:message text="Date" />
+					</form:label></td>
+				<td><form:input path="date" value="CURRENT YEAR"/></td>
+			</tr>
+			<tr>
+				<td><form:label path="user">
+						<spring:message text="User" />
+					</form:label></td>
+				<td><form:input path="user" value="CURRENT USER" /></td>
+			</tr>
+			
+			<tr>
+				<td><form:label path="text">
+						<spring:message text="Text: " />
+					</form:label></td>
+				<td><form:textarea path="text" /></td>
+			</tr>
+	<input type="submit" value="<spring:message text="Add Comment"/>" />
+	</form:form>
+	
+	<c:if test="${!empty comments}">
+		<table>
+			<tr>
+				<td>Post date</td>
+				<td>Author</td>
+				<td>Text</td>
+			</tr>
+			<c:forEach items="${comments}" var="comment">
+			<tr>
+				<td>${comment.date}</td>
+				<td>${comment.user}</td>
+				<td>${comment.text}</td>
+			</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 	<a href="${pageContext.request.contextPath}/">Go back</a>
 </body>
 </html>

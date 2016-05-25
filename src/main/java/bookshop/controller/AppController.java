@@ -30,10 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
+import bookshop.model.book.Comment;
 import bookshop.model.book.Genre;
 import bookshop.model.user.User;
 import bookshop.model.user.UserProfile;
 import bookshop.service.book.BookService;
+import bookshop.service.book.CommentService;
 import bookshop.service.book.conversion.AuthorConverter;
 import bookshop.service.user.UserProfileService;
 import bookshop.service.user.UserService;
@@ -63,6 +65,9 @@ public class AppController {
     @Autowired
     private BookService bookService;
     
+    @Autowired
+    private CommentService commentService;
+    
     public void setBookService(BookService bs){
         this.bookService = bs;
     }
@@ -79,8 +84,10 @@ public class AppController {
     
     @RequestMapping(value="/book/{id}")
     public String displayBook(@PathVariable("id") Long id, Model model) {
+    	model.addAttribute("comment", new Comment());
     	model.addAttribute("book", this.bookService.getBookById(id));
     	model.addAttribute("loggedinuser", getPrincipal());
+    	model.addAttribute("comments", commentService.getAll(id));
     	return "book";
     }
     
@@ -116,6 +123,15 @@ public class AppController {
         return "redirect:/books";
     }
     
+    @RequestMapping(value="/book/{id}/postcomment")
+    public String postComment(@PathVariable("id") Long id, Model model, @ModelAttribute("comment") Comment comment) {
+    	model.addAttribute("comment", new Comment());
+    	this.commentService.persistComment(id, comment);
+    	model.addAttribute("book", this.bookService.getBookById(id));
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	model.addAttribute("comments", commentService.getAll(id));
+    	return "book";
+    }
     @RequestMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id){
         

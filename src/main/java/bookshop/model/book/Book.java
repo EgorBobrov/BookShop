@@ -22,6 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -91,8 +92,18 @@ public class Book implements Serializable {
     @Column(name = "genre")
     protected Set<Genre> genres= new HashSet<Genre>();
     
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comment.class) 
+    private Set<Comment> comments = new HashSet<Comment>();
     
-    // Constructors:
+    public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+	// Constructors:
     public Book() {
     }
  
