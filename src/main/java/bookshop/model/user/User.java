@@ -26,7 +26,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="APP_USER")
 public class User implements Serializable{
  
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
  
     @NotEmpty

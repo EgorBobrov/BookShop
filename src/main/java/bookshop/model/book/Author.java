@@ -23,11 +23,11 @@ public class Author {
     @Column(length = 50, name = "name", nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
-    protected String name;
+    private String name;
 
     @Column(length = 5000)
     @Size(max = 5000)
-    protected String bio;
+    private String bio;
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<Book>();

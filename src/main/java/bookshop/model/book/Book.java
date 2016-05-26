@@ -109,12 +109,13 @@ public class Book implements Serializable {
     public Book() {
     }
  
-    public Book(String isbn, String title, Integer nbOfPages, String description, Set<Author> authors, Integer price, Double discount) {
+    public Book(String isbn, String title, Integer nbOfPages, String description, Set<Author> authors, Set<Genre> genres, Integer price, Double discount) {
     	this.isbn = isbn;
         this.title = title;
         this.nbOfPages = nbOfPages;
         this.description = description;
         this.authors = authors;
+        this.genres = genres;
         this.price = price;
         this.discount = discount;
     }
@@ -122,7 +123,7 @@ public class Book implements Serializable {
     // String Representation:
     @Override
     public String toString() {
-        return "id: "+ id + "; "+ title;
+        return title;
     }
     
     public String getIsbn() {

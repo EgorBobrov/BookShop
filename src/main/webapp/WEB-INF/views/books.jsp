@@ -190,7 +190,7 @@
 			<td>Discount: <br> <fmt:formatNumber type="percent"
 					maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 		</tr>
- 
+ 			<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td></sec:authorize>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td><a href="<c:url value='/remove/${book.id}' />">Delete</a></td></sec:authorize>
 				</tr>

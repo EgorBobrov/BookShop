@@ -1,11 +1,9 @@
 package bookshop.dao.book;
 
 import java.util.List;
-import java.util.Set;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
-import bookshop.model.book.Comment;
 import bookshop.model.book.Genre;
 
 public interface BookDao {

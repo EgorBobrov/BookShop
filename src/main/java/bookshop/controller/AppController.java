@@ -25,8 +25,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
@@ -68,11 +69,14 @@ public class AppController {
     @Autowired
     private CommentService commentService;
     
+    public AppController(){}
+    
     public void setBookService(BookService bs){
         this.bookService = bs;
     }
    
     @RequestMapping(value="/books", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
     	model.addAttribute("listBooks", this.bookService.getAllBooks());
@@ -83,6 +87,7 @@ public class AppController {
     }
     
     @RequestMapping(value="/book/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public String displayBook(@PathVariable("id") Long id, Model model) {
     	model.addAttribute("comment", new Comment());
     	model.addAttribute("book", this.bookService.getBookById(id));
@@ -93,7 +98,6 @@ public class AppController {
     
     @RequestMapping(value="/author/{author.name}")
     public String displayAuthor(@PathVariable("author.name") String name, Model model) {
-    	System.out.println(getClass().getSimpleName());
     	model.addAttribute("author", this.bookService.getAuthor(name));
     	model.addAttribute("loggedinuser", getPrincipal());
     	return "author";
@@ -105,9 +109,10 @@ public class AppController {
     }*/
    
     //For book addition and update
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, 
-    		@RequestParam(value = "genres", required = false) Set <Genre> gen, @RequestParam("file") MultipartFile file){
+    		@RequestParam(value = "genres", required = false) Set <Genre> gen){
     	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
     	book.setGenres(gen);
     	
@@ -327,7 +332,8 @@ public class AppController {
     /**
      * This method returns the principal[user-name] of logged-in user.
      */
-    private String getPrincipal(){
+    public String getPrincipal(){
+    	//return "sam";
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
  

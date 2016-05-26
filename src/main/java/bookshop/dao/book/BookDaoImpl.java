@@ -7,7 +7,6 @@ package bookshop.dao.book;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 
 import org.hibernate.Session;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Repository;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
-import bookshop.model.book.Comment;
 import bookshop.model.book.Genre;
  
 //@Component
