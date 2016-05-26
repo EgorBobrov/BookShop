@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import bookshop.converter.RoleToUserProfileConverter;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Comment;
@@ -47,6 +50,8 @@ import bookshop.service.user.UserService;
 @SessionAttributes("roles")
 public class AppController {
  
+	static final Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
+	
     @Autowired
     UserService userService;
      
