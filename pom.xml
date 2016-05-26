@@ -96,6 +96,9 @@
 		</dependency>
 
 		<!-- Logging -->
+		<!-- Simple Logging Facade for Java (SLF4J) provides a Java logging API by means of a simple facade pattern.
+		 The underlying logging backend is determined at runtime by adding the desired binding to the classpath 
+		 and may be the standard Sun Java logging package java.util.logging, log4j, logback or tinylog. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
