@@ -123,7 +123,7 @@ public class TestAppController {
 	        this.mockMvc
 	                .perform(post("/books/add").contentType(MediaType.APPLICATION_FORM_URLENCODED)
 	                        .param("title", "Brave New World").param("authors", "Aldous Huxley"))
-	                .andDo(print()).andExpect(status().isOk())
+	                .andDo(print())
 	                .andExpect(view().name("redirect:/books"))
 	                .andExpect(model().attribute("book", hasProperty("title", is("Brave New World"))));
 	    }
