@@ -23,4 +23,6 @@ public interface BookDao {
 	
 /*	public Set<Comment> getCommentsByBookId(Book book);
 	public void addComment(Comment comment);
-*/}
+*/
+	public void rateBook(Long id, Integer rating);
+}

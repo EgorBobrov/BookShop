@@ -1,7 +1,9 @@
 package bookshop.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -141,6 +143,18 @@ public class AppController {
     	model.addAttribute("comments", commentService.getAll(id));
     	return "book";
     }
+        
+    @RequestMapping(value="/book/{id}/rate")
+    public String rate(@PathVariable("id") Long id, Model model, @ModelAttribute("rating") Integer rating) {
+    	model.addAttribute("rating", rating);
+    	bookService.rateBook(id, rating);
+    	model.addAttribute("comment", new Comment());
+    	model.addAttribute("book", this.bookService.getBookById(id));
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	model.addAttribute("comments", commentService.getAll(id));
+    	return "book";
+    }
+
     @RequestMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id){
         

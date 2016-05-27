@@ -90,4 +90,9 @@ public class BookServiceImpl implements BookService {
 		return this.bookDao.getAuthor(name);
 	}
 
+	@Override
+	public void rateBook(Long id, Integer rating) {
+		this.bookDao.rateBook(id, rating);
+	}
+
 }

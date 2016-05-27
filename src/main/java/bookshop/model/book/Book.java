@@ -85,6 +85,43 @@ public class Book implements Serializable {
     @Formula("price*(1-discount)")
     protected Integer priceWDiscount;
     
+    @Column(name = "rating")
+    // sum of all votes
+    private Integer rating = 0;
+    
+	@Column(name = "votes")
+    // number of votes
+    private Integer votes = 0;
+
+    @Formula("rating/votes")
+    // average rating based on votes
+    private Double resultRating;
+
+    public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+	public Integer getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Integer votes) {
+		this.votes = votes;
+	}
+
+	public Double getResultRating() {
+		return resultRating;
+	}
+
+	public void setResultRating(Double resultRating) {
+		this.resultRating = resultRating;
+	}
+
+
     @ElementCollection(fetch=FetchType.EAGER,targetClass = Genre.class)
     @Enumerated(value = EnumType.STRING)
     @CollectionTable(

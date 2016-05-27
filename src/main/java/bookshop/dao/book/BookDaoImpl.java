@@ -141,4 +141,38 @@ public class BookDaoImpl implements BookDao {
         session.update(author);
 	}
 
+	@Override
+	public void rateBook(Long bookId, Integer rating) {
+		System.out.println("Rating book...");
+    	Session session = openSession();  
+    	Book b = new Book();
+    	try {
+    		b = (Book) session.load(Book.class, bookId);
+    		System.out.println("Book loaded!");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			System.out.println("Can't load the book...");
+		}
+        try {
+        	Integer votes = b.getVotes();
+        	System.out.println("Votes before voting: " + votes);
+        	b.setVotes(votes + 1);
+        	System.out.println("Votes after voting: " + b.getVotes());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			System.out.println("Can't set votes...");
+		}
+        try {
+        	Integer r = b.getRating();
+        	System.out.println("Rating before voting: " + r);
+        	b.setRating(r + rating);
+        	System.out.println("Rating after voting: " + b.getRating());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			System.out.println("Can't update rating...");
+		}
+        session.update(b);
+        System.out.println("Book rated!");
+	}
+
 }

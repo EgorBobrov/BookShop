@@ -75,7 +75,22 @@
 		</tr>
 	</table>
 	<br>
+	
+	<sec:authorize
+		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+		<c:url var="rateAction" value="/book/${book.id}/rate"></c:url>
 
+		<form:form action="${rateAction}" commandName="book">
+			<form:label path="rating">
+					<spring:message text="Rate this book: " /> 
+				</form:label>
+			<form:textarea path="rating" />
+			
+			<input type="submit" value="<spring:message text="Rate Book"/>" />
+		</form:form>
+	</sec:authorize>
+	Rating: ${book.resultRating}
+	<br>
 	<sec:authorize
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 		<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
