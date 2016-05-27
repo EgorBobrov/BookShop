@@ -30,9 +30,9 @@
 		</tr>
 		<tr>
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-				<td rowspan="8">${book.id}</td>
+				<td rowspan="9">${book.id}</td>
 			</sec:authorize>
-			<td rowspan="8"><img
+			<td rowspan="9"><img
 				src="${pageContext.request.contextPath}/img/books/${book.cover}"
 				width="150px" alt="No picture available" /></td>
 			<td>Title: <br> ${book.title}
@@ -73,46 +73,59 @@
 			<td>Discount: <br> <fmt:formatNumber type="percent"
 					maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 		</tr>
+		<tr>
+			<td>Rating: <br>
+	<fmt:formatNumber type="number" minFractionDigits="2"
+		maxFractionDigits="2" value="${book.resultRating}" />
+	based on ${book.votes } votes</td>
+		</tr>
 	</table>
 	<br>
-	
+
 	<sec:authorize
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 		<c:url var="rateAction" value="/book/${book.id}/rate"></c:url>
 
 		<form:form action="${rateAction}" commandName="book">
 			<form:label path="rating">
-					<spring:message text="Rate this book: " /> 
-				</form:label>
-			<form:textarea path="rating" />
-			
+				<spring:message text="Rate this book: " />
+			</form:label>
+			<form:select path="rating">
+				<form:option value="1" label="Bad" />
+				<form:option value="2" label="Not so good" />
+				<form:option value="3" label="Fine" />
+				<form:option value="4" label="Good" />
+				<form:option value="5" label="Great" />
+			</form:select>
+
 			<input type="submit" value="<spring:message text="Rate Book"/>" />
 		</form:form>
 	</sec:authorize>
-	Rating: ${book.resultRating}
+	
 	<br>
 	<sec:authorize
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 		<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
 
 		<form:form action="${postCommentAction}" commandName="comment">
- 			<tr>
+			<tr>
 				<td><form:label path="date" value="CURRENT YEAR">
 						<%-- <spring:message text="Date" /> --%>
 					</form:label></td>
-				<td><form:hidden path="date" value="<%= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME) %>" />
+				<td><form:hidden path="date"
+						value="<%= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME) %>" />
 				</td>
 			</tr>
 			<tr>
 				<td><form:label path="user">
 						<%-- <spring:message text="User" /> --%>
 					</form:label></td>
-				<td><form:hidden path="user" value="${loggedinuser}" /> </td>
+				<td><form:hidden path="user" value="${loggedinuser}" /></td>
 			</tr>
 
 			<tr>
 				<td><form:label path="text">
-						<spring:message text="Enter your comment: " /> 
+						<spring:message text="Enter your comment: " />
 					</form:label></td>
 				<td><form:textarea path="text" /></td>
 			</tr>

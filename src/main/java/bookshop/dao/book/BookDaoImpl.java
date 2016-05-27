@@ -150,8 +150,7 @@ public class BookDaoImpl implements BookDao {
     		b = (Book) session.load(Book.class, bookId);
     		System.out.println("Book loaded!");
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			System.out.println("Can't load the book...");
+			logger.debug("Can't load the book...");
 		}
         try {
         	Integer votes = b.getVotes();
@@ -159,8 +158,7 @@ public class BookDaoImpl implements BookDao {
         	b.setVotes(votes + 1);
         	System.out.println("Votes after voting: " + b.getVotes());
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			System.out.println("Can't set votes...");
+			logger.debug("Can't set votes...");
 		}
         try {
         	Integer r = b.getRating();
@@ -168,11 +166,10 @@ public class BookDaoImpl implements BookDao {
         	b.setRating(r + rating);
         	System.out.println("Rating after voting: " + b.getRating());
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			System.out.println("Can't update rating...");
+			logger.debug("Can't update rating...");
 		}
         session.update(b);
-        System.out.println("Book rated!");
+        logger.debug("Book rated!");
 	}
 
 }
