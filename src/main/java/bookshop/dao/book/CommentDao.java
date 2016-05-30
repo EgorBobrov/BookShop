@@ -8,4 +8,6 @@ public interface CommentDao {
 	Comment getCommentById(Long id);
 	void persistComment(Long bookId, Comment comment);
 	void deleteCommentById(Long id);
+	void updateComment(Long id);
+	void likeComment(Long id);
 }

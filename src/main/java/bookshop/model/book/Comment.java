@@ -24,6 +24,15 @@ public class Comment {
     @Column(name = "text")
     @Size(max = 5000)
     private String text;
+    
+    @Column(name = "likes")
+    private int likesCount;
+    
+	@Column(name = "user")
+	private String user;
+    
+   // @Column(name = "dislikes")
+  //  private int dislikesCount;
 
     public String toString() {
     	return this.text + " posted by " + this.user + " on " + this.date;
@@ -53,16 +62,26 @@ public class Comment {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	@Column(name = "user")
-	private String user;
+	
+	public int getLikes() {
+		return likesCount;
+	}
+	public void setLikes(int likes) {
+		this.likesCount = likes;
+	}
 
     public Comment() {
     	
     }
+    
     public Comment(String date, String text, String user) {
     	this.date = date;
     	this.text = text;
     	this.user = user;
     }
+	
+	public void like() {
+		likesCount ++;
+	}
 
 }

@@ -1,7 +1,6 @@
 package bookshop.dao.book;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.logging.Level;
 
@@ -59,6 +58,21 @@ public class CommentDaoImpl implements CommentDao {
 		  Book commentedBook = (Book) session.load(Book.class, bookId);
 		  commentedBook.getComments().add(comment);
 		  session.save(commentedBook);
+	}
+	
+	@Override
+	public void updateComment(Long id){
+		Session session = sessionFactory.getCurrentSession();
+		Comment comment = (Comment) session.get(Comment.class, id);
+		session.merge(comment);
+	}
+	
+	@Override
+	public void likeComment(Long id){
+		Session session = sessionFactory.getCurrentSession();
+		Comment comment = (Comment) session.get(Comment.class, id);
+		comment.like();
+		session.merge(comment);
 	}
 
 }

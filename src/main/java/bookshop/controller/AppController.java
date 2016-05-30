@@ -1,9 +1,7 @@
 package bookshop.controller;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -370,6 +368,21 @@ public class AppController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver.isAnonymous(authentication);
     }
- 
- 
+    
+    //"liking" someone's comment
+    @RequestMapping("/like/{book.id}/{comment.id}")
+    public String likeComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
+    	System.out.println("starting to work w/ comment #" + commentId + " of book "+ bookId +"; stage -1");
+    	this.commentService.likeComment(commentId);
+    	System.out.println("0");
+    	this.commentService.updateComment(commentId);
+    	System.out.println("1");
+    	model.addAttribute("book", this.bookService.getBookById(bookId));
+    	System.out.println("2");
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	System.out.println("3");
+        model.addAttribute("comments", commentService.getAll(bookId));
+    	System.out.println("4");
+    	return "book";
+    }
 }
