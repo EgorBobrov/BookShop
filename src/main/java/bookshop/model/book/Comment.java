@@ -1,12 +1,22 @@
 package bookshop.model.book;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import bookshop.model.user.User;
 
 
 @Entity
@@ -27,6 +37,10 @@ public class Comment {
     
     @Column(name = "likes")
     private int likesCount;
+    
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @JoinTable(name="COMMENT_LIKES", joinColumns=@JoinColumn(name="comment_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    private Set<User> likers = new HashSet<User>();
     
 	@Column(name = "user")
 	private String user;
@@ -69,9 +83,15 @@ public class Comment {
 	public void setLikes(int likes) {
 		this.likesCount = likes;
 	}
+	
+	public Set<User> getLikers() {
+		return likers;
+	}
+	public void setLikers(Set<User> likers) {
+		this.likers = likers;
+	}
 
-    public Comment() {
-    	
+    public Comment() {   	
     }
     
     public Comment(String date, String text, String user) {
@@ -82,6 +102,14 @@ public class Comment {
 	
 	public void like() {
 		likesCount ++;
+	}
+	
+	public boolean addLiker(User liker) {
+		return this.likers.add(liker);
+	}
+	
+	public boolean removeLiker(User liker) {
+		return this.likers.remove(liker);
 	}
 
 }

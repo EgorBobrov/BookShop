@@ -2,13 +2,13 @@ package bookshop.service.book;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.dao.book.CommentDao;
 import bookshop.model.book.Comment;
+import bookshop.model.user.User;
 
 @Service
 @Transactional
@@ -42,8 +42,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public void likeComment(Long id) {
-		commentDao.likeComment(id);
+	public void likeComment(Long id, User user) {
+		commentDao.likeComment(id, user);
 	}
 
 }

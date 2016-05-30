@@ -145,7 +145,8 @@
 					<td>${comment.date}</td>
 					<td>${comment.user}</td>
 					<td>${comment.text}</td>
-					<td><a href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a></td>
+					<sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+					<td><a href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a></td></sec:authorize>
 				</tr>
 			</c:forEach>
 		</table>

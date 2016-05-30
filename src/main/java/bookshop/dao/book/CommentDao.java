@@ -1,6 +1,8 @@
 package bookshop.dao.book;
 
 import bookshop.model.book.Comment;
+import bookshop.model.user.User;
+
 import java.util.List;
 
 public interface CommentDao {
@@ -9,5 +11,5 @@ public interface CommentDao {
 	void persistComment(Long bookId, Comment comment);
 	void deleteCommentById(Long id);
 	void updateComment(Long id);
-	void likeComment(Long id);
+	void likeComment(Long id, User user);
 }

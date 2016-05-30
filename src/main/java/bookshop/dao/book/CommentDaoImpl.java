@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import bookshop.model.book.Book;
 import bookshop.model.book.Comment;
+import bookshop.model.user.User;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -68,9 +69,10 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	@Override
-	public void likeComment(Long id){
+	public void likeComment(Long id, User user){
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
+		comment.addLiker(user);
 		comment.like();
 		session.merge(comment);
 	}

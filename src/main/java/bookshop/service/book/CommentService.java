@@ -3,6 +3,7 @@ package bookshop.service.book;
 import java.util.List;
 
 import bookshop.model.book.Comment;
+import bookshop.model.user.User;
 
 public interface CommentService {
 	List<Comment> getAll(Long bookId);
@@ -10,5 +11,5 @@ public interface CommentService {
 	void persistComment(Long bookId, Comment comment);
 	void deleteCommentById(Long id);
 	void updateComment(Long id);
-	void likeComment(Long id);
+	void likeComment(Long id, User user);
 }

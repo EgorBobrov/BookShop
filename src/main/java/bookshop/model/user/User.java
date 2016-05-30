@@ -8,7 +8,7 @@ package bookshop.model.user;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
- 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
- 
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import bookshop.model.book.Comment;
  
 @Entity
 @Table(name="APP_USER")
@@ -58,6 +60,9 @@ public class User implements Serializable{
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
  
+    @ManyToMany(mappedBy = "likers", fetch = FetchType.EAGER)
+    private Set<Comment> likedComments = new HashSet<Comment>();
+    
     public Integer getId() {
         return id;
     }
@@ -112,6 +117,14 @@ public class User implements Serializable{
  
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
+    }
+    
+    public Set<Comment> getLikedComments() {
+        return this.likedComments;
+    }
+ 
+    public void setLikedComments(Set<Comment> comments) {
+        this.likedComments = comments;
     }
  
     @Override
