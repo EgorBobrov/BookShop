@@ -72,8 +72,14 @@ public class CommentDaoImpl implements CommentDao {
 	public void likeComment(Long id, User user){
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
-		comment.addLiker(user);
-		comment.like();
+		//in case the comment was already liked, the user can choose to remove the "like"
+		if (!comment.isItLikedByMe(user)){
+			comment.addLiker(user);
+			comment.like();
+		} else {
+			comment.removeLiker(user);
+			comment.dislike();
+		}
 		session.merge(comment);
 	}
 

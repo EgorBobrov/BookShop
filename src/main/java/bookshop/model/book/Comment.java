@@ -38,7 +38,7 @@ public class Comment {
     @Column(name = "likes")
     private int likesCount;
     
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER, targetEntity = User.class) 
     @JoinTable(name="COMMENT_LIKES", joinColumns=@JoinColumn(name="comment_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
     private Set<User> likers = new HashSet<User>();
     
@@ -104,12 +104,20 @@ public class Comment {
 		likesCount ++;
 	}
 	
+	public void dislike() {
+		likesCount --;
+	}
+	
 	public boolean addLiker(User liker) {
 		return this.likers.add(liker);
 	}
 	
 	public boolean removeLiker(User liker) {
 		return this.likers.remove(liker);
+	}
+	
+	public boolean isItLikedByMe(User lurker) {
+		return this.likers.contains(lurker) ? true : false;
 	}
 
 }

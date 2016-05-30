@@ -145,8 +145,13 @@
 					<td>${comment.date}</td>
 					<td>${comment.user}</td>
 					<td>${comment.text}</td>
+					<td><c:if test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser}">
+                    ${comment.likes}
+                    </c:if>
 					<sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
-					<td><a href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a></td></sec:authorize>
+					<c:if test="${comment.user ne loggedinuser}">
+					<a href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a>
+					</c:if></sec:authorize></td>
 				</tr>
 			</c:forEach>
 		</table>

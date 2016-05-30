@@ -372,11 +372,11 @@ public class AppController {
     //"liking" someone's comment
     @RequestMapping("/like/{book.id}/{comment.id}")
     public String likingComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
-    	System.out.println("will find a user");
+    	System.out.println("will find a user: "+this.getPrincipal());
     	User user = userService.findBySSO(this.getPrincipal());
     	System.out.println("starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.likeComment(commentId, user);
-    	this.commentService.updateComment(commentId);
+    	//this.commentService.updateComment(commentId);
     	model.addAttribute("comment",  new Comment());
     	model.addAttribute("book", this.bookService.getBookById(bookId));
     	model.addAttribute("loggedinuser", getPrincipal());
