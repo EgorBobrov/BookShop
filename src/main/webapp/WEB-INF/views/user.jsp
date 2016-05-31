@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${user.ssoId}personal page</title>
-    <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
-    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+<title>${user.ssoId}personalpage</title>
+<link href="<c:url value='/static/css/bootstrap.css' />"
+	rel="stylesheet"></link>
+<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
 </head>
 <body>
@@ -19,7 +20,9 @@
 				<th>Last name</th>
 				<th>Email</th>
 				<th>SSO ID</th>
-<%-- 				<c:if test="${loggedinuser eq user.ssoId}">
+				<th>Books in the basket</th>
+				<th>Owned Books</th>
+				<%-- 				<c:if test="${loggedinuser eq user.ssoId}">
 					<th width="100"></th>
 				</c:if>
 				<c:if test="${loggedinuser eq user.ssoId}">
@@ -34,7 +37,16 @@
 				<td>${user.lastName}</td>
 				<td>${user.email}</td>
 				<td>${user.ssoId}</td>
-<%-- 				<c:if test="${loggedinuser eq user.ssoId}">
+				<td><c:forEach items="${user.basket}" var="book">
+						<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a>
+						<br>
+					</c:forEach></td>
+				<td><c:forEach items="${user.inventory}" var="book">
+						<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a>
+						<br>
+					</c:forEach></td>
+
+				<%-- 				<c:if test="${loggedinuser eq user.ssoId}">
 					<td><a href="<c:url value='/edit-user-${user.ssoId}' />"
 						class="btn btn-success custom-width">edit</a></td>
 				</c:if>
@@ -42,8 +54,10 @@
 					<td><a href="<c:url value='/delete-user-${user.ssoId}' />"
 						class="btn btn-danger custom-width">delete</a></td>
 				</c:if>
- --%>			</tr>
+ --%>
+			</tr>
 		</tbody>
 	</table>
+	<a href="${pageContext.request.contextPath}/">Go back</a>
 </body>
 </html>

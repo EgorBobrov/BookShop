@@ -98,6 +98,8 @@ public class AppController {
     	model.addAttribute("book", this.bookService.getBookById(id));
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("comments", commentService.getAll(id));
+        User user = userService.findBySSO(getPrincipal());
+        model.addAttribute("user", user);
     	return "book";
     }
     
@@ -211,6 +213,14 @@ public class AppController {
         model.addAttribute("user", user);
         model.addAttribute("loggedinuser", getPrincipal());
         return "user";
+    }
+    
+    @RequestMapping(value = { "/order/{ssoId}" }, method = RequestMethod.GET)
+    public String showOrder(@PathVariable String ssoId, ModelMap model) {
+        User user = userService.findBySSO(ssoId);
+        model.addAttribute("user", user);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "order";
     }
 
     /**
@@ -407,4 +417,31 @@ public class AppController {
         model.addAttribute("comments", commentService.getAll(bookId));
     	return "book";
     }
+    
+    @RequestMapping("/tobasket/{book.id}")
+    public String addToBasket(Model model, @PathVariable("book.id") Long bookId) {
+    	this.userService.addBookToBasket(bookId, this.getPrincipal());
+    	model.addAttribute("comment",  new Comment());
+    	model.addAttribute("book", this.bookService.getBookById(bookId));
+    	model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("comments", commentService.getAll(bookId));
+    	return "book";
+    }
+    @RequestMapping("/removeFromBasket/{book.id}")
+    public String removeFromBasket(Model model, @PathVariable("book.id") Long bookId) {
+    	this.userService.removeBookFromBasket(bookId, this.getPrincipal());
+        User user = userService.findBySSO(this.getPrincipal());
+        model.addAttribute("user", user);
+        model.addAttribute("loggedinuser", getPrincipal());
+    	return "order";
+    }
+    @RequestMapping("/purchase/{user.ssoId}")
+    public String purchase(Model model, @PathVariable("user.ssoId") String ssoId) {
+        User user = userService.findBySSO(ssoId);
+        this.userService.commitPurchase(ssoId);
+        model.addAttribute("user", user);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "redirect:/user/" + ssoId;
+    }
+
 }

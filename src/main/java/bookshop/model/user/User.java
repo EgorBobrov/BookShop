@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import bookshop.model.book.Book;
 import bookshop.model.book.Comment;
  
 @Entity
@@ -66,7 +67,37 @@ public class User implements Serializable{
     @ManyToMany(mappedBy = "dislikers", fetch = FetchType.EAGER)
     private Set<Comment> dislikedComments = new HashSet<Comment>();
     
-    public Integer getId() {
+    @ManyToMany(mappedBy = "buyers", fetch = FetchType.EAGER)
+    private Set<Book> basket = new HashSet<Book>();
+    
+    @ManyToMany(mappedBy = "owners", fetch = FetchType.EAGER)
+    private Set<Book> inventory = new HashSet<Book>();
+
+    public Set<Comment> getDislikedComments() {
+		return dislikedComments;
+	}
+
+	public void setDislikedComments(Set<Comment> dislikedComments) {
+		this.dislikedComments = dislikedComments;
+	}
+
+	public Set<Book> getBasket() {
+		return basket;
+	}
+
+	public void setBasket(Set<Book> basket) {
+		this.basket = basket;
+	}
+
+	public Set<Book> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Set<Book> inventory) {
+		this.inventory = inventory;
+	}
+
+	public Integer getId() {
         return id;
     }
  

@@ -1,8 +1,12 @@
 package bookshop.service.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.dao.user.UserDao;
+import bookshop.dao.user.UserDaoImpl;
+import bookshop.model.book.Book;
 import bookshop.model.user.User;
 
 import java.util.List;
@@ -10,12 +14,14 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.sun.corba.se.spi.activation._ActivatorImplBase;
  
  
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService{
- 
+	static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private UserDao dao;
  
@@ -68,5 +74,21 @@ public class UserServiceImpl implements UserService{
         User user = findBySSO(sso);
         return ( user == null || ((id != null) && (user.getId() == id)));
     }
+
+	@Override
+	public void addBookToBasket(Long bookId, String ssoId) {
+		dao.addBookToBasket(bookId, ssoId);
+		logger.info("Added " + bookId + " to " + ssoId + " inventory.");
+	}
+
+	@Override
+	public void removeBookFromBasket(Long bookId, String ssoId) {
+		dao.removeBookFromBasket(bookId, ssoId);
+	}
+
+	@Override
+	public void commitPurchase(String ssoId) {
+		dao.commitPurchase(ssoId);
+	}
      
 }

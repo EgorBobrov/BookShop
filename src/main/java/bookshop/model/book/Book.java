@@ -33,6 +33,8 @@ import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.Formula;
 
+import bookshop.model.user.User;
+
 @Entity
 @Table(name="BOOK")
 public class Book implements Serializable {
@@ -68,10 +70,36 @@ public class Book implements Serializable {
     @Column(name = "description")
     private String description;
     
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
+    public Set<User> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(Set<User> buyers) {
+		this.buyers = buyers;
+	}
+
+	public Set<User> getOwners() {
+		return owners;
+	}
+
+	public void setOwners(Set<User> owners) {
+		this.owners = owners;
+	}
+
+
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
     @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_name"))
     private Set<Author> authors = new HashSet<Author>();
 
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @JoinTable(name="USER_BASKET", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    private Set<User> buyers = new HashSet<User>();
+    
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @JoinTable(name="USER_INVENTORY", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    private Set<User> owners = new HashSet<User>();
+
+    
     @Column(name = "price")
     protected Integer price;
     

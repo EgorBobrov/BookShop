@@ -164,9 +164,9 @@
  --%>
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-						<td rowspan="10">${book.id}</td>
+						<td rowspan="9">${book.id}</td>
 					</sec:authorize>
-					<td rowspan="10"><a
+					<td rowspan="9"><a
 						href="${pageContext.request.contextPath}/book/${book.id}"><img
 							src="${pageContext.request.contextPath}/img/books/${book.cover}"
 							width="150px" alt="No picture available" /></a></td>
@@ -216,9 +216,9 @@
 							value="${book.resultRating}" /> based on ${book.votes } votes
 					</td>
 				</tr>
-				<c:if test="${!empty book.amountInStock}">
+				<%-- 				<c:if test="${!empty book.amountInStock}">
 					<tr>
-						<td><a href="<c:url value='/tobasket/${book.id}' />">Add
+						<td><a href="<c:url value='/tobasket/${book.id}/${user.ssoId}' />">Add
 								to basket</a></td>
 					</tr>
 				</c:if>
@@ -227,6 +227,7 @@
 						<td>This book is unavailable at the moment.</td>
 					</tr>
 				</c:if>
+ --%>
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 						<td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td>

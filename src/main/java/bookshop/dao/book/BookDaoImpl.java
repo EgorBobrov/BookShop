@@ -118,7 +118,7 @@ public class BookDaoImpl implements BookDao {
     	Session session = openSession();      
         Book b = (Book) session.load(Book.class, id);
         logger.info("Book loaded successfully, Book details = " + b);
-        System.out.println("Book loaded successfully, Book details = " + b);
+        // System.out.println("Book loaded successfully, Book details = " + b);
         return b;
     }
     
@@ -129,10 +129,10 @@ public class BookDaoImpl implements BookDao {
     }*/
     
     public Author getAuthor(String name){
-    	System.out.println(getClass().getSimpleName());
+    	// System.out.println(getClass().getSimpleName());
     	Session session = openSession();
     	Author a = (Author) session.createQuery("select a from Author a where a.name = :name").setParameter("name", name).list().get(0);
-    	System.out.println (a.toString());
+    	// System.out.println (a.toString());
 	    return a;
 	}
     

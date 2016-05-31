@@ -20,6 +20,10 @@
 
 </head>
 <body>
+<sec:authorize
+		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+<%@include file="authheader.jsp"%>
+</sec:authorize>
 	<table class="tg">
 		<tr>
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
@@ -79,17 +83,29 @@
 					value="${book.resultRating}" /> based on ${book.votes } votes
 			</td>
 		</tr>
-		<c:if test="${!empty book.amountInStock}">
-			<tr>
-				<td><a href="<c:url value='/tobasket/${book.id}' />">Add to
-						basket</a></td>
-			</tr>
-		</c:if>
-		<c:if test="${empty book.amountInStock}">
-			<tr>
-				<td>This book is unavailable at the moment.</td>
-			</tr>
-		</c:if>
+		<c:choose>
+			<c:when test="${!empty book.amountInStock}">
+				<c:choose>
+					<c:when test="${book.buyers.contains(user) eq false && user.basket.contains(book) eq false}">
+						<tr>
+							<td><a href="<c:url value='/tobasket/${book.id}' />">Add
+									to basket</a></td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td>You already have this book in your basket.</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td>This book is unavailable at the moment.</td>
+				</tr>
+
+			</c:otherwise>
+		</c:choose>
 
 	</table>
 	<br>

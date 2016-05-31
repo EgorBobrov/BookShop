@@ -2,6 +2,7 @@ package bookshop.dao.user;
 
 import java.util.List;
 
+import bookshop.model.book.Book;
 import bookshop.model.user.User;
  
  
@@ -16,5 +17,11 @@ public interface UserDao {
     void deleteBySSO(String sso);
      
     List<User> findAllUsers();
+
+	void addBookToBasket(Long bookId, String ssoId);
+
+	void removeBookFromBasket(Long bookId, String ssoId);
+
+	void commitPurchase(String ssoId);
  
 }
