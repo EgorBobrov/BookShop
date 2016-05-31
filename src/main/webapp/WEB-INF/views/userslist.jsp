@@ -42,7 +42,7 @@
                         <td>${user.firstName}</td>
                         <td>${user.lastName}</td>
                         <td>${user.email}</td>
-                        <td>${user.ssoId}</td>
+                        <td><a href="<c:url value='/user/${user.ssoId}' />" >${user.ssoId}</a></td>
                         <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
                             <td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>
                         </sec:authorize>

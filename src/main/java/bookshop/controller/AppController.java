@@ -202,7 +202,17 @@ public class AppController {
         model.addAttribute("loggedinuser", getPrincipal());
         return "userslist";
     }
- 
+    /*
+     * Method for creating a user page
+     */
+    @RequestMapping(value = { "/user/{ssoId}" }, method = RequestMethod.GET)
+    public String showUser(@PathVariable String ssoId, ModelMap model) {
+        User user = userService.findBySSO(ssoId);
+        model.addAttribute("user", user);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "user";
+    }
+
     /**
      * This method will provide the medium to add a new user.
      */
