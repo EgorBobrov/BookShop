@@ -82,7 +82,12 @@ public class Book implements Serializable {
     @Column(name = "amountInStock")
     protected Integer amountInStock;
 
-    @Formula("price*(1-discount)")
+    public void setAmountInStock(Integer amountInStock) {
+		this.amountInStock = amountInStock;
+	}
+
+
+	@Formula("price*(1-discount)")
     protected Integer priceWDiscount;
     
     @Column(name = "rating")

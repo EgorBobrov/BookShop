@@ -339,8 +339,11 @@ public class AppController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){    
             //new SecurityContextLogoutHandler().logout(request, response, auth);
+        	logger.info("Entering logout");
             persistentTokenBasedRememberMeServices.logout(request, response, auth);
+            logger.info("Logged out with persistentTokenBasedRememberMeServices");
             SecurityContextHolder.getContext().setAuthentication(null);
+            logger.info("Logged out with setAuthentication(null);");
         }
         return "redirect:/";
     }

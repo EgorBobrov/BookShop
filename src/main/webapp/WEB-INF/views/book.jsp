@@ -30,9 +30,9 @@
 		</tr>
 		<tr>
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-				<td rowspan="9">${book.id}</td>
+				<td rowspan="10">${book.id}</td>
 			</sec:authorize>
-			<td rowspan="9"><img
+			<td rowspan="10"><img
 				src="${pageContext.request.contextPath}/img/books/${book.cover}"
 				width="150px" alt="No picture available" /></td>
 			<td>Title: <br> ${book.title}
@@ -74,11 +74,23 @@
 					maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
 		</tr>
 		<tr>
-			<td>Rating: <br>
-	<fmt:formatNumber type="number" minFractionDigits="2"
-		maxFractionDigits="2" value="${book.resultRating}" />
-	based on ${book.votes } votes</td>
+			<td>Rating: <br> <fmt:formatNumber type="number"
+					minFractionDigits="2" maxFractionDigits="2"
+					value="${book.resultRating}" /> based on ${book.votes } votes
+			</td>
 		</tr>
+		<c:if test="${!empty book.amountInStock}">
+			<tr>
+				<td><a href="<c:url value='/tobasket/${book.id}' />">Add to
+						basket</a></td>
+			</tr>
+		</c:if>
+		<c:if test="${empty book.amountInStock}">
+			<tr>
+				<td>This book is unavailable at the moment.</td>
+			</tr>
+		</c:if>
+
 	</table>
 	<br>
 
@@ -101,7 +113,7 @@
 			<input type="submit" value="<spring:message text="Rate Book"/>" />
 		</form:form>
 	</sec:authorize>
-	
+
 	<br>
 	<sec:authorize
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
@@ -113,7 +125,7 @@
 						<%-- <spring:message text="Date" /> --%>
 					</form:label></td>
 				<td><form:hidden path="date"
-						value="<%= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME) %>" />
+						value="<%=ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)%>" />
 				</td>
 			</tr>
 			<tr>
@@ -145,13 +157,16 @@
 					<td>${comment.date}</td>
 					<td>${comment.user}</td>
 					<td>${comment.text}</td>
-					<td><c:if test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser}">
+					<td><c:if
+							test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser}">
                     ${comment.likes}
-                    </c:if>
-					<sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
-					<c:if test="${comment.user ne loggedinuser}">
-					<a href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a>
-					</c:if></sec:authorize></td>
+                    </c:if> <sec:authorize
+							access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+							<c:if test="${comment.user ne loggedinuser}">
+								<a
+									href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a>
+							</c:if>
+						</sec:authorize></td>
 				</tr>
 			</c:forEach>
 		</table>
