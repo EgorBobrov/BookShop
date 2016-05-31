@@ -45,5 +45,10 @@ public class CommentServiceImpl implements CommentService {
 	public void likeComment(Long id, User user) {
 		commentDao.likeComment(id, user);
 	}
+	
+	@Override
+	public void dislikeComment(Long id, User user) {
+		commentDao.dislikeComment(id, user);
+	}
 
 }

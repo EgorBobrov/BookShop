@@ -63,6 +63,9 @@ public class User implements Serializable{
     @ManyToMany(mappedBy = "likers", fetch = FetchType.EAGER)
     private Set<Comment> likedComments = new HashSet<Comment>();
     
+    @ManyToMany(mappedBy = "dislikers", fetch = FetchType.EAGER)
+    private Set<Comment> dislikedComments = new HashSet<Comment>();
+    
     public Integer getId() {
         return id;
     }
@@ -168,7 +171,5 @@ public class User implements Serializable{
                 + ", firstName=" + firstName + ", lastName=" + lastName
                 + ", email=" + email + "]";
     }
- 
- 
      
 }

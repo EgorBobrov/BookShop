@@ -78,7 +78,22 @@ public class CommentDaoImpl implements CommentDao {
 			comment.like();
 		} else {
 			comment.removeLiker(user);
+			comment.unlike();
+		}
+		session.merge(comment);
+	}
+	
+	@Override
+	public void dislikeComment(Long id, User user){
+		Session session = sessionFactory.getCurrentSession();
+		Comment comment = (Comment) session.get(Comment.class, id);
+		//in case the comment was already disliked, the user can choose to remove the "dislike"
+		if (!comment.isItDislikedByMe(user)){
+			comment.addDisliker(user);
 			comment.dislike();
+		} else {
+			comment.removeDisliker(user);
+			comment.undislike();
 		}
 		session.merge(comment);
 	}

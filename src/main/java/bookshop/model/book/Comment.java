@@ -38,15 +38,19 @@ public class Comment {
     @Column(name = "likes")
     private int likesCount;
     
-    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
     @JoinTable(name="COMMENT_LIKES", joinColumns=@JoinColumn(name="comment_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
     private Set<User> likers = new HashSet<User>();
+    
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
+    @JoinTable(name="COMMENT_DISLIKES", joinColumns=@JoinColumn(name="comment_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    private Set<User> dislikers = new HashSet<User>();
     
 	@Column(name = "user")
 	private String user;
     
-   // @Column(name = "dislikes")
-  //  private int dislikesCount;
+    @Column(name = "dislikes")
+    private int dislikesCount;
 
     public String toString() {
     	return this.text + " posted by " + this.user + " on " + this.date;
@@ -90,6 +94,20 @@ public class Comment {
 	public void setLikers(Set<User> likers) {
 		this.likers = likers;
 	}
+	
+	public int getDislikes() {
+		return dislikesCount;
+	}
+	public void setDislikes(int dislikes) {
+		this.dislikesCount = dislikes;
+	}
+	
+	public Set<User> getDislikers() {
+		return dislikers;
+	}
+	public void setDislikers(Set<User> dislikers) {
+		this.dislikers = dislikers;
+	}
 
     public Comment() {   	
     }
@@ -104,8 +122,16 @@ public class Comment {
 		likesCount ++;
 	}
 	
-	public void dislike() {
+	public void unlike() {
 		likesCount --;
+	}
+	
+	public void dislike() {
+		dislikesCount ++;
+	}
+	
+	public void undislike() {
+		dislikesCount --;
 	}
 	
 	public boolean addLiker(User liker) {
@@ -118,6 +144,32 @@ public class Comment {
 	
 	public boolean isItLikedByMe(User lurker) {
 		return this.likers.contains(lurker) ? true : false;
+	}
+	
+	public boolean isItLikedByMe(String username) {
+		for (User u: likers)
+			if (u.getSsoId().equals(username))
+				return true;
+		return false;
+	}
+	
+	public boolean addDisliker(User disliker) {
+		return this.dislikers.add(disliker);
+	}
+	
+	public boolean removeDisliker(User disliker) {
+		return this.dislikers.remove(disliker);
+	}
+	
+	public boolean isItDislikedByMe(User lurker) {
+		return this.dislikers.contains(lurker) ? true : false;
+	}
+	
+	public boolean isItDislikedByMe(String username) {
+		for (User u: dislikers)
+			if (u.getSsoId().equals(username))
+				return true;
+		return false;
 	}
 
 }
