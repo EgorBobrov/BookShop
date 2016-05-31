@@ -12,4 +12,5 @@ public interface CommentDao {
 	void deleteCommentById(Long id);
 	void updateComment(Long id);
 	void likeComment(Long id, User user);
+	void dislikeComment(Long id, User user);
 }

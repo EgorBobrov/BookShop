@@ -375,11 +375,22 @@ public class AppController {
     //"liking" someone's comment
     @RequestMapping("/like/{book.id}/{comment.id}")
     public String likingComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
-    	System.out.println("will find a user: "+this.getPrincipal());
     	User user = userService.findBySSO(this.getPrincipal());
-    	System.out.println("starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
+    	//System.out.println("like: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.likeComment(commentId, user);
-    	//this.commentService.updateComment(commentId);
+    	model.addAttribute("comment",  new Comment());
+    	model.addAttribute("book", this.bookService.getBookById(bookId));
+    	model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("comments", commentService.getAll(bookId));
+    	return "book";
+    }
+    
+    //"disliking"/flagging someone's comment
+    @RequestMapping("/dislike/{book.id}/{comment.id}")
+    public String dislikingComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
+    	User user = userService.findBySSO(this.getPrincipal());
+    	//System.out.println("dislike: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
+    	this.commentService.dislikeComment(commentId, user);
     	model.addAttribute("comment",  new Comment());
     	model.addAttribute("book", this.bookService.getBookById(bookId));
     	model.addAttribute("loggedinuser", getPrincipal());

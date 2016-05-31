@@ -151,6 +151,8 @@
 				<td>Post date</td>
 				<td>Author</td>
 				<td>Text</td>
+				<td>Likes</td>
+				<td>Flags</td>
 			</tr>
 			<c:forEach items="${comments}" var="comment">
 				<tr>
@@ -158,15 +160,29 @@
 					<td>${comment.user}</td>
 					<td>${comment.text}</td>
 					<td><c:if
-							test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser}">
+							test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser || comment.isItDislikedByMe(loggedinuser.toString()) eq true}">
                     ${comment.likes}
                     </c:if> <sec:authorize
 							access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
-							<c:if test="${comment.user ne loggedinuser}">
+							<c:if
+								test="${comment.user ne loggedinuser && comment.isItDislikedByMe(loggedinuser.toString()) eq false}">
 								<a
 									href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a>
 							</c:if>
 						</sec:authorize></td>
+
+					<td><c:if
+							test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser || comment.isItLikedByMe(loggedinuser.toString())eq true}">
+                    ${comment.dislikes}
+                    </c:if> <sec:authorize
+							access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+							<c:if
+								test="${comment.user ne loggedinuser && comment.isItLikedByMe(loggedinuser.toString()) eq false}">
+								<a
+									href="${pageContext.request.contextPath}/dislike/${book.id}/${comment.id}">${comment.dislikes}</a>
+							</c:if>
+						</sec:authorize></td>
+
 				</tr>
 			</c:forEach>
 		</table>
