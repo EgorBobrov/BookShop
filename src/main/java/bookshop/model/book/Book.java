@@ -7,6 +7,7 @@ package bookshop.model.book;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -114,7 +115,6 @@ public class Book implements Serializable {
 		this.amountInStock = amountInStock;
 	}
 
-
 	@Formula("price*(1-discount)")
     protected Integer priceWDiscount;
     
@@ -126,9 +126,9 @@ public class Book implements Serializable {
     // number of votes
     private Integer votes = 0;
 
-    @Formula("rating/votes")
+	@Column(name = "resultrating")
     // average rating based on votes
-    private Double resultRating;
+    private Double resultRating = 0.0;
 
     public Integer getRating() {
 		return rating;
@@ -153,7 +153,7 @@ public class Book implements Serializable {
 	public void setResultRating(Double resultRating) {
 		this.resultRating = resultRating;
 	}
-
+	
 
     @ElementCollection(fetch=FetchType.EAGER,targetClass = Genre.class)
     @Enumerated(value = EnumType.STRING)

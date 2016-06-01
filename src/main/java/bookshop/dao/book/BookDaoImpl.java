@@ -6,9 +6,11 @@
 package bookshop.dao.book;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.aspectj.lang.annotation.After;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
+import javafx.collections.transformation.SortedList;
  
 //@Component
 @Repository
@@ -76,6 +79,7 @@ public class BookDaoImpl implements BookDao {
     // Retrieves all the books:
     @SuppressWarnings("unchecked")
     //@Transactional
+    // TODO: delete - not used
     public List<Book> getAllBooks() {
     	Session session = openSession();
     	List<Book> booksList = session.createQuery("from Book").list();
@@ -84,7 +88,23 @@ public class BookDaoImpl implements BookDao {
         }
         return booksList;
     }
-    
+    // Retrieves all the books and sorts them by rating
+    // TODO: delete - not used
+    @SuppressWarnings("unchecked")
+    public List<Book> getBooksSortedByRating() {
+    	Session session = openSession();
+    	List<Book> booksList = session.createQuery("from Book").list();
+        for(Book b : booksList){
+            logger.info(b.getTitle() + " with rating " + b.getResultRating());
+        }
+        Collections.sort(booksList, (b1, b2) -> (int) ((b2.getResultRating() - b1.getResultRating()) * 100));
+        logger.info("After sorting:");
+        for(Book book: booksList) {
+        	logger.info(book.getTitle() + " with rating " + book.getResultRating());
+        }
+        return booksList;
+    }
+
     //search via title/keyword
     @SuppressWarnings("unchecked")
     //@Transactional
@@ -94,9 +114,23 @@ public class BookDaoImpl implements BookDao {
      			return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
      	if (selectedGenre!=null)	
      		return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(selectedGenre)).list();
-     	return session.createQuery("from Book b").list();
+     	List<Book> booksList = session.createQuery("from Book b").list();
+     	Collections.reverse(booksList);
+     	return booksList;
     }
     
+    @SuppressWarnings("unchecked")
+    public List<Book> doSearchByRating() {
+    	Session session = openSession();
+     	if (keyword != null)
+     			return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+     	if (selectedGenre!=null)	
+     		return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(selectedGenre)).list();
+     	List<Book> booksList = session.createQuery("from Book b").list();
+     	Collections.sort(booksList, (b1, b2) -> (int) ((b2.getResultRating() - b1.getResultRating()) * 100));
+     	return booksList;
+    }
+
     //search via genre
     @SuppressWarnings("unchecked")
     //@Transactional
@@ -143,30 +177,38 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public void rateBook(Long bookId, Integer rating) {
-		System.out.println("Rating book...");
+		logger.info("Rating book...");
     	Session session = openSession();  
     	Book b = new Book();
     	try {
     		b = (Book) session.load(Book.class, bookId);
-    		System.out.println("Book loaded!");
+    		logger.info("Book loaded!");
 		} catch (Exception e) {
-			logger.debug("Can't load the book...");
+			logger.info("Can't load the book...");
 		}
         try {
         	Integer votes = b.getVotes();
-        	System.out.println("Votes before voting: " + votes);
+        	logger.info("Votes before voting: " + votes);
         	b.setVotes(votes + 1);
-        	System.out.println("Votes after voting: " + b.getVotes());
+        	logger.info("Votes after voting: " + b.getVotes());
 		} catch (Exception e) {
-			logger.debug("Can't set votes...");
+			logger.info("Can't set votes...");
 		}
         try {
         	Integer r = b.getRating();
-        	System.out.println("Rating before voting: " + r);
+        	logger.info("Rating before voting: " + r);
         	b.setRating(r + rating);
-        	System.out.println("Rating after voting: " + b.getRating());
+        	logger.info("Rating after voting: " + b.getRating());
 		} catch (Exception e) {
-			logger.debug("Can't update rating...");
+			logger.info("Can't update rating...");
+		}
+        try {
+        	Double rr = b.getResultRating();
+        	logger.info("Result Rating before voting: " + rr);
+        	b.setResultRating(b.getRating() * 1.0 / b.getVotes());
+        	logger.info("Result Rating after voting: " + b.getResultRating());
+		} catch (Exception e) {
+			logger.info("Can't update rating...");
 		}
         session.update(b);
         logger.debug("Book rated!");

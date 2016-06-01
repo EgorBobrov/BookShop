@@ -84,13 +84,30 @@ public class AppController {
     @ResponseStatus(HttpStatus.OK)
     public String listBooks(Model model) {
     	model.addAttribute("book", new Book());
-    	model.addAttribute("listBooks", this.bookService.getAllBooks());
     	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
     	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());
+        User user = userService.findBySSO(getPrincipal());
+        model.addAttribute("user", user);
     	return "books";
     }
-    
+    @RequestMapping(value="/books/{order}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public String listBooksByOrder(@PathVariable("order") String order, Model model) {
+    	model.addAttribute("book", new Book());
+    	if (order.equals("byorder")) {
+    		model.addAttribute("foundBooks", this.bookService.getFoundBooks());
+    	}
+    	else if (order.equals("byrating")){
+    		model.addAttribute("foundBooks", this.bookService.getFoundBooksByRating());
+		}
+    	model.addAttribute("genre", Genre.values());
+    	model.addAttribute("loggedinuser", getPrincipal());
+        User user = userService.findBySSO(getPrincipal());
+        model.addAttribute("user", user);
+    	return "books";
+    }
+
     @RequestMapping(value="/book/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String displayBook(@PathVariable("id") Long id, Model model) {
@@ -167,6 +184,8 @@ public class AppController {
         model.addAttribute("genre", Genre.values());
         model.addAttribute("listBooks", this.bookService.getAllBooks());
         model.addAttribute("loggedinuser", getPrincipal());
+        User user = userService.findBySSO(getPrincipal());
+        model.addAttribute("user", user);
         return "books";
     }
     
@@ -372,7 +391,7 @@ public class AppController {
      * This method returns the principal[user-name] of logged-in user.
      */
     public String getPrincipal(){
-    	//return "sam";
+    	//return user ssoId;
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
  

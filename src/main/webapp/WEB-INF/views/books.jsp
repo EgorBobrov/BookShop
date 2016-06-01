@@ -134,6 +134,17 @@
 
 
 	<h3>Books in our shop:</h3>
+	<a href="${pageContext.request.contextPath}/books/byrating">Show most popular</a>
+	<br>
+	<a href="${pageContext.request.contextPath}/books/byorder">Show most recently added</a>
+	<br>
+	<c:if test="${!empty user.inventory }">
+		<a href="">Show recommended to me</a>
+		<br>
+	</c:if>
+	<br>
+
+
 	<c:if test="${!empty foundBooks}">
 		<table class="tg">
 			<tr>

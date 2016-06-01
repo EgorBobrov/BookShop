@@ -10,6 +10,7 @@ public interface BookDao {
 	public void persistBook(Book book);
 	public void updateBook(Book book);
 	public List<Book> getAllBooks();
+	public List<Book> getBooksSortedByRating();
 	public Book getBookById(Long id);
 	public void delete(Long id);
 	public List<Book> doSearch();
@@ -23,6 +24,7 @@ public interface BookDao {
 	
 /*	public Set<Comment> getCommentsByBookId(Book book);
 	public void addComment(Comment comment);
-*/
+*/	
+	public List<Book> doSearchByRating();
 	public void rateBook(Long id, Integer rating);
 }

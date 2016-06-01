@@ -95,4 +95,14 @@ public class BookServiceImpl implements BookService {
 		this.bookDao.rateBook(id, rating);
 	}
 
+	@Override
+	public List<Book> getBooksSortedByRating()  {
+		return bookDao.getBooksSortedByRating();
+	}
+
+	@Override
+	public List<Book> getFoundBooksByRating() {
+		return bookDao.doSearchByRating();
+	}
+
 }
