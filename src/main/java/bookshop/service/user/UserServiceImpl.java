@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.dao.user.UserDao;
-import bookshop.dao.user.UserDaoImpl;
-import bookshop.model.book.Book;
+
 import bookshop.model.user.User;
 
 import java.util.List;
@@ -15,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sun.corba.se.spi.activation._ActivatorImplBase;
- 
+
  
 @Service("userService")
 @Transactional

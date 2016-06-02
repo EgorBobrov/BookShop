@@ -142,10 +142,6 @@ public class Comment {
 		return this.likers.remove(liker);
 	}
 	
-	public boolean isItLikedByMe(User lurker) {
-		return this.likers.contains(lurker) ? true : false;
-	}
-	
 	public boolean isItLikedByMe(String username) {
 		for (User u: likers)
 			if (u.getSsoId().equals(username))
@@ -161,9 +157,6 @@ public class Comment {
 		return this.dislikers.remove(disliker);
 	}
 	
-	public boolean isItDislikedByMe(User lurker) {
-		return this.dislikers.contains(lurker) ? true : false;
-	}
 	
 	public boolean isItDislikedByMe(String username) {
 		for (User u: dislikers)

@@ -1,6 +1,5 @@
 package bookshop.service.user;
 
-import bookshop.model.book.Book;
 import bookshop.model.user.User;
 
 import java.util.List; 

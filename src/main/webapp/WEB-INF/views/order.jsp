@@ -28,7 +28,7 @@
 				<c:forEach items="${user.basket}" var="book">
 					<tr>
 						<td>${book.title}</td>
-						<td>${book.price}</td>
+						<td>${book.priceWDiscount}</td>
 						<td><a href="<c:url value='/removeFromBasket/${book.id}' />">Remove
 								from basket</a></td>
 					</tr>

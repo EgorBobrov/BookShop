@@ -2,7 +2,6 @@ package bookshop.dao.user;
 
 import java.util.List;
 
-import bookshop.model.book.Book;
 import bookshop.model.user.User;
  
  

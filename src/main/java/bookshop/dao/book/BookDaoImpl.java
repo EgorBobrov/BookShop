@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.aspectj.lang.annotation.After;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Repository;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
-import javafx.collections.transformation.SortedList;
  
 //@Component
 @Repository

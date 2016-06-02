@@ -73,7 +73,7 @@ public class CommentDaoImpl implements CommentDao {
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		//in case the comment was already liked, the user can choose to remove the "like"
-		if (!comment.isItLikedByMe(user)){
+		if (!comment.isItLikedByMe(user.getSsoId())){
 			comment.addLiker(user);
 			comment.like();
 		} else {
@@ -88,7 +88,7 @@ public class CommentDaoImpl implements CommentDao {
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		//in case the comment was already disliked, the user can choose to remove the "dislike"
-		if (!comment.isItDislikedByMe(user)){
+		if (!comment.isItDislikedByMe(user.getSsoId())){
 			comment.addDisliker(user);
 			comment.dislike();
 		} else {
