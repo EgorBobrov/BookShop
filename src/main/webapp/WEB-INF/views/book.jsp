@@ -84,7 +84,7 @@
 			</td>
 		</tr>
 		<c:choose>
-			<c:when test="${!empty book.amountInStock || book.amountInStock > 0}">
+			<c:when test="${!empty book.amountInStock && book.amountInStock > 0}">
 					<tr>
 						<td><a href="<c:url value='/tobasket/${book.id}' />">Add
 								to basket</a></td>

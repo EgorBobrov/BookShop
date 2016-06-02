@@ -69,22 +69,6 @@ public class Book implements Serializable {
 
     @Column(name = "description")
     private String description;
-    
-    public Set<User> getBuyers() {
-		return buyers;
-	}
-
-	public void setBuyers(Set<User> buyers) {
-		this.buyers = buyers;
-	}
-
-	public Set<User> getOwners() {
-		return owners;
-	}
-
-	public void setOwners(Set<User> owners) {
-		this.owners = owners;
-	}
 
 
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class) 
@@ -94,12 +78,12 @@ public class Book implements Serializable {
 	//users who added the book into their basket
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
     @JoinTable(name="USER_BASKET", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
-    private Set<User> buyers = new HashSet<User>();
+    private List<User> buyers = new ArrayList<User>();
     
     //users who BOUGHT the book
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
-    @JoinTable(name="USER_INVENTORY", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
-    private Set<User> owners = new HashSet<User>();
+    @JoinTable(name="USER_INVENTORY", joinColumns=@JoinColumn(name="book_id", unique = false), inverseJoinColumns=@JoinColumn(name="user_id", unique = false))
+    private List<User> owners = new ArrayList<User>();
 
     
     @Column(name = "price")
@@ -111,6 +95,22 @@ public class Book implements Serializable {
     
     @Column(name = "amountInStock")
     protected Integer amountInStock;
+    
+    public List<User> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(List<User> buyers) {
+		this.buyers = buyers;
+	}
+
+	public List<User> getOwners() {
+		return owners;
+	}
+
+	public void setOwners(List<User> owners) {
+		this.owners = owners;
+	}
 
     public void setAmountInStock(Integer amountInStock) {
 		this.amountInStock = amountInStock;

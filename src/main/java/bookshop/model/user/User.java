@@ -166,6 +166,10 @@ public class User implements Serializable{
     public void setLikedComments(Set<Comment> comments) {
         this.likedComments = comments;
     }
+    
+    public boolean addToBasket(Book b) {
+		return basket.add(b);
+	}
  
     @Override
     public int hashCode() {
