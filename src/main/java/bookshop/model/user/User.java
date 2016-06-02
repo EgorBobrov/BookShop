@@ -6,7 +6,9 @@
 package bookshop.model.user;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,6 +22,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import bookshop.model.book.Book;
@@ -67,11 +71,13 @@ public class User implements Serializable{
     @ManyToMany(mappedBy = "dislikers", fetch = FetchType.EAGER)
     private Set<Comment> dislikedComments = new HashSet<Comment>();
     
-    @ManyToMany(mappedBy = "buyers", fetch = FetchType.EAGER)
-    private Set<Book> basket = new HashSet<Book>();
+    @ManyToMany(mappedBy = "buyers")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Book> basket = new ArrayList<Book>();
     
-    @ManyToMany(mappedBy = "owners", fetch = FetchType.EAGER)
-    private Set<Book> inventory = new HashSet<Book>();
+    @ManyToMany(mappedBy = "owners")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Book> inventory = new ArrayList<Book>();
 
     public Set<Comment> getDislikedComments() {
 		return dislikedComments;
@@ -81,19 +87,19 @@ public class User implements Serializable{
 		this.dislikedComments = dislikedComments;
 	}
 
-	public Set<Book> getBasket() {
+	public List<Book> getBasket() {
 		return basket;
 	}
 
-	public void setBasket(Set<Book> basket) {
+	public void setBasket(List<Book> basket) {
 		this.basket = basket;
 	}
 
-	public Set<Book> getInventory() {
+	public List<Book> getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(Set<Book> inventory) {
+	public void setInventory(List<Book> inventory) {
 		this.inventory = inventory;
 	}
 

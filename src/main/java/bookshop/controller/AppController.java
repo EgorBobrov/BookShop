@@ -444,6 +444,8 @@ public class AppController {
     	model.addAttribute("book", this.bookService.getBookById(bookId));
     	model.addAttribute("loggedinuser", getPrincipal());
         model.addAttribute("comments", commentService.getAll(bookId));
+        User user = userService.findBySSO(this.getPrincipal());
+        model.addAttribute("user", user);
     	return "book";
     }
     @RequestMapping("/removeFromBasket/{book.id}")

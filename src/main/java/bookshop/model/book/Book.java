@@ -91,10 +91,12 @@ public class Book implements Serializable {
     @JoinTable(name="AUTHOR_BOOK", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="author_name"))
     private Set<Author> authors = new HashSet<Author>();
 
+	//users who added the book into their basket
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
     @JoinTable(name="USER_BASKET", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
     private Set<User> buyers = new HashSet<User>();
     
+    //users who BOUGHT the book
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = User.class) 
     @JoinTable(name="USER_INVENTORY", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
     private Set<User> owners = new HashSet<User>();
