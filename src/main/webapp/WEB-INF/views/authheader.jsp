@@ -5,7 +5,7 @@
 		<a
 		href="<c:url value='/order/${loggedinuser}' />">${loggedinuser}
 			basket (${user.getBasket().size()})</a> <br>
-		<c:if test="${loggedinuser eq 'anonymousUser'}">
+		<c:if test="${loggedinuser != 'anonymousUser'}">
 <a
 		href="<c:url value='/user/${loggedinuser}' />">${loggedinuser}
 			personal page</a> <br> </c:if>

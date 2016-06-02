@@ -20,10 +20,10 @@
 
 </head>
 <body>
-<sec:authorize
+	<sec:authorize
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
-<%@include file="authheader.jsp"%>
-</sec:authorize>
+		<%@include file="authheader.jsp"%>
+	</sec:authorize>
 	<table class="tg">
 		<tr>
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
@@ -83,21 +83,33 @@
 					value="${book.resultRating}" /> based on ${book.votes } votes
 			</td>
 		</tr>
-		<c:choose>
-			<c:when test="${!empty book.amountInStock && book.amountInStock > 0}">
+		<sec:authorize
+			access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+			<c:choose>
+				<c:when
+					test="${!empty book.amountInStock && book.amountInStock > 0}">
 					<tr>
 						<td><a href="<c:url value='/tobasket/${book.id}' />">Add
 								to basket</a></td>
 					</tr>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td>This book is unavailable at the moment.</td>
-				</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td>This book is unavailable at the moment.</td>
+					</tr>
 
-			</c:otherwise>
-		</c:choose>
+				</c:otherwise>
+			</c:choose>
+		</sec:authorize>
+		<c:if test="${loggedinuser eq 'anonymousUser'}">
+			<tr>
+				<td>Please <a href="${pageContext.request.contextPath}/login">log
+						in</a> or <a href="${pageContext.request.contextPath}/newuser">sign
+						up</a> to purchase.
+				</td>
+			</tr>
 
+		</c:if>
 	</table>
 	<br>
 
