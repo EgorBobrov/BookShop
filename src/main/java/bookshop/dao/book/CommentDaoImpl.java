@@ -39,7 +39,7 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> getAll(Long bookId) {
+	public List<Comment> getAll(Integer bookId) {
 		Session session = sessionFactory.getCurrentSession();
 		Book b = (Book) session.load(Book.class, bookId);
 		return new ArrayList<Comment>(b.getComments());
@@ -53,7 +53,7 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void persistComment(Long bookId, Comment comment) {
+	public void persistComment(Integer bookId, Comment comment) {
 		  Session session = sessionFactory.getCurrentSession();
 		  session.save(comment);
 		  Book commentedBook = (Book) session.load(Book.class, bookId);

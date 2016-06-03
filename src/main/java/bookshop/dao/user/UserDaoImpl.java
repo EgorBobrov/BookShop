@@ -83,7 +83,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
 
 	@Override
-	public void addBookToBasket(Long bookId, String ssoId) {
+	public void addBookToBasket(Integer bookId, String ssoId) {
 		// TODO Auto-generated method stub
 		Session session = openSession();
 		Book addedBook = (Book) session.load(Book.class, bookId);
@@ -102,7 +102,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void removeBookFromBasket(Long bookId, String ssoId) {
+	public void removeBookFromBasket(Integer bookId, String ssoId) {
 		Session session = openSession();
 		Book removedBook = (Book) session.load(Book.class, bookId);
 		User buyer = findBySSO(ssoId);

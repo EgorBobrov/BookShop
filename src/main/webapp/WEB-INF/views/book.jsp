@@ -206,6 +206,26 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<a href="${pageContext.request.contextPath}/">Go back</a>
+	
+	<sec:authorize access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+	    <c:if test="${!empty similarBooks}">	
+		<h2>Customers Who Bought This Item Also Bought</h2>
+
+				<table class="tg">
+					<c:forEach items="${similarBooks}" var="book">
+					<tr>
+					<td rowspan="9"><a
+						href="${pageContext.request.contextPath}/book/${book.id}"><img
+							src="${pageContext.request.contextPath}/img/books/${book.cover}"
+							width="150px" alt="No picture available" /></a><br>
+					<a
+						href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
+				    </tr>
+				</c:forEach></table>
+			</c:if>
+	</sec:authorize>
+	
+	
+	<br><br><a href="${pageContext.request.contextPath}/">Go back</a>
 </body>
 </html>

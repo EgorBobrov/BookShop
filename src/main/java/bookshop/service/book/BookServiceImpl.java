@@ -11,6 +11,7 @@ import bookshop.dao.book.BookDao;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
+import bookshop.model.user.User;
 
 @Service
 @Transactional
@@ -48,13 +49,13 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	//@Transactional
-	public Book getBookById(Long id) {
+	public Book getBookById(Integer id) {
 		return this.bookDao.getBookById(id);
 	}
 
 	@Override
 	//@Transactional
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		this.bookDao.delete(id);
 	}
 	
@@ -91,7 +92,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void rateBook(Long id, Integer rating) {
+	public void rateBook(Integer id, Integer rating) {
 		this.bookDao.rateBook(id, rating);
 	}
 
@@ -103,6 +104,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getFoundBooksByRating() {
 		return bookDao.doSearchByRating();
+	}
+	
+	@Override
+	public List<Integer> getSimilarBooks(Book b, User u){
+		return this.bookDao.getSimilarBooks(b, u);
 	}
 
 }

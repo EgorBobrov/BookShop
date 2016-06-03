@@ -74,13 +74,13 @@ public class UserServiceImpl implements UserService{
     }
 
 	@Override
-	public void addBookToBasket(Long bookId, String ssoId) {
+	public void addBookToBasket(Integer bookId, String ssoId) {
 		dao.addBookToBasket(bookId, ssoId);
 		logger.info("Added " + bookId + " to " + ssoId + " inventory.");
 	}
 
 	@Override
-	public void removeBookFromBasket(Long bookId, String ssoId) {
+	public void removeBookFromBasket(Integer bookId, String ssoId) {
 		dao.removeBookFromBasket(bookId, ssoId);
 	}
 

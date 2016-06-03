@@ -17,9 +17,9 @@ public interface UserDao {
      
     List<User> findAllUsers();
 
-	void addBookToBasket(Long bookId, String ssoId);
+	void addBookToBasket(Integer bookId, String ssoId);
 
-	void removeBookFromBasket(Long bookId, String ssoId);
+	void removeBookFromBasket(Integer bookId, String ssoId);
 
 	void commitPurchase(String ssoId);
  

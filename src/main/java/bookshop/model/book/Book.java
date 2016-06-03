@@ -46,7 +46,8 @@ public class Book implements Serializable {
     @Id 
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    Long id;
+    //had to change type to integer (from long) as it is Integer in db, not BIGINT
+    Integer id;
   
     //By default, all fields of the class are mapped to table columns with the same name. 
     //Use the @Column annotation when the field and column names differ
@@ -207,7 +208,7 @@ public class Book implements Serializable {
     public Integer getNbOfPages() {
 		return nbOfPages;
 	}
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
     public Integer getPrice() {
@@ -225,7 +226,7 @@ public class Book implements Serializable {
     public String getCover() {
     	return this.cover;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public void setTitle(String title) {

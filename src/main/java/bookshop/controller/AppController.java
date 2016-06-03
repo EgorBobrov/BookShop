@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -91,6 +92,7 @@ public class AppController {
         model.addAttribute("user", user);
     	return "books";
     }
+    
     @RequestMapping(value="/books/{order}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String listBooksByOrder(@PathVariable("order") String order, Model model) {
@@ -110,13 +112,20 @@ public class AppController {
 
     @RequestMapping(value="/book/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String displayBook(@PathVariable("id") Long id, Model model) {
+    public String displayBook(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("comment", new Comment());
     	model.addAttribute("book", this.bookService.getBookById(id));
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("comments", commentService.getAll(id));
-        User user = userService.findBySSO(getPrincipal());
-        model.addAttribute("user", user);
+    	User user = userService.findBySSO(getPrincipal());
+    	model.addAttribute("user", user);
+    	
+    	//lower panel - getting "similar" books (someone bought them as a bundle)
+    	Book b = this.bookService.getBookById(id);
+    	List<Integer> bIds = this.bookService.getSimilarBooks(b, user);
+    	List<Book> bBooks = new ArrayList<Book>();
+    	bIds.stream().forEach(bId -> bBooks.add(this.bookService.getBookById(bId)));
+    	model.addAttribute("similarBooks", bBooks);
     	return "book";
     }
     
@@ -152,7 +161,7 @@ public class AppController {
     }
     
     @RequestMapping(value="/book/{id}/postcomment")
-    public String postComment(@PathVariable("id") Long id, Model model, @ModelAttribute("comment") Comment comment) {
+    public String postComment(@PathVariable("id") Integer id, Model model, @ModelAttribute("comment") Comment comment) {
     	model.addAttribute("comment", new Comment());
     	this.commentService.persistComment(id, comment);
     	model.addAttribute("book", this.bookService.getBookById(id));
@@ -162,7 +171,7 @@ public class AppController {
     }
         
     @RequestMapping(value="/book/{id}/rate")
-    public String rate(@PathVariable("id") Long id, Model model, @ModelAttribute("rating") Integer rating) {
+    public String rate(@PathVariable("id") Integer id, Model model, @ModelAttribute("rating") Integer rating) {
     	model.addAttribute("rating", rating);
     	bookService.rateBook(id, rating);
     	model.addAttribute("comment", new Comment());
@@ -173,13 +182,13 @@ public class AppController {
     }
 
     @RequestMapping("/remove/{id}")
-    public String removeBook(@PathVariable("id") Long id){
+    public String removeBook(@PathVariable("id") Integer id){
         
         this.bookService.delete(id);
         return "redirect:/books";
     }
     @RequestMapping("/edit/{id}")
-    public String editBook(@PathVariable("id") Long id, Model model){
+    public String editBook(@PathVariable("id") Integer id, Model model){
         model.addAttribute("book", this.bookService.getBookById(id));
         model.addAttribute("genre", Genre.values());
         model.addAttribute("listBooks", this.bookService.getAllBooks());
@@ -413,7 +422,7 @@ public class AppController {
     
     //"liking" someone's comment
     @RequestMapping("/like/{book.id}/{comment.id}")
-    public String likingComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
+    public String likingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
     	User user = userService.findBySSO(this.getPrincipal());
     	//System.out.println("like: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.likeComment(commentId, user);
@@ -426,7 +435,7 @@ public class AppController {
     
     //"disliking"/flagging someone's comment
     @RequestMapping("/dislike/{book.id}/{comment.id}")
-    public String dislikingComment(Model model, @PathVariable("book.id") Long bookId,  @PathVariable("comment.id") Long commentId) {
+    public String dislikingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
     	User user = userService.findBySSO(this.getPrincipal());
     	//System.out.println("dislike: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.dislikeComment(commentId, user);
@@ -438,7 +447,7 @@ public class AppController {
     }
     
     @RequestMapping("/tobasket/{book.id}")
-    public String addToBasket(Model model, @PathVariable("book.id") Long bookId) {
+    public String addToBasket(Model model, @PathVariable("book.id") Integer bookId) {
     	this.userService.addBookToBasket(bookId, this.getPrincipal());
     	model.addAttribute("comment",  new Comment());
     	model.addAttribute("book", this.bookService.getBookById(bookId));
@@ -449,7 +458,7 @@ public class AppController {
     	return "book";
     }
     @RequestMapping("/removeFromBasket/{book.id}")
-    public String removeFromBasket(Model model, @PathVariable("book.id") Long bookId) {
+    public String removeFromBasket(Model model, @PathVariable("book.id") Integer bookId) {
     	this.userService.removeBookFromBasket(bookId, this.getPrincipal());
         User user = userService.findBySSO(this.getPrincipal());
         model.addAttribute("user", user);

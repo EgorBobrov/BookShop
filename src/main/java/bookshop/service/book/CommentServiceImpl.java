@@ -20,7 +20,7 @@ public class CommentServiceImpl implements CommentService {
 		this.commentDao = commentDao;
 	}
 	@Override
-	public List<Comment> getAll(Long bookId) {
+	public List<Comment> getAll(Integer bookId) {
 		return commentDao.getAll(bookId);
 	}
 	@Override
@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 		return commentDao.getCommentById(id);
 	}
 	@Override
-	public void persistComment(Long bookId, Comment comment) {
+	public void persistComment(Integer bookId, Comment comment) {
 		commentDao.persistComment(bookId, comment);
 	}
 	@Override

@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
+import bookshop.model.user.User;
  
 //@Component
 @Repository
@@ -57,7 +59,7 @@ public class BookDaoImpl implements BookDao {
         logger.info("Book updated successfully. Details: " + book);
 	}
 	//@Transactional
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Session session = openSession();
         Book b = (Book) session.load(Book.class, id);
         if(b != null){
@@ -131,10 +133,20 @@ public class BookDaoImpl implements BookDao {
 
     //search via genre
     @SuppressWarnings("unchecked")
-    //@Transactional
 	public List<Book> doSearch(Genre genre) {
     	Session session = openSession();
      	return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(genre)).list();
+    }
+    
+    //getting a list of books which were purchased by the same user who purchased the current book
+    @SuppressWarnings("unchecked")
+    public List<Integer> getSimilarBooks(Book b, User u){
+    	Session session = openSession();
+    	String sql = String.format("SELECT DISTINCT b.id as rank FROM BOOK b JOIN USER_INVENTORY ui ON b.id = ui.book_id WHERE b.id<>%1$d  AND ui.user_id IN (SELECT DISTINCT us.id FROM APP_USER us JOIN USER_INVENTORY inv ON us.id = inv.user_id WHERE inv.book_id = %1$d  AND us.id<>%2$d ) GROUP BY b.id ORDER BY rank DESC, b.title;",
+    			b.getId(), u.getId());
+    	Query query = session.createSQLQuery(sql);
+    	List<Integer> bookIdList = (List<Integer>) query.list();
+     	return bookIdList;
     }
     
     public void setKeyword(String keyword) {
@@ -146,7 +158,7 @@ public class BookDaoImpl implements BookDao {
     }
 
    // @Transactional
-    public Book getBookById(Long id) {
+    public Book getBookById(Integer id) {
     	Session session = openSession();      
         Book b = (Book) session.load(Book.class, id);
         logger.info("Book loaded successfully, Book details = " + b);
@@ -174,7 +186,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public void rateBook(Long bookId, Integer rating) {
+	public void rateBook(Integer bookId, Integer rating) {
 		logger.info("Rating book...");
     	Session session = openSession();  
     	Book b = new Book();
