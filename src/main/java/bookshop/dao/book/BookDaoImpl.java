@@ -5,6 +5,7 @@
 
 package bookshop.dao.book;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -140,13 +141,16 @@ public class BookDaoImpl implements BookDao {
     
     //getting a list of books which were purchased by the same user who purchased the current book
     @SuppressWarnings("unchecked")
-    public List<Integer> getSimilarBooks(Book b, User u){
+    public List<Book> getSimilarBooks(Book b, User u){
     	Session session = openSession();
     	String sql = String.format("SELECT DISTINCT b.id as rank FROM BOOK b JOIN USER_INVENTORY ui ON b.id = ui.book_id WHERE b.id<>%1$d  AND ui.user_id IN (SELECT DISTINCT us.id FROM APP_USER us JOIN USER_INVENTORY inv ON us.id = inv.user_id WHERE inv.book_id = %1$d  AND us.id<>%2$d ) GROUP BY b.id ORDER BY rank DESC, b.title;",
     			b.getId(), u.getId());
     	Query query = session.createSQLQuery(sql);
     	List<Integer> bookIdList = (List<Integer>) query.list();
-     	return bookIdList;
+    	List<Book> bBooks = new ArrayList<Book>();
+    	bookIdList.stream().forEach(bId -> bBooks.add(this.getBookById(bId)));
+
+     	return bBooks;
     }
     
     public void setKeyword(String keyword) {

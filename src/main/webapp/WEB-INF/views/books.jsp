@@ -139,8 +139,7 @@
 	<a href="${pageContext.request.contextPath}/books/byorder">Show most recently added</a>
 	<br>
 	<c:if test="${!empty user.inventory }">
-		<a href="">Show recommended to me</a>
-		<br>
+		<a href="${pageContext.request.contextPath}/books/recommended">Show recommended to me</a>
 	</c:if>
 	<br>
 

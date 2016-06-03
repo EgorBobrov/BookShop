@@ -1,6 +1,8 @@
 package bookshop.controller;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -97,15 +99,41 @@ public class AppController {
     @ResponseStatus(HttpStatus.OK)
     public String listBooksByOrder(@PathVariable("order") String order, Model model) {
     	model.addAttribute("book", new Book());
+    	User user = userService.findBySSO(getPrincipal());
     	if (order.equals("byorder")) {
     		model.addAttribute("foundBooks", this.bookService.getFoundBooks());
     	}
     	else if (order.equals("byrating")){
     		model.addAttribute("foundBooks", this.bookService.getFoundBooksByRating());
 		}
+    	else if (order.equals("recommended")) {
+    		Long start = System.currentTimeMillis();
+    		Set<Book> recommendedBooks = new HashSet<>();
+    		List<Book> userBooks = user.getInventory();
+    		
+    		// TODO: saved for future testing on bigger library and user number
+/*    		userBooks.stream().forEach((book) -> {
+    			List<Book> books = this.bookService.getSimilarBooks(book, user);
+    			for (Book bb : books) {
+    				recommendedBooks.add(bb);
+    			}
+    		});
+*/    		
+    		for (Book b : userBooks) {
+    			List<Book> books = this.bookService.getSimilarBooks(b, user);
+    			// using regular foreach loop turns out to be actually a bit faster...
+    			// books.stream().forEach(book -> recommendedBooks.add(book));
+    			for (Book bb : books) {
+    				recommendedBooks.add(bb);
+    			}
+    		}
+    		model.addAttribute("foundBooks", recommendedBooks);
+    		Long finish = System.currentTimeMillis();
+    		logger.info("Time passed: " + (finish - start));
+    	}
     	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());
-        User user = userService.findBySSO(getPrincipal());
+        
         model.addAttribute("user", user);
     	return "books";
     }
@@ -119,12 +147,9 @@ public class AppController {
     	model.addAttribute("comments", commentService.getAll(id));
     	User user = userService.findBySSO(getPrincipal());
     	model.addAttribute("user", user);
-    	
     	//lower panel - getting "similar" books (someone bought them as a bundle)
     	Book b = this.bookService.getBookById(id);
-    	List<Integer> bIds = this.bookService.getSimilarBooks(b, user);
-    	List<Book> bBooks = new ArrayList<Book>();
-    	bIds.stream().forEach(bId -> bBooks.add(this.bookService.getBookById(bId)));
+    	List<Book> bBooks = this.bookService.getSimilarBooks(b, user);
     	model.addAttribute("similarBooks", bBooks);
     	return "book";
     }

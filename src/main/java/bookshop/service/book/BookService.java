@@ -23,6 +23,6 @@ public interface BookService {
 	public void updateAuthor(Author author);
 	public void rateBook(Integer id, Integer rating);
 	public List<Book> getFoundBooksByRating();
-	public List<Integer> getSimilarBooks(Book b, User u);
+	public List<Book> getSimilarBooks(Book b, User u);
 
 }

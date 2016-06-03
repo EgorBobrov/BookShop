@@ -107,7 +107,7 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public List<Integer> getSimilarBooks(Book b, User u){
+	public List<Book> getSimilarBooks(Book b, User u){
 		return this.bookDao.getSimilarBooks(b, u);
 	}
 
