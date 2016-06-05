@@ -32,7 +32,6 @@ import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn; 
 
 import org.hibernate.annotations.Formula;
-import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.model.user.User;
 

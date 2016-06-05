@@ -34,19 +34,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-
-			<c:url var="purchaseAction" value="/purchase/${user.ssoId}"></c:url>
-
-			<form:form action="${purchaseAction}" commandName="book">
-				<table>
-					<tr>
-						<td>Enter your card number: <br><input type="text"></td>
-					</tr>
-				</table>
-				<input type="submit" value="<spring:message text="Purchase"/>" />
-			</form:form>
-			<a href="${pageContext.request.contextPath}/">Go back</a>
-		</c:otherwise>
+			
+			<a href="<c:url value='/checkout/${loggedinuser}' />">Proceed to checkout</a>
+			</c:otherwise>
 	</c:choose>
 
 </body>

@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -78,8 +79,27 @@ public class User implements Serializable{
     @ManyToMany(mappedBy = "owners")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> inventory = new ArrayList<Book>();
+    
+    @OneToMany(targetEntity=UserAddress.class, mappedBy="user", fetch = FetchType.EAGER)
+    private Set<UserAddress> addresses;
 
-    public Set<Comment> getDislikedComments() {
+    public Set<UserAddress> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<UserAddress> addresses) {
+		this.addresses = addresses;
+	}
+	
+	public boolean addAddress(UserAddress ua){
+		return this.addresses.add(ua);
+	}
+	
+	public boolean removeAddress(UserAddress ua){
+		return this.addresses.remove(ua);
+	}
+
+	public Set<Comment> getDislikedComments() {
 		return dislikedComments;
 	}
 

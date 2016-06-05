@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.dao.user.UserDao;
-
 import bookshop.model.user.User;
+import bookshop.model.user.UserAddress;
 
 import java.util.List;
 
@@ -87,6 +87,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void commitPurchase(String ssoId) {
 		dao.commitPurchase(ssoId);
+	}
+	
+	@Override
+	public List<UserAddress> getExistingAddresses(User u){
+		return dao.getExistingAddresses(u);
+	}
+	
+	@Override
+	public void addAddress (User u, UserAddress ua){
+		dao.addAddress ( u,  ua);
+	}
+	
+	@Override
+	public void deleteAddress (User u, Integer addrId){
+		dao.deleteAddress (u, addrId);
 	}
      
 }

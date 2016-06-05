@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import bookshop.dao.AbstractDao;
 import bookshop.model.book.Book;
 import bookshop.model.user.User;
+import bookshop.model.user.UserAddress;
  
  
  
@@ -69,6 +70,34 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
             Hibernate.initialize(user.getUserProfiles());
         }*/
         return users;
+    }
+    
+    @SuppressWarnings("unchecked")
+   	public List<UserAddress> getExistingAddresses(User user) {
+       	Session session = openSession();
+       	List<UserAddress> ua = session.createQuery("select distinct a from UserAddress a inner join a.user WHERE a.user = :user").setParameter("user", user).list();
+       	return ua;
+    }
+    
+    public void addAddress (User u, UserAddress ua){
+    	Session session = sessionFactory.getCurrentSession();
+    	ua.setUserId(u);
+		session.save(ua);
+		u.addAddress(ua);
+		session.update(u);
+    }
+    
+    public void deleteAddress (User u, Integer addrId){
+    	Session session = sessionFactory.getCurrentSession();
+    	UserAddress ua = findAddressByID(addrId);
+		session.delete(ua);
+		u.removeAddress(ua);
+    }
+    
+    public UserAddress findAddressByID(Integer addrId){
+    	Session session = openSession();
+    	UserAddress ua = (UserAddress) session.createQuery("select distinct a from UserAddress a WHERE a.id = :addrId").setParameter("addrId", addrId).uniqueResult();
+    	return ua;
     }
  
     public void save(User user) {

@@ -1,7 +1,5 @@
 package bookshop.controller;
 
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +38,7 @@ import bookshop.model.book.Book;
 import bookshop.model.book.Comment;
 import bookshop.model.book.Genre;
 import bookshop.model.user.User;
+import bookshop.model.user.UserAddress;
 import bookshop.model.user.UserProfile;
 import bookshop.service.book.BookService;
 import bookshop.service.book.CommentService;
@@ -137,6 +136,7 @@ public class AppController {
         model.addAttribute("user", user);
     	return "books";
     }
+    
 
     @RequestMapping(value="/book/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -205,13 +205,52 @@ public class AppController {
     	model.addAttribute("comments", commentService.getAll(id));
     	return "book";
     }
+    
+    @RequestMapping(value = { "/checkout/{ssoId}" }, method = RequestMethod.GET)
+    public String showCheckout(@PathVariable String ssoId, ModelMap model) {
+        User user = userService.findBySSO(ssoId);
+        model.addAttribute("user", user);
+        model.addAttribute("loggedinuser", getPrincipal());
+        List<UserAddress> addresses = this.userService.getExistingAddresses(user);
+        model.addAttribute("existingAddresses", addresses);
+        return "checkout";
+    }
+    
+    @ModelAttribute("address")
+    public String addressHandling(Model model, @ModelAttribute("address") UserAddress address) {
+    	model.addAttribute("address", address);
+    	return "address";
+    }
 
+    @RequestMapping("/remove/address/{id}")
+    public String removeAddress(Model model, @PathVariable("id") Integer addrId){
+    	User user = userService.findBySSO(getPrincipal());
+    	this.userService.deleteAddress(user, addrId);
+    	model.addAttribute("address", new UserAddress());
+        model.addAttribute("user", user);
+        List<UserAddress> addresses = this.userService.getExistingAddresses(user);
+        model.addAttribute("existingAddresses", addresses);
+        return "checkout";
+    }
+    
+    @RequestMapping(value= "/addresses/add", method = RequestMethod.POST)
+    public String addAdress(Model model, @ModelAttribute("address") UserAddress address){
+    	User user = userService.findBySSO(getPrincipal());
+    	this.userService.addAddress(user, address);
+    	model.addAttribute("address", new UserAddress());
+        model.addAttribute("user", user);
+        List<UserAddress> addresses = this.userService.getExistingAddresses(user);
+        model.addAttribute("existingAddresses", addresses);
+        return "checkout";
+    }
+    
     @RequestMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Integer id){
         
         this.bookService.delete(id);
         return "redirect:/books";
     }
+    
     @RequestMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Integer id, Model model){
         model.addAttribute("book", this.bookService.getBookById(id));
@@ -275,6 +314,7 @@ public class AppController {
         model.addAttribute("loggedinuser", getPrincipal());
         return "order";
     }
+
 
     /**
      * This method will provide the medium to add a new user.
