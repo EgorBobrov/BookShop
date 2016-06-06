@@ -166,7 +166,7 @@ public class Book implements Serializable {
     @Column(name = "genre")
     protected Set<Genre> genres= new HashSet<Genre>();
     
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comment.class)
+    @OneToMany(cascade={CascadeType.REMOVE}, fetch = FetchType.EAGER, targetEntity = Comment.class)
     private List<Comment> comments = new ArrayList<Comment>();
     
     public List<Comment> getComments() {
@@ -271,6 +271,10 @@ public class Book implements Serializable {
     
     public Boolean removeAuthor (Author a){
     	return this.getAuthors().remove(a);
+    }
+    
+    public Boolean removeComment(Comment c){
+    	return this.comments.remove(c);
     }
     
     // hash, equals, toString

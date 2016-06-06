@@ -201,6 +201,10 @@
 									href="${pageContext.request.contextPath}/dislike/${book.id}/${comment.id}">${comment.dislikes}</a>
 							</c:if>
 						</sec:authorize></td>
+						<td><sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+						<a
+									href="${pageContext.request.contextPath}/removecomment/${book.id}/${comment.id}">Delete</a>
+					</sec:authorize></td>
 
 				</tr>
 			</c:forEach>
