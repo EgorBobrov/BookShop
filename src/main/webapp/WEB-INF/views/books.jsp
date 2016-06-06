@@ -121,7 +121,7 @@
 	<form action="${searchAction}">
 
 		<input type="text" name="keyword" class="form-control input-lg"
-			placeholder="enter the keyword(s)" tabindex="1" required="required">
+			placeholder="enter the keyword(s)" tabindex="1">
 		<input type="submit" value="Submit" />
 	</form>
 	<br>

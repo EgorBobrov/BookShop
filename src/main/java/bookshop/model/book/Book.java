@@ -191,12 +191,6 @@ public class Book implements Serializable {
         this.price = price;
         this.discount = discount;
     }
- 
-    // String Representation:
-    @Override
-    public String toString() {
-        return title;
-    }
     
     public String getIsbn() {
 		return isbn;
@@ -278,5 +272,45 @@ public class Book implements Serializable {
     public Boolean removeAuthor (Author a){
     	return this.getAuthors().remove(a);
     }
+    
+    // hash, equals, toString
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Book)) {
+            return false;
+        }
+        Book other = (Book) obj;
+        if (isbn != null) {
+            if (!isbn.equals(other.isbn)) {
+                return false;
+            }
+        }
+        //TEMPORARY! until we don't have db with correct isbns
+        if (title!= null) {
+            if (!title.equals(other.title)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result +((this.isbn == null) ? 0 : this.isbn.hashCode()) +((this.title == null) ? 0 : this.title.hashCode());
+        System.out.println("HASH" + result);
+        return result;
+    }
+    
+    @Override
+    public String toString() {
+        return title;
+    }
+
 
 }

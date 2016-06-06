@@ -105,6 +105,8 @@ public class AppController {
     	else if (order.equals("byrating")){
     		model.addAttribute("foundBooks", this.bookService.getFoundBooksByRating());
 		}
+    	//for recommended books we're checking the books that users who bought the same books as current user,
+    	//and displaying the books they bought as well.
     	else if (order.equals("recommended")) {
     		Long start = System.currentTimeMillis();
     		Set<Book> recommendedBooks = new HashSet<>();
@@ -123,7 +125,9 @@ public class AppController {
     			// using regular foreach loop turns out to be actually a bit faster...
     			// books.stream().forEach(book -> recommendedBooks.add(book));
     			for (Book bb : books) {
-    				recommendedBooks.add(bb);
+    				if (!userBooks.contains(bb) && !recommendedBooks.contains(bb)){
+    					recommendedBooks.add(bb);
+    				}
     			}
     		}
     		model.addAttribute("foundBooks", recommendedBooks);
