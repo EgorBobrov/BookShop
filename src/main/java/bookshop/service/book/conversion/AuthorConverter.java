@@ -39,7 +39,7 @@ public class AuthorConverter extends PropertyEditorSupport {
     } 
     
     public static Set<Author> toAuthor (String text){
-    	String[] authors = text.replaceAll("\\[|\\]", "").split(";");
+    	String[] authors = text.replaceAll("\\[|\\]", "").split(",");
     	Set<Author> setAuthors = new HashSet<Author>();
     	for (String a: authors){
     		setAuthors.add(new Author(a.trim()));
