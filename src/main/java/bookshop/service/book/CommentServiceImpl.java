@@ -32,8 +32,8 @@ public class CommentServiceImpl implements CommentService {
 		commentDao.persistComment(bookId, comment);
 	}
 	@Override
-	public void deleteCommentById(Long id) {
-		commentDao.deleteCommentById(id);
+	public void deleteCommentById(Long id, Integer bookId) {
+		commentDao.deleteCommentById(id, bookId);
 	}
 	
 	@Override

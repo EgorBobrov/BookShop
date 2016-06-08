@@ -197,7 +197,17 @@ public class AppController {
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("comments", commentService.getAll(id));
     	return "book";
-    }
+    } 
+
+    @RequestMapping(value="/removecomment/{book.id}/{comment.id}")
+    public String removeComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
+        	this.commentService.deleteCommentById(commentId,  bookId);
+        	model.addAttribute("comment",  new Comment());
+        	model.addAttribute("book", this.bookService.getBookById(bookId));
+        	model.addAttribute("loggedinuser", getPrincipal());
+            model.addAttribute("comments", commentService.getAll(bookId));
+            return "book";
+    } 
         
     @RequestMapping(value="/book/{id}/rate")
     public String rate(@PathVariable("id") Integer id, Model model, @ModelAttribute("rating") Integer rating) {

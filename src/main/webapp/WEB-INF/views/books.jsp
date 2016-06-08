@@ -55,7 +55,7 @@
 						style="display: none;" class="has-error" id="ttl_validation"></span></td>
 				</tr>
 				<tr>
-					<td><form:label path="cover">
+				<td><form:label path="cover">
 							<spring:message text="Cover" />
 						</form:label></td>
 					<td><form:input path="cover" value="No-image-available.jpg"
@@ -173,24 +173,7 @@
 				<th width="300">Book info</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
-				<tr>
-					<%-- 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"><td>${book.id}</td></sec:authorize>
-					<td><a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
-					<td><img src="${pageContext.request.contextPath}/resources/img/books/${book.cover}" width="150px" /></td>
-					<td>${book.isbn}</td>
-					<td>${book.nbOfPages}</td>
-					<td>${book.description}</td>
-				 	<td>
-				 	<c:forEach items="${book.authors}" var="author">
-					<a href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a><br>
-					</c:forEach>
-					</td>
-					<td><c:forEach items="${book.genres}" var="genre">
-					<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a><br>
-					</c:forEach></td>
-					<td>${book.priceWDiscount}</td>
-					<td><fmt:formatNumber type="percent" maxFractionDigits="0" maxIntegerDigits="2" value="${book.discount}" /></td>
- --%>
+				<tr>			
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 						<td rowspan="9">${book.id}</td>
@@ -245,18 +228,22 @@
 							value="${book.resultRating}" /> based on ${book.votes } votes
 					</td>
 				</tr>
-				<%-- 				<c:if test="${!empty book.amountInStock}">
-					<tr>
-						<td><a href="<c:url value='/tobasket/${book.id}/${user.ssoId}' />">Add
-								to basket</a></td>
-					</tr>
-				</c:if>
-				<c:if test="${empty book.amountInStock}">
-					<tr>
-						<td>This book is unavailable at the moment.</td>
-					</tr>
-				</c:if>
- --%>
+					
+			<!--  	<sec:authorize
+					access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+					<c:choose>
+						<c:when
+							test="${!empty book.amountInStock && book.amountInStock > 0}">
+							<tr>
+								<td><a href="<c:url value='/tobasket/${book.id}' />">Add
+										to basket</a></td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<tr> <td>This book is unavailable at the moment.</td></tr>
+						</c:otherwise></c:choose>						
+				</sec:authorize>-->
+				
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 						<td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td>

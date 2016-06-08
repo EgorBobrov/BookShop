@@ -29,12 +29,19 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void deleteCommentById(Long id) {
+	public void deleteCommentById(Long id, Integer bookId) {
         Session session = openSession();
         Comment comment = (Comment) session.load(Comment.class, id);
 		if (comment != null) {
+	    	Book commentedBook = (Book) session.load(Book.class, bookId);
+			commentedBook.removeComment(comment);
+	   //   String sqlRemoveFromBookComments =  String.format("DELETE FROM BOOK_COMMENT where comments_id = %1$d", id);
+	  //  	Query query = session.createSQLQuery(sqlRemoveFromBookComments);
+	    //	query.executeUpdate();
+	      	session.save(commentedBook);
 			session.delete(comment);
 		}
+
 		logger.info("Comment deleted successfully, details: " + comment);
 	}
 
