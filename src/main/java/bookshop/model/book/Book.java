@@ -307,7 +307,6 @@ public class Book implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result +((this.isbn == null) ? 0 : this.isbn.hashCode()) +((this.title == null) ? 0 : this.title.hashCode());
-        System.out.println("HASH" + result);
         return result;
     }
     

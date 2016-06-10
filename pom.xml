@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.journaldev.spring</groupId>
-	<artifactId>SpringMVCHibernate</artifactId>
+	<artifactId>TheBookmazingBookShoppe</artifactId>
 	<name>The Bookmazing Book Shoppe</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>

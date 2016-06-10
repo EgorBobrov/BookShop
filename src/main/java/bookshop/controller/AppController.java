@@ -42,7 +42,6 @@ import bookshop.model.user.UserAddress;
 import bookshop.model.user.UserProfile;
 import bookshop.service.book.BookService;
 import bookshop.service.book.CommentService;
-import bookshop.service.book.conversion.AuthorConverter;
 import bookshop.service.user.UserProfileService;
 import bookshop.service.user.UserService;
  
@@ -174,7 +173,7 @@ public class AppController {
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book, @ModelAttribute("authors") Set <Author> auth, 
     		@RequestParam(value = "genres", required = false) Set <Genre> gen){
-    	book.setAuthors(AuthorConverter.toAuthor(auth.toString()));
+    	book.setAuthors(Author.toAuthor(auth.toString()));
     	book.setGenres(gen);
     	
         if(book.getId() == null){

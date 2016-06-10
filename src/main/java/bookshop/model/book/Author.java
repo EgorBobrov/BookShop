@@ -111,4 +111,14 @@ public class Author {
     public String toString() {
         return this.name;
     }
+    
+    //handling jsp string input which is meent to be a set of authors
+    public static Set<Author> toAuthor (String text){
+    	String[] authors = text.replaceAll("\\[|\\]", "").split(",");
+    	Set<Author> setAuthors = new HashSet<Author>();
+    	for (String a: authors){
+    		setAuthors.add(new Author(a.trim()));
+    	}
+    	return setAuthors;
+    }
 }
