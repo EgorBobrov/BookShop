@@ -66,7 +66,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Description: <br> ${book.description}
+			<td>Description: <br> ${XMLUtil.encodeChars(book.description)}
 			</td>
 		</tr>
 		<tr>

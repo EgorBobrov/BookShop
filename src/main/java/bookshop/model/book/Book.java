@@ -166,14 +166,15 @@ public class Book implements Serializable {
     @Column(name = "genre")
     protected Set<Genre> genres= new HashSet<Genre>();
     
-    @OneToMany(cascade={CascadeType.ALL}, fetch = FetchType.EAGER, targetEntity = Comment.class)
-    private List<Comment> comments = new ArrayList<Comment>();
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comment.class)
+    //@OrderColumn(name = "comments_id")
+    private Set<Comment> comments = new HashSet<Comment>();
     
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 

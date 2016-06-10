@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
 		return commentDao.getAll(bookId);
 	}
 	@Override
-	public Comment getCommentById(Long id) {
+	public Comment getCommentById(Integer  id) {
 		return commentDao.getCommentById(id);
 	}
 	@Override
@@ -32,22 +32,22 @@ public class CommentServiceImpl implements CommentService {
 		commentDao.persistComment(bookId, comment);
 	}
 	@Override
-	public void deleteCommentById(Long id, Integer bookId) {
+	public void deleteCommentById(Integer  id, Integer bookId) {
 		commentDao.deleteCommentById(id, bookId);
 	}
 	
 	@Override
-	public void updateComment(Long id) {
+	public void updateComment(Integer  id) {
 		commentDao.updateComment(id);
 	}
 	
 	@Override
-	public void likeComment(Long id, User user) {
+	public void likeComment(Integer  id, User user) {
 		commentDao.likeComment(id, user);
 	}
 	
 	@Override
-	public void dislikeComment(Long id, User user) {
+	public void dislikeComment(Integer  id, User user) {
 		commentDao.dislikeComment(id, user);
 	}
 

@@ -199,7 +199,7 @@ public class AppController {
     } 
 
     @RequestMapping(value="/removecomment/{book.id}/{comment.id}")
-    public String removeComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
+    public String removeComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Integer commentId) {
         	this.commentService.deleteCommentById(commentId,  bookId);
         	model.addAttribute("comment",  new Comment());
         	model.addAttribute("book", this.bookService.getBookById(bookId));
@@ -292,7 +292,6 @@ public class AppController {
     
     @RequestMapping(value="/books/{genre}")
 	public String genreFilter(@ModelAttribute("genre") Genre genre, Model model) {
-    	System.out.println ("will search for "+genre.toString());
     	this.bookService.findBook(genre);
     	model.addAttribute("loggedinuser", getPrincipal());
 	    return "redirect:/books";
@@ -500,9 +499,8 @@ public class AppController {
     
     //"liking" someone's comment
     @RequestMapping("/like/{book.id}/{comment.id}")
-    public String likingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
+    public String likingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Integer commentId) {
     	User user = userService.findBySSO(this.getPrincipal());
-    	//System.out.println("like: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.likeComment(commentId, user);
     	model.addAttribute("comment",  new Comment());
     	model.addAttribute("book", this.bookService.getBookById(bookId));
@@ -513,9 +511,8 @@ public class AppController {
     
     //"disliking"/flagging someone's comment
     @RequestMapping("/dislike/{book.id}/{comment.id}")
-    public String dislikingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Long commentId) {
+    public String dislikingComment(Model model, @PathVariable("book.id") Integer bookId,  @PathVariable("comment.id") Integer commentId) {
     	User user = userService.findBySSO(this.getPrincipal());
-    	//System.out.println("dislike: starting to work w/ comment #" + commentId + " of book "+ bookId+ " by "+ user.getId());	
     	this.commentService.dislikeComment(commentId, user);
     	model.addAttribute("comment",  new Comment());
     	model.addAttribute("book", this.bookService.getBookById(bookId));

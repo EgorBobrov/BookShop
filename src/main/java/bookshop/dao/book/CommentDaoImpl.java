@@ -29,15 +29,12 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void deleteCommentById(Long id, Integer bookId) {
+	public void deleteCommentById(Integer  id, Integer bookId) {
         Session session = openSession();
         Comment comment = (Comment) session.load(Comment.class, id);
 		if (comment != null) {
 	    	Book commentedBook = (Book) session.load(Book.class, bookId);
 			commentedBook.removeComment(comment);
-	   //   String sqlRemoveFromBookComments =  String.format("DELETE FROM BOOK_COMMENT where comments_id = %1$d", id);
-	  //  	Query query = session.createSQLQuery(sqlRemoveFromBookComments);
-	    //	query.executeUpdate();
 	      	session.save(commentedBook);
 			session.delete(comment);
 		}
@@ -45,15 +42,20 @@ public class CommentDaoImpl implements CommentDao {
 		logger.info("Comment deleted successfully, details: " + comment);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> getAll(Integer bookId) {
 		Session session = sessionFactory.getCurrentSession();
 		Book b = (Book) session.load(Book.class, bookId);
-		return new ArrayList<Comment>(b.getComments());
+		String sqlGetComments =  String.format("SELECT c.id FROM bookshop.COMMENT as c inner join BOOK_COMMENT as bc on c.id = bc.comments_id where bc.book_id = %1$d order by c.date;", b.getId());
+		List<Integer> commentIds = (ArrayList<Integer>) session.createSQLQuery(sqlGetComments).list();
+		List<Comment> comments = new ArrayList<Comment>();
+		commentIds.stream().forEach(id -> comments.add((Comment) session.load(Comment.class, id)));
+		return comments;
 	}
 
 	@Override
-	public Comment getCommentById(Long id) {
+	public Comment getCommentById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		return comment;
@@ -69,14 +71,14 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	@Override
-	public void updateComment(Long id){
+	public void updateComment(Integer  id){
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		session.merge(comment);
 	}
 	
 	@Override
-	public void likeComment(Long id, User user){
+	public void likeComment(Integer  id, User user){
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		//in case the comment was already liked, the user can choose to remove the "like"
@@ -91,7 +93,7 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	@Override
-	public void dislikeComment(Long id, User user){
+	public void dislikeComment(Integer id, User user){
 		Session session = sessionFactory.getCurrentSession();
 		Comment comment = (Comment) session.get(Comment.class, id);
 		//in case the comment was already disliked, the user can choose to remove the "dislike"
