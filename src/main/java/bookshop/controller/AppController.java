@@ -191,11 +191,11 @@ public class AppController {
     
     @RequestMapping(value="/book/{id}/postcomment")
     public String postComment(@PathVariable("id") Integer id, Model model, @ModelAttribute("comment") Comment comment) {
-    	model.addAttribute("comment", new Comment());
     	this.commentService.persistComment(id, comment);
     	model.addAttribute("book", this.bookService.getBookById(id));
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("comments", commentService.getAll(id));
+    	model.addAttribute("comment", new Comment());
     	return "book";
     } 
 

@@ -5,7 +5,7 @@
 
 	<groupId>com.journaldev.spring</groupId>
 	<artifactId>SpringMVCHibernate</artifactId>
-	<name>SpringMVCHibernate</name>
+	<name>The Bookmazing Book Shoppe</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
