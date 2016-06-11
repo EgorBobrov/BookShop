@@ -1,5 +1,7 @@
 package bookshop.model.book;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +23,7 @@ import bookshop.model.user.User;
 
 @Entity
 @Table(name="COMMENT")
-public class Comment {
+public class Comment implements Comparable<Comment> {
 	
     @Id 
     @Column(name="id")
@@ -163,6 +165,15 @@ public class Comment {
 			if (u.getSsoId().equals(username))
 				return true;
 		return false;
+	}
+	
+	//comparing comments by the time thay've been written on
+	@Override
+	public int compareTo(Comment other){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss '+0300'");
+		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);
+		LocalDateTime otherdate = LocalDateTime.parse(other.getDate(), formatter);
+	    return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
 	}
 
 }

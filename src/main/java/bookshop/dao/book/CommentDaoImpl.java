@@ -1,6 +1,7 @@
 package bookshop.dao.book;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -42,15 +43,13 @@ public class CommentDaoImpl implements CommentDao {
 		logger.info("Comment deleted successfully, details: " + comment);
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> getAll(Integer bookId) {
 		Session session = sessionFactory.getCurrentSession();
 		Book b = (Book) session.load(Book.class, bookId);
-		String sqlGetComments =  String.format("SELECT c.id FROM bookshop.COMMENT as c inner join BOOK_COMMENT as bc on c.id = bc.comments_id where bc.book_id = %1$d order by c.date;", b.getId());
-		List<Integer> commentIds = (ArrayList<Integer>) session.createSQLQuery(sqlGetComments).list();
-		List<Comment> comments = new ArrayList<Comment>();
-		commentIds.stream().forEach(id -> comments.add((Comment) session.load(Comment.class, id)));
+		List<Comment> comments = new ArrayList<Comment>(b.getComments());
+		Collections.sort(comments);
 		return comments;
 	}
 

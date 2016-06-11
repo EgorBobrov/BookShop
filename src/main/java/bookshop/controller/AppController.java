@@ -163,11 +163,6 @@ public class AppController {
     	model.addAttribute("loggedinuser", getPrincipal());
     	return "author";
     }
-    
-    /*@InitBinder
-    public void initBinder(WebDataBinder binder) {
-       binder.registerCustomEditor(Set.class, "authors", new AuthorConverter(this.bookService));
-    }*/
    
     //For book addition and update
     @RequestMapping(value= "/books/add", method = RequestMethod.POST)
