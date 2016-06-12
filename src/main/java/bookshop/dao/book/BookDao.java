@@ -8,7 +8,7 @@ import bookshop.model.book.Genre;
 import bookshop.model.user.User;
 
 public interface BookDao {
-	public void persistBook(Book book);
+	public Book persistBook(Book book);
 	public void updateBook(Book book);
 	public List<Book> getAllBooks();
 	public List<Book> getBooksSortedByRating();

@@ -18,14 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
 import bookshop.model.user.User;
  
-//@Component
 @Repository
+@Transactional
 public class BookDaoImpl implements BookDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
@@ -35,31 +36,26 @@ public class BookDaoImpl implements BookDao {
 	@Autowired
     private SessionFactory sessionFactory; 
 
-/* SessionFactory is set in RootConfig.java now
- *    
- * public void setSessionFactory(SessionFactory sf){
-        this.sessionFactory = sf;
-    }
-*/
 	private Session openSession() {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		return sessionFactory.getCurrentSession();
 	}
 
    // Stores a new book:
-	//@Transactional
-    public void persistBook(Book book) {
+    public Book persistBook(Book book) {
         Session session = openSession();
+        logger.info("Session opened successfully. Details: " + book);
         session.merge(book);
         logger.info("Book added successfully. Details: " + book);
+        return book;
     }
-	//@Transactional
+
     public void updateBook(Book book) {
         Session session = openSession();
         session.update(book);
         logger.info("Book updated successfully. Details: " + book);
 	}
-	//@Transactional
+
     public void delete(Integer id) {
         Session session = openSession();
         Book b = (Book) session.load(Book.class, id);
@@ -79,7 +75,6 @@ public class BookDaoImpl implements BookDao {
  
     // Retrieves all the books:
     @SuppressWarnings("unchecked")
-    //@Transactional
     // TODO: delete - not used
     public List<Book> getAllBooks() {
     	Session session = openSession();
@@ -89,6 +84,7 @@ public class BookDaoImpl implements BookDao {
         }
         return booksList;
     }
+    
     // Retrieves all the books and sorts them by rating
     // TODO: delete - not used
     @SuppressWarnings("unchecked")
@@ -108,7 +104,6 @@ public class BookDaoImpl implements BookDao {
 
     //search via title/keyword
     @SuppressWarnings("unchecked")
-    //@Transactional
 	public List<Book> doSearch() {
     	Session session = openSession();
      	if (keyword != null)
@@ -163,26 +158,16 @@ public class BookDaoImpl implements BookDao {
     	this.selectedGenre = g;
     }
 
-   // @Transactional
     public Book getBookById(Integer id) {
     	Session session = openSession();      
         Book b = (Book) session.load(Book.class, id);
         logger.info("Book loaded successfully, Book details = " + b);
-        // System.out.println("Book loaded successfully, Book details = " + b);
         return b;
     }
     
-  /*  @Override
-    public void persistAuthors(Set <Author> authors) {
-        Session session = this.sessionFactory.getCurrentSession();
-        authors.stream().forEach(author -> session.persist(author));
-    }*/
-    
     public Author getAuthor(String name){
-    	// System.out.println(getClass().getSimpleName());
     	Session session = openSession();
     	Author a = (Author) session.createQuery("select a from Author a where a.name = :name").setParameter("name", name).list().get(0);
-    	// System.out.println (a.toString());
 	    return a;
 	}
     

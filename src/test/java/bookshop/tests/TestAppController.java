@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,10 +23,12 @@ import bookshop.controller.AppController;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
+import bookshop.model.user.User;
 import bookshop.model.user.UserProfile;
 import bookshop.service.book.BookService;
 import bookshop.service.book.CommentService;
 import bookshop.service.user.UserProfileService;
+import bookshop.service.user.UserService;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,9 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 public class TestAppController {
-	
-	@Autowired
-	ApplicationContext context;
 
 	@Mock
     private BookService mockBookService;
@@ -47,6 +46,12 @@ public class TestAppController {
 	
 	@Mock
 	private UserProfileService mockUserProfileService;
+	
+	@Mock
+	private UserService mockUserService;
+	
+	@Mock
+	private Logger logger = LoggerFactory.getLogger(TestAppController.class);
  
     @InjectMocks
     private AppController appCon = new AppController();
@@ -83,7 +88,7 @@ public class TestAppController {
             Book second = new Book("978-141654834", "Came Back with the Wind", 1772, "Fascinating and unforgettable! A remarkable book, a spectacular book, a book that will not be forgotten!", 
          			  authors1, genres1, 30, 0.);
             
-            when(mockBookService.getAllBooks()).thenReturn(Arrays.asList(first, second));
+            when(mockBookService.getFoundBooks()).thenReturn(Arrays.asList(first, second));
             when(mockUserProfileService.findAll()).thenReturn(Arrays.asList(new UserProfile()));
             
             Authentication authentication = mock(Authentication.class);
@@ -92,23 +97,23 @@ public class TestAppController {
             when(securityContext.getAuthentication()).thenReturn(authentication);
             SecurityContextHolder.setContext(securityContext);
             when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn("sam");
+            when(mockUserService.findBySSO("sam")).thenReturn(new User("sam", "sam"));
  
             mockMvc.perform(get("/books"))
             		.andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(view().name("books"))
                     .andExpect(model().attributeExists("book"))
-                    .andExpect(model().attributeExists("listBooks"))
                     .andExpect(model().attributeExists("foundBooks"))
                     .andExpect(model().attributeExists("roles"))
                     .andExpect(model().attributeExists("loggedinuser"))
                     .andExpect(model().attributeExists("genre"))
                     .andExpect(model().attribute("loggedinuser", is("sam")))
-                    .andExpect(model().attribute("listBooks", hasSize(2)));
+                    .andExpect(model().attribute("foundBooks", hasSize(2)));
                    //.andExpect(model().attribute("listBooks", is("[Gone with the Wind, Came Back with the Wind]")));
 
-            verify(mockBookService, times(1)).getAllBooks();
-           // verifyNoMoreInteractions(mockBookService);
+            verify(mockBookService, times(1)).getFoundBooks();
+            verifyNoMoreInteractions(mockBookService);
  
         }
     

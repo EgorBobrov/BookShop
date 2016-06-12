@@ -259,46 +259,39 @@
 		function ValidateForm() {
 			var desc_input = document.getElementById("desc");
 			var title_input = document.getElementById("ttl");
-			var cover_input = document.getElementById("cvr");
+			//var cover_input = document.getElementById("cvr");
 			var isbn_input = document.getElementById("isbn");
-			var nbOfPages_input = document.getElementById("nbOfPages");
 			var authors_input = document.getElementById("authors");
 			var price_input = document.getElementById("price");
-			var discount_input = document.getElementById("discount");
 			var amountInStock_input = document.getElementById("amountInStock");
 			var valid = true;
 
 			if (desc_input.value == "") {
 				var message = document.getElementById("desc_validation");
-				message.innerHTML = "Please don't live book description empty";
+				message.innerHTML = "Please don't leave the book description field empty";
 				message.style.display = "";
 				valid = false;
 			}
 			if (title_input.value == "") {
 				var message = document.getElementById("ttl_validation");
-				message.innerHTML = "Please provide book title";
+				message.innerHTML = "Please provide the book title";
 				message.style.display = "";
 				valid = false;
 			}
 			if (isbn_input.value == "") {
 				var message = document.getElementById("isbn_validation");
-				message.innerHTML = "Please provide book ISBN";
+				message.innerHTML = "Please provide the ISBN";
 				message.style.display = "";
 				valid = false;
 			}
+			// EP: commented this, sometimes we just don't have the cover picture I guess
 			// no idea why, but in this case == "" check doesn't work
-			if (cover_input.value.length <= 0) {
-				var message = document.getElementById("cvr_validation");
-				message.innerHTML = "Please provide cover picture";
-				message.style.display = "";
-				valid = false;
-			}
-			if (nbOfPages_input.value == "" || isNaN(nbOfPages_input.value)) {
-				var message = document.getElementById("nbOfPages_validation");
-				message.innerHTML = "Please provide number of pages in numeric format";
-				message.style.display = "";
-				valid = false;
-			}
+			//if (cover_input.value.length <= 0) {
+			//	var message = document.getElementById("cvr_validation");
+			//	message.innerHTML = "Please provide the cover picture";
+			//	message.style.display = "";
+			//	valid = false;
+			//}
 			if (authors_input.value == "") {
 				var message = document.getElementById("authors_validation");
 				message.innerHTML = "Please list at least one author";
@@ -308,12 +301,6 @@
 			if (price_input.value == "" || isNaN(price_input.value)) {
 				var message = document.getElementById("price_validation");
 				message.innerHTML = "Please enter price of the book in numeric format";
-				message.style.display = "";
-				valid = false;
-			}
-			if (discount_input.value == "" || isNaN(discount_input.value)) {
-				var message = document.getElementById("discount_validation");
-				message.innerHTML = "Please enter discount value in numeric format";
 				message.style.display = "";
 				valid = false;
 			}

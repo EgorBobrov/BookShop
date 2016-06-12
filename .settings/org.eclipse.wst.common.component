@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <property name="java-output-path" value="/BookList/target/classes"/>
-        <property name="context-root" value="SpringMVCHibernate"/>
+        <property name="context-root" value="TheBookmazingBookshoppe"/>
     </wb-module>
 </project-modules>

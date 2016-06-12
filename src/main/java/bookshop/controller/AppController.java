@@ -52,7 +52,8 @@ import bookshop.service.user.UserService;
 @SessionAttributes("roles")
 public class AppController {
  
-	static final Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
+	//had to make the logger non final& static because of http://stackoverflow.com/questions/30703149/mock-private-static-final-field-using-mockito-or-jmockit
+	Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 	
     @Autowired
     UserService userService;
@@ -79,6 +80,10 @@ public class AppController {
     
     public void setBookService(BookService bs){
         this.bookService = bs;
+    }
+    
+    public void setLogger(Logger logger){
+    	this.logger = logger;
     }
    
     @RequestMapping(value="/books", method = RequestMethod.GET)
@@ -285,11 +290,17 @@ public class AppController {
 	    return "redirect:/books";
 	}
     
+    //displaying only books with specific genre
     @RequestMapping(value="/books/{genre}")
 	public String genreFilter(@ModelAttribute("genre") Genre genre, Model model) {
-    	this.bookService.findBook(genre);
     	model.addAttribute("loggedinuser", getPrincipal());
-	    return "redirect:/books";
+    	model.addAttribute("book", new Book());
+    	model.addAttribute("foundBooks", this.bookService.findBook(genre));
+    	model.addAttribute("genre", Genre.values());
+    	model.addAttribute("loggedinuser", getPrincipal());
+        User user = userService.findBySSO(getPrincipal());
+        model.addAttribute("user", user);
+	    return "books";
 	}
 
     /**

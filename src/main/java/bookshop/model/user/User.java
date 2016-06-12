@@ -33,6 +33,14 @@ import bookshop.model.book.Comment;
 @Entity
 @Table(name="APP_USER")
 public class User implements Serializable{
+	
+	public User(String ssoId, String password){
+		this.ssoId = ssoId;
+		this.password = password;
+	}
+	
+	public User(){
+	}
  
 	private static final long serialVersionUID = 1L;
 
