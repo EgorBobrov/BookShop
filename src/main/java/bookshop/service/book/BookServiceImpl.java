@@ -1,7 +1,6 @@
 package bookshop.service.book;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,20 +53,17 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	//@Transactional
 	public void delete(Integer id) {
 		this.bookDao.delete(id);
 	}
 	
 	@Override
-	//@Transactional
 	public List<Book> findBook(String searchInput){
 		this.bookDao.setKeyword(searchInput);
 		return this.bookDao.doSearch();
 	}
 	
 	@Override
-	//@Transactional
 	public List<Book> findBook(Genre genre){
 		this.bookDao.setKeyword(null);
 		this.bookDao.setGenre(genre);
@@ -75,15 +71,8 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	//@Transactional
 	public List<Book> getFoundBooks(){
 		return this.bookDao.doSearch();
-	}
-	
-	@Override
-	//@Transactional
-	public void persistAuthors(Set <Author> authors) {
-	//	this.bookDao.persistAuthors(authors);
 	}
 	
 	@Override

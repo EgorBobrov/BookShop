@@ -2,7 +2,9 @@ package bookshop.model.book;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -170,7 +172,9 @@ public class Comment implements Comparable<Comment> {
 	//comparing comments by the time thay've been written on
 	@Override
 	public int compareTo(Comment other){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss '+0300'");
+	//	it might be worth changing this ti "EEE, dd MMM yyyy HH:mm:ss '+0300'" if it starts failing :(
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+				.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
 		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);
 		LocalDateTime otherdate = LocalDateTime.parse(other.getDate(), formatter);
 	    return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
