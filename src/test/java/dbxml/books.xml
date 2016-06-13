@@ -2,5 +2,45 @@
 <dataset>
      <BOOK 
         id = "1"
-        title="HATEEEEEEEEEEEE"/>
+        title="The Sound And The Fury"
+        isbn = "whatever"
+        amountInStock = "23"
+        price = "25"
+        rating = "000000000005"/>  
+     <BOOK 
+        id = "2"
+        isbn = "whatever"
+        title="As I Lay Dying"
+        rating = "000000000004"/>
+     <AUTHOR
+        name="William Faulkner"
+        bio = "William Faulkner was awarded the Nobel Prize for Literature in 1949 and the Pulitzer Prize for The Reivers just before his death in July 1962." />
+     <AUTHOR_BOOK 
+        book_id = "1"
+        author_name="William Faulkner"/>
+      <AUTHOR_BOOK 
+        book_id = "2"
+        author_name="William Faulkner"/>
+     <COMMENT 
+        id = "1"
+        text="What an awesome book"
+        date = "Wed, 8 Jun 2016 12:11:01 +0300"
+        user = "alaska"/>
+     <APP_USER
+        id = "1"
+        sso_id="alaska"
+        password = "qwerty12345"
+        first_name = "Alaska"
+        last_name = "5000"
+        email = "alaska@whatever.com"/>
+      <APP_USER
+        id = "2"
+        sso_id="chichi"
+        password = "devayne"
+        first_name = "Chi-Chi"
+        last_name = "DeVayne"
+        email = "chichi@whatever.com"/>
+      <BOOK_COMMENT
+        book_id = "1"
+        comments_id="1"/>     
 </dataset>
