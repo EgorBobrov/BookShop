@@ -12,6 +12,15 @@
         isbn = "whatever"
         title="As I Lay Dying"
         rating = "000000000004"/>
+     <GENRE_BOOK
+     	book_id = "1"
+     	genre = "FICTION"/>
+     <GENRE_BOOK
+     	book_id = "2"
+     	genre = "FICTION"/>
+     <GENRE_BOOK
+     	book_id = "2"
+     	genre = "COMEDY"/>
      <AUTHOR
         name="William Faulkner"
         bio = "William Faulkner was awarded the Nobel Prize for Literature in 1949 and the Pulitzer Prize for The Reivers just before his death in July 1962." />
@@ -42,5 +51,11 @@
         email = "chichi@whatever.com"/>
       <BOOK_COMMENT
         book_id = "1"
-        comments_id="1"/>     
+        comments_id="1"/>   
+      <USER_INVENTORY
+      	user_id = "2"
+      	book_id="1"/>
+      <USER_INVENTORY
+      	user_id = "2"
+      	book_id="2"/>
 </dataset>

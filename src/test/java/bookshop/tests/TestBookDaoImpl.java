@@ -24,10 +24,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import bookshop.dao.book.BookDao;
+import bookshop.dao.user.UserDao;
 import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
+import bookshop.model.user.User;
 import bookshop.tests.configuration.TestHibernateConfiguration;
+
 import static org.hamcrest.Matchers.*;
 
 
@@ -46,6 +49,9 @@ public class TestBookDaoImpl extends AbstractTransactionalJUnit4SpringContextTes
 	
 	@Autowired
 	private BookDao bookDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	@Test  
 	public void testBookById() {
@@ -80,7 +86,7 @@ public class TestBookDaoImpl extends AbstractTransactionalJUnit4SpringContextTes
 		Book getFromDao = bookDao.getBookById(1);
 		getFromDao.setPrice(20);
 		bookDao.updateBook(getFromDao);
-		assertEquals("edited price value persists", true, bookDao.getBookById(1).getPrice().equals(20));
+		assertTrue("edited price value persists", bookDao.getBookById(1).getPrice().equals(20));
 	}
 	
 	@Test
@@ -90,8 +96,45 @@ public class TestBookDaoImpl extends AbstractTransactionalJUnit4SpringContextTes
 		//will change rating and see whether the changes are reflected
 		bookList.get(1).setRating(2);
 		bookDao.updateBook(bookList.get(1));
-		assertThat("sorted by rating", bookList.get(0).getRating(), greaterThan(bookList.get(1).getId()));
-		
+		assertThat("sorted by rating", bookList.get(0).getRating(), greaterThan(bookList.get(1).getId()));	
     }
+	
+	@Test
+	 public void testFindByGenre() {
+		List <Book> bookList = bookDao.doSearch(Genre.COMEDY);
+		assertTrue("only <as I lay dying> is returned", bookList.get(0).getId().equals(2));	
+    }
+	
+	@Test
+	 public void testGetSimilarBooks() {
+		Book getFromDao = bookDao.getBookById(1);
+		User user = userDao.findById(1);
+		List <Book> bookList = bookDao.getSimilarBooks(getFromDao, user);
+		Book anotherBook = bookDao.getBookById(2);
+		assertEquals("one book is recommended", bookList.size(), 1);
+		assertEquals("it's this book that chichi owns with book 1", bookList.get(0), anotherBook);
+   }
+	
+	@Test
+	public void testGetAuthor() {
+		assertEquals("author's details are retrieved from db", bookDao.getAuthor("William Faulkner").getBio(),
+				"William Faulkner was awarded the Nobel Prize for Literature in 1949 and the Pulitzer Prize for The Reivers just before his death in July 1962.");
+	}
+	
+	@Test
+	public void testUpdateAuthor() {
+		Author toUpdate = bookDao.getAuthor("William Faulkner");
+		toUpdate.setPicture("william.png");
+		bookDao.updateAuthor(toUpdate);
+		assertEquals("not changed details are still valid", bookDao.getAuthor("William Faulkner").getBio(),
+				"William Faulkner was awarded the Nobel Prize for Literature in 1949 and the Pulitzer Prize for The Reivers just before his death in July 1962.");
+		assertEquals("changed details are changed", bookDao.getAuthor("William Faulkner").getPicture(), "william.png");
+	}
+	
+	@Test
+	public void testRateBook() {
+		bookDao.rateBook(1, 3);
+		assertTrue("sum of all ratings given to this book will change to 8", bookDao.getBookById(1).getRating().equals(8));
+	}
 
 }  
