@@ -12,22 +12,9 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 <body>
-	<sec:authorize
-		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 		<%@include file="authheader.jsp"%>
-	</sec:authorize>
-	<p style="font-size: 160%;">
-		<a href="${pageContext.request.contextPath}/login">Log in/Change
-			user</a>
-	</p>
-	<p style="font-size: 160%;">
-		<a href="${pageContext.request.contextPath}/newuser">Sign up as a
-			new user</a>
-	</p>
-
-<a href="${pageContext.request.contextPath}/books?language=en">English</a>
-<a href="${pageContext.request.contextPath}/books?language=ru_RU"><spring:message code="books.lang"/></a>
-
+	
+	<h1>Welcome to the Bookmazing Book Shoppe! </h1>
 	<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 		<p style="font-size: 160%;">
 			<a href="${pageContext.request.contextPath}/list">User list</a>
