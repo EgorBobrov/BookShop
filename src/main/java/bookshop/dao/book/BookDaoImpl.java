@@ -33,6 +33,14 @@ public class BookDaoImpl implements BookDao {
 	private String keyword = null;
 	private Genre selectedGenre = null;
 	
+    public void setKeyword(String keyword) {
+    	this.keyword = keyword;
+    }
+    
+    public void setGenre(Genre g) {
+    	this.selectedGenre = g;
+    }
+	
 	@Autowired
     private SessionFactory sessionFactory; 
 
@@ -148,14 +156,6 @@ public class BookDaoImpl implements BookDao {
     	bookIdList.stream().forEach(bId -> bBooks.add(this.getBookById(bId)));
 
      	return bBooks;
-    }
-    
-    public void setKeyword(String keyword) {
-    	this.keyword = keyword;
-    }
-    
-    public void setGenre(Genre g) {
-    	this.selectedGenre = g;
     }
 
     public Book getBookById(Integer id) {

@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
  
 
-@ComponentScan({ "bookshop.tests.configuration", "bookshop.dao.book" })
+@ComponentScan({ "bookshop.tests.configuration", "bookshop.dao.book", "bookshop.dao.user" })
 @PropertySource(value = { "classpath:application.properties" })
 public class TestHibernateConfiguration {
  
