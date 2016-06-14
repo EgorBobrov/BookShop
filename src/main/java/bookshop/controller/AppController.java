@@ -88,13 +88,14 @@ public class AppController {
    
     @RequestMapping(value="/books", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public String listBooks(Model model) {
+    public String listBooks(Model model, Locale locale) {
     	model.addAttribute("book", new Book());
     	model.addAttribute("foundBooks", this.bookService.getFoundBooks());
     	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());
         User user = userService.findBySSO(getPrincipal());
         model.addAttribute("user", user);
+        logger.info("Welcome home! The client locale is {}.", locale);
     	return "books";
     }
     

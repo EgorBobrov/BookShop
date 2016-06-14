@@ -140,7 +140,7 @@
 		access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 		<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
 
-		<form:form action="${postCommentAction}" commandName="comment">
+		<form:form action="${postCommentAction}" commandName="comment" onSubmit="return validateComment();">
 			<tr>
 				<td><form:label path="date" value="CURRENT YEAR">
 						<%-- <spring:message text="Date" /> --%>
@@ -159,9 +159,12 @@
 			<tr>
 				<td><form:label path="text">
 						<spring:message text="Enter your comment: " />
+						<br>
 					</form:label></td>
-				<td><form:textarea path="text" /></td>
+				<td><form:textarea path="text" id="comm"/><span style="display: none;" class="has-error"
+						id="comment_validation"></span></td>
 			</tr>
+			<br>
 			<input type="submit" value="<spring:message text="Add Comment"/>" />
 		</form:form>
 	</sec:authorize>
@@ -232,5 +235,8 @@
 	
 	
 	<br><br><a href="${pageContext.request.contextPath}/">Go back</a>
+		<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/script.js"></script>
+	
 </body>
 </html>

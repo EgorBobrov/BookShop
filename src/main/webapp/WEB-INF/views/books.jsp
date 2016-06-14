@@ -25,6 +25,9 @@
 			new user</a>
 	</p>
 
+<a href="${pageContext.request.contextPath}/books?language=en">English</a>
+<a href="${pageContext.request.contextPath}/books?language=ru_RU"><spring:message code="books.lang"/></a>
+
 	<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 		<p style="font-size: 160%;">
 			<a href="${pageContext.request.contextPath}/list">User list</a>
@@ -36,7 +39,7 @@
 		<c:url var="addAction" value="/books/add"></c:url>
 
 		<form:form action="${addAction}" commandName="book"
-			onSubmit="return ValidateForm();">
+			onSubmit="return ValidateBookAdditionForm();">
 			<table>
 				<c:if test="${!empty book.title}">
 					<tr>
@@ -55,7 +58,7 @@
 						style="display: none;" class="has-error" id="ttl_validation"></span></td>
 				</tr>
 				<tr>
-				<td><form:label path="cover">
+					<td><form:label path="cover">
 							<spring:message text="Cover" />
 						</form:label></td>
 					<td><form:input path="cover" value="No-image-available.jpg"
@@ -149,7 +152,7 @@
 	</sec:authorize>
 
 
-	<h3>Books in our shop:</h3>
+	<h3><spring:message code="books.list"/>:</h3>
 	<a href="${pageContext.request.contextPath}/books/byrating">Show
 		most popular</a>
 	<br>
@@ -173,7 +176,7 @@
 				<th width="300">Book info</th>
 			</tr>
 			<c:forEach items="${foundBooks}" var="book">
-				<tr>			
+				<tr>
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 						<td rowspan="9">${book.id}</td>
@@ -228,8 +231,8 @@
 							value="${book.resultRating}" /> based on ${book.votes } votes
 					</td>
 				</tr>
-					
-			<!--  	<sec:authorize
+
+				<!--  	<sec:authorize
 					access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 					<c:choose>
 						<c:when
@@ -243,7 +246,7 @@
 							<tr> <td>This book is unavailable at the moment.</td></tr>
 						</c:otherwise></c:choose>						
 				</sec:authorize>-->
-				
+
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 						<td><a href="<c:url value='/edit/${book.id}' />">Edit</a></td>
@@ -255,66 +258,7 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<script type="text/javascript">
-		function ValidateForm() {
-			var desc_input = document.getElementById("desc");
-			var title_input = document.getElementById("ttl");
-			//var cover_input = document.getElementById("cvr");
-			var isbn_input = document.getElementById("isbn");
-			var authors_input = document.getElementById("authors");
-			var price_input = document.getElementById("price");
-			var amountInStock_input = document.getElementById("amountInStock");
-			var valid = true;
-
-			if (desc_input.value == "") {
-				var message = document.getElementById("desc_validation");
-				message.innerHTML = "Please don't leave the book description field empty";
-				message.style.display = "";
-				valid = false;
-			}
-			if (title_input.value == "") {
-				var message = document.getElementById("ttl_validation");
-				message.innerHTML = "Please provide the book title";
-				message.style.display = "";
-				valid = false;
-			}
-			if (isbn_input.value == "") {
-				var message = document.getElementById("isbn_validation");
-				message.innerHTML = "Please provide the ISBN";
-				message.style.display = "";
-				valid = false;
-			}
-			// EP: commented this, sometimes we just don't have the cover picture I guess
-			// no idea why, but in this case == "" check doesn't work
-			//if (cover_input.value.length <= 0) {
-			//	var message = document.getElementById("cvr_validation");
-			//	message.innerHTML = "Please provide the cover picture";
-			//	message.style.display = "";
-			//	valid = false;
-			//}
-			if (authors_input.value == "") {
-				var message = document.getElementById("authors_validation");
-				message.innerHTML = "Please list at least one author";
-				message.style.display = "";
-				valid = false;
-			}
-			if (price_input.value == "" || isNaN(price_input.value)) {
-				var message = document.getElementById("price_validation");
-				message.innerHTML = "Please enter price of the book in numeric format";
-				message.style.display = "";
-				valid = false;
-			}
-			if (amountInStock_input.value == ""
-					|| isNaN(amountInStock_input.value)) {
-				var message = document
-						.getElementById("amountInStock_validation");
-				message.innerHTML = "Please enter amount of available books in numeric format";
-				message.style.display = "";
-				valid = false;
-			}
-
-			return valid;
-		}
-	</script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>
