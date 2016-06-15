@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -13,16 +13,14 @@
 
 <c:if test="${!empty existingAddresses}">
 	<br>
-	<h3>Is the address you'd like to use displayed below? If so, click
-		the corresponding "Ship to this address" button.</h3>
+	<h3><spring:message code="checkout.chooseaddress" />.</h3>
 	<table class="tg">
 		<c:forEach items="${existingAddresses}" var="address">
 			<tr>
 				<td>${address.toString()}</td>
 				<td><input type="submit"
-					value="<spring:message text="Ship to this address"/>" /></td>
-				<td><a href="<c:url value='/remove/address/${address.id}' />">Delete
-						address</a></td>
+					value="<spring:message code="checkout.shiptoaddress" />" /></td>
+				<td><a href="<c:url value='/remove/address/${address.id}' />"><spring:message code="checkout.deleteaddress" /></a></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -31,44 +29,44 @@
 <c:url var="addAction" value="/addresses/add"></c:url>
 
 <form:form action="${addAction}" commandName="address">
-	<h3>Enter a new shipping address.</h3>
+	<h3><spring:message code="checkout.enteraddress" />.</h3>
 	<table>
 		<tr>
 			<td><form:label path="name">
-					<spring:message text="Name" />
+					<spring:message code="checkout.entername" />
 				</form:label></td>
 			<td><form:input path="name" /></td>
 		</tr>
 		<tr>
 			<td><form:label path="street">
-					<spring:message text="Street/House/Apartment" />
+					<spring:message code="checkout.enterstrt" />
 				</form:label></td>
 			<td><form:input path="street" /></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="city">
-					<spring:message text="City" />
+					<spring:message code="checkout.entercity" />
 				</form:label></td>
 			<td><form:input path="city" /></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="region">
-					<spring:message text="Region" />
+					<spring:message code="checkout.enterregion" />
 				</form:label></td>
 			<td><form:input path="region" /></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="country">
-					<spring:message text="Country" />
+					<spring:message code="checkout.entercountry" />
 				</form:label></td>
 			<td><form:input path="country" /></td>
 		</tr>
 		<tr>
 			<td><c:if test="${empty address.street}">
-					<input type="submit" value="<spring:message text="Add Adress"/>" />
+					<input type="submit" value="<spring:message code="checkout.addaddress" />" />
 				</c:if></td>
 		</tr>
 	</table>
@@ -77,18 +75,18 @@
 <c:url var="purchaseAction" value="/purchase/${user.ssoId}"></c:url>
 <form:form action="${purchaseAction}" commandName="book"
 	onSubmit="return validateCheckout();">
-	<h3>Enter your card details</h3>
+	<h3><spring:message code="checkout.carddetails" /></h3>
 	<span class="payment-errors"></span>
 
 	<div class="form-row">
-		<label> <span>Card Number</span> <input type="text" size="20"
+		<label> <span><spring:message code="checkout.cardnum" /></span> <input type="text" size="20"
 			id="cardNum"><span style="display: none;" class="has-error"
 			id="cardNum_validation"></span>
 		</label>
 	</div>
 
 	<div class="form-row">
-		<label> <span>Expiration (MM/YY)</span> <input type="text"
+		<label> <span><spring:message code="checkout.expiration" /></span> <input type="text"
 			size="2" id="month">
 		</label> <span> / </span> <input type="text" size="2" id="year">
 		<span style="display: none;" class="has-error"
@@ -101,8 +99,8 @@
 		</label>
 	</div>
 
-	<input type="submit" class="submit" value="Submit Payment">
-	<a href="${pageContext.request.contextPath}">Go back</a>
+	<input type="submit" class="submit" value="<spring:message code="checkout.submit" />">
+	<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
 </form:form>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/script.js"></script>

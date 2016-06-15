@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -15,27 +15,26 @@
 
 	<c:choose>
 		<c:when test="${empty user.basket}">
-			The basket is empty.
-			<a href="${pageContext.request.contextPath}/">Go back</a>
+			<spring:message code="basket.empty" />.
+			<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
 		</c:when>
 		<c:otherwise>
 			<table class="tg">
 				<tr>
-					<th>Book</th>
-					<th>Price</th>
+					<th><spring:message code="basket.book" /></th>
+					<th><spring:message code="basket.price" /></th>
 					<th></th>
 				</tr>
 				<c:forEach items="${user.basket}" var="book">
 					<tr>
 						<td>${book.title}</td>
 						<td>${book.priceWDiscount}</td>
-						<td><a href="<c:url value='/removeFromBasket/${book.id}' />">Remove
-								from basket</a></td>
+						<td><a href="<c:url value='/removeFromBasket/${book.id}' />"><spring:message code="basket.remove" /></a></td>
 					</tr>
 				</c:forEach>
 			</table>
 			
-			<a href="<c:url value='/checkout/${loggedinuser}' />">Proceed to checkout</a>
+			<a href="<c:url value='/checkout/${loggedinuser}' />"><spring:message code="basket.checkout" /></a>
 			</c:otherwise>
 	</c:choose>
 

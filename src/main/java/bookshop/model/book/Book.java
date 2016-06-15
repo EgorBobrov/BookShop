@@ -177,7 +177,7 @@ public class Book implements Serializable {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
-
+	
 	// Constructors:
     public Book() {
     }

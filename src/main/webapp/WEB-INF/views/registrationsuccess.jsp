@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
  
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
     <title>Registration Confirmation Page</title>
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
@@ -15,11 +15,11 @@
         <%@include file="authheader.jsp" %>
          
         <div class="alert alert-success lead">
-            ${success}
+            <spring:message code="reg.user" /> ${firstname} ${lastname} <spring:message code="reg.successful" />
         </div>
          
         <span class="well floatRight">
-            Go to <a href="<c:url value='/books' />">Books List</a>
+            <spring:message code="reg.goto" /> <a href="<c:url value='/books' />"> <spring:message code="reg.main" /></a>
         </span>
     </div>
 </body>

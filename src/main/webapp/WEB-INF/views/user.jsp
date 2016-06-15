@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,12 +17,12 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>First name</th>
-				<th>Last name</th>
-				<th>Email</th>
-				<th>SSO ID</th>
-				<th>Books in the basket</th>
-				<th>Owned Books</th>
+				<th><spring:message code="user.fname" /></th>
+				<th><spring:message code="user.lname" /></th>
+				<th><spring:message code="user.email" /></th>
+				<th><spring:message code="user.ssoid" /></th>
+				<th><spring:message code="user.basket" /></th>
+				<th><spring:message code="user.inventory" /></th>
 				<%-- 				<c:if test="${loggedinuser eq user.ssoId}">
 					<th width="100"></th>
 				</c:if>
@@ -58,6 +59,6 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href="${pageContext.request.contextPath}/">Go back</a>
+	<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
 </body>
 </html>

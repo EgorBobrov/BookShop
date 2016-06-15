@@ -372,10 +372,9 @@ public class AppController {
             result.addError(ssoError);
             return "registration";
         }
-         
         userService.saveUser(user);
- 
-        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+        model.addAttribute("firstname", user.getFirstName());
+        model.addAttribute("lastname", user.getLastName());
         model.addAttribute("loggedinuser", getPrincipal());
         //return "success";
         return "registrationsuccess";
