@@ -100,4 +100,9 @@ public class BookServiceImpl implements BookService {
 		return this.bookDao.getSimilarBooks(b, u);
 	}
 
+	@Override
+	public List<Book> getLastCommentedBooks() {
+		return this.bookDao.getLastCommentedBooks();
+	}
+
 }

@@ -145,6 +145,11 @@
 	<a href="${pageContext.request.contextPath}/books/byorder"><spring:message
 			code="books.recentlyadded" /></a>
 	<br>
+	<sec:authorize access="hasRole('ADMIN')">
+		<a href="${pageContext.request.contextPath}/books/lastcommented"><spring:message
+			code="books.lastcommented" /></a>
+	<br>
+	</sec:authorize>
 	<c:if test="${!empty user.inventory }">
 		<a href="${pageContext.request.contextPath}/books/recommended">Show
 			recommended to me</a>

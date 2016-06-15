@@ -25,4 +25,5 @@ public interface BookDao {
 	public List<Book> doSearchByRating();
 	public void rateBook(Integer id, Integer rating);
 	public List<Book> getSimilarBooks(Book b, User u);
+	public List<Book> getLastCommentedBooks();
 }

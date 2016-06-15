@@ -110,6 +110,9 @@ public class AppController {
     	else if (order.equals("byrating")){
     		model.addAttribute("foundBooks", this.bookService.getFoundBooksByRating());
 		}
+    	else if (order.equals("lastcommented")) {
+			model.addAttribute("foundBooks", this.bookService.getLastCommentedBooks());
+		}
     	//for recommended books we're checking the books that users who bought the same books as current user,
     	//and displaying the books they bought as well.
     	else if (order.equals("recommended")) {

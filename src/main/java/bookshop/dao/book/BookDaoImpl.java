@@ -24,6 +24,7 @@ import bookshop.model.book.Author;
 import bookshop.model.book.Book;
 import bookshop.model.book.Genre;
 import bookshop.model.user.User;
+import bookshop.service.book.CommentService;
  
 @Repository
 @Transactional
@@ -43,6 +44,8 @@ public class BookDaoImpl implements BookDao {
 	
 	@Autowired
     private SessionFactory sessionFactory; 
+    @Autowired
+    private CommentService commentService;
 
 	private Session openSession() {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -213,6 +216,20 @@ public class BookDaoImpl implements BookDao {
 		}
         session.update(b);
         logger.debug("Book rated!");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Book> getLastCommentedBooks() {
+    	Session session = openSession();
+     	if (keyword != null)
+     			return session.createQuery("select distinct b from Book b inner join b.authors a WHERE UPPER(a.name) LIKE :keyword OR UPPER(b.title) LIKE :keyword OR UPPER(b.description) LIKE :keyword").setParameter("keyword", "%"+keyword.toUpperCase()+"%").list();
+     	if (selectedGenre!=null)	
+     		return session.createQuery("select distinct b from Book b inner join b.genres g WHERE g IN (:genres)").setParameterList("genres", Arrays.asList(selectedGenre)).list();
+     	List<Book> booksList = session.createQuery("from Book b").list();
+     	Collections.sort(booksList, (b1, b2) -> (int) ((b2.getLastCommentDate(commentService.getAll(b2.getId())) - b1.getLastCommentDate(commentService.getAll(b1.getId())))));
+     	return booksList;
+
 	}
 
 }
