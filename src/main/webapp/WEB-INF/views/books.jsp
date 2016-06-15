@@ -125,8 +125,7 @@
 		</form:form>
 	</sec:authorize>
 	<br>
-	<spring:message code="books.search" />
-	:
+	<spring:message code="books.search" />:
 	<c:url var="searchAction" value="/books/search"></c:url>
 	<form action="${searchAction}">
 
@@ -136,16 +135,9 @@
 	</form>
 	<br>
 
-	<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-		<p style="font-size: 160%;">
-			<a href="${pageContext.request.contextPath}/list">User list</a>
-		</p>
-	</sec:authorize>
-
 
 	<h3>
-		<spring:message code="books.list" />
-		:
+		<spring:message code="books.list" />:
 	</h3>
 	<a href="${pageContext.request.contextPath}/books/byrating"><spring:message
 			code="books.popular" /></a>
