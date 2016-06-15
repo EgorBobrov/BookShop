@@ -16,10 +16,10 @@
 <body>
 	<table class="tg">
 		<tr>
-			<th width="100">Author Name</th>
-			<th width="120">${pageContext.request.contextPath}</th>
-			<th width="120">Books</th>
-			<th width="120">Biography</th>
+			<th width="100"><spring:message code="author.name"/></th>
+			<th width="120"><spring:message code="author.authorpic"/></th>
+			<th width="120"><spring:message code="author.books"/></th>
+			<th width="120"><spring:message code="author.bio"/></th>
 		</tr>
 		<tr>
 			<td>${author.name}</td>
