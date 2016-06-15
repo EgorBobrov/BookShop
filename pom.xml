@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- TODO: fix groupId -->
 	<groupId>com.journaldev.spring</groupId>
 	<artifactId>TheBookmazingBookShoppe</artifactId>
 	<name>The Bookmazing Book Shoppe</name>
@@ -11,11 +12,11 @@
 
 	<properties>
 		<java-version>1.8</java-version>
-		<org.springframework-version>4.2.5.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.0.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
-		<spring.security.version>4.0.4.RELEASE</spring.security.version>
+		<spring.security.version>4.1.0.RELEASE</spring.security.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -41,6 +42,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- For aspect-oriented features -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
 
@@ -94,11 +101,17 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
 
 		<!-- Logging -->
-		<!-- Simple Logging Facade for Java (SLF4J) provides a Java logging API by means of a simple facade pattern.
-		 The underlying logging backend is determined at runtime by adding the desired binding to the classpath 
-		 and may be the standard Sun Java logging package java.util.logging, log4j, logback or tinylog. -->
+		<!-- Simple Logging Facade for Java (SLF4J) provides a Java logging API 
+			by means of a simple facade pattern. The underlying logging backend is determined 
+			at runtime by adding the desired binding to the classpath and may be the 
+			standard Sun Java logging package java.util.logging, log4j, logback or tinylog. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -207,56 +220,56 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest-library</artifactId>
-		    <version>1.3</version>
-		    <scope>test</scope>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- This is for mocking the service -->
- 		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-all</artifactId>
-		    <version>1.9.5</version>
-		    <scope>test</scope>
-		    <exclusions>
-			    <exclusion>
-	            <artifactId>hamcrest-core</artifactId>
-	            <groupId>org.hamcrest</groupId>
-	           </exclusion>
-	         </exclusions>  
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>1.8.0.10</version>
-            <type>jar</type>
-            <scope>test</scope>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.11</version>
-	    <scope>test</scope>
-	    <exclusions>
-	        <exclusion>
-	            <artifactId>hamcrest-core</artifactId>
-	            <groupId>org.hamcrest</groupId>
-	        </exclusion>
-	    </exclusions>
-	    </dependency>
-	    
-	    <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>2.5.1</version>
@@ -275,7 +288,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 
 	<build>
 		<plugins>

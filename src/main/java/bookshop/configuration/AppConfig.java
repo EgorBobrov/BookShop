@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
@@ -23,11 +24,13 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import bookshop.aspect.LoggingAspect;
 import bookshop.converter.RoleToUserProfileConverter;
 
 
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "bookshop")
 public class AppConfig extends WebMvcConfigurerAdapter{
 
@@ -107,4 +110,11 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	public void configurePathMatch(PathMatchConfigurer matcher) {
 		matcher.setUseRegisteredSuffixPatternMatch(true);
 	}
+	
+	 @Bean
+	 public LoggingAspect loggingAspect(){
+		 LoggingAspect loggingAspect = new LoggingAspect();
+		 return loggingAspect;
+	 }	
+
 }

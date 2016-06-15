@@ -1,4 +1,6 @@
-//alert("Hi");
+var lang = navigator.language
+
+console.log(lang);
 
 function ValidateBookAdditionForm() {
 	var desc_input = document.getElementById("desc");
