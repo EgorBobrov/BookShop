@@ -11,14 +11,23 @@
 <html>
 <head>
 <title>Book Shop</title>
+<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+
 </head>
 <body>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <div class="jumbotron">
+  <div class="container text-center">
+    <h1><spring:message
+					code="books.title" /></h1>      
+  </div>
+</div>
+    
+    
 	<%@include file="authheader.jsp"%>
-
-	<h1>
-		<spring:message code="books.title" />
-	</h1>
 	<sec:authorize access="hasRole('DBA')">
 		<h1>
 			<spring:message code="books.add" />
@@ -28,133 +37,132 @@
 
 		<form:form action="${addAction}" commandName="book"
 			onSubmit="return ValidateBookAdditionForm();">
-			<table>
 				<c:if test="${!empty book.title}">
-					<tr>
-						<td><form:label path="id">
-								<spring:message text="ID: " />
-							</form:label></td>
-						<td><form:input path="id" readonly="true" size="8"
-								disabled="true" /> <form:hidden path="id" /></td>
-					</tr>
+				 <div class="form-group">
+						<form:label path="id">
+							<spring:message text="ID: " />
+							</form:label>
+						<form:input path="id" readonly="true" size="8"
+								disabled="true" class="form-control" /> <form:hidden path="id" />
+					</div>
+								
 				</c:if>
-				<tr>
-					<td><form:label path="title">
+ 				<div class="form-group">
+					<form:label path="title">
 							<spring:message code="books.booktitle" />
-						</form:label></td>
-					<td><form:input path="title" name="title" id="ttl" /> <span
-						style="display: none;" class="has-error" id="ttl_validation"></span></td>
-				</tr>
-				<tr>
-					<td><form:label path="cover">
+						</form:label>
+					<form:input path="title" name="title" id="ttl" class="form-control"/> <span
+						style="display: none;" class="has-error" id="ttl_validation"></span>
+				</div>
+				
+				 <div class="form-group">
+					<form:label path="cover">
 							<spring:message code="books.bookcover" />
-						</form:label></td>
-					<td><form:input path="cover" value="No-image-available.jpg"
-							id="cvr" /> <span style="display: none;" class="has-error"
-						id="cvr_validation"></span></td>
-				</tr>
-
-				<tr>
-					<td><form:label path="isbn">
+						</form:label>
+					<form:input path="cover" value="No-image-available.jpg"
+							id="cvr" class="form-control" /> <span style="display: none;" class="has-error"
+						id="cvr_validation"></span>
+				
+				</div>
+				
+				 <div class="form-group">
+					<form:label path="isbn">
 							<spring:message text="ISBN: " />
-						</form:label></td>
-					<td><form:input path="isbn" id="isbn" /> <span
+						</form:label>
+					<form:input path="isbn" id="isbn" class="form-control"/> <span
 						style="display: none;" class="has-error" id="isbn_validation"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><form:label path="nbOfPages">
+					</div>
+				 <div class="form-group">
+					<form:label path="nbOfPages">
 							<spring:message code="books.bookpagenum" />
-						</form:label></td>
-					<td><form:input path="nbOfPages" id="nbOfPages" /> <span
+						</form:label>
+					<form:input path="nbOfPages" id="nbOfPages" class="form-control"/> <span
 						style="display: none;" class="has-error" id="nbOfPages_validation"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><form:label path="description">
-							<spring:message code="books.bookdescr" />
-						</form:label></td>
-					<td><form:textarea path="description" rows="5" cols="30"
-							id="desc" /><span style="display: none;" class="has-error"
-						id="desc_validation"></span></td>
+					</div>
 
-				</tr>
-				<tr>
-					<td><form:label path="authors">
+				<div class="form-group">
+				<form:label path="description">
+							<spring:message code="books.bookdescr" />
+						</form:label>
+					<form:textarea path="description" rows="5" cols="30"
+							id="desc" class="form-control" /><span style="display: none;" class="has-error"
+						id="desc_validation"></span>
+				</div>
+				
+				
+				<div class="form-group">
+				<form:label path="authors">
 							<spring:message code="books.bookauthors" />
-						</form:label></td>
-					<td><form:input path="authors" id="authors" /><span
-						style="display: none;" class="has-error" id="authors_validation"></span></td>
-				</tr>
-				<tr>
-					<td><form:label path="price">
+						</form:label>
+						<form:input path="authors" id="authors" class="form-control" /><span
+						style="display: none;" class="has-error" id="authors_validation"></span>
+				</div>
+				<div class="form-group">
+				<form:label path="price">
 							<spring:message code="books.bookprice" />
-						</form:label></td>
-					<td><form:input path="price" id="price" /><span
-						style="display: none;" class="has-error" id="price_validation"></span></td>
-				</tr>
-				<tr>
-					<td><form:label path="discount">
+						</form:label>
+						<form:input path="price" id="price" class="form-control" /><span
+						style="display: none;" class="has-error" id="price_validation"></span>
+				</div>
+								
+				 <div class="form-group"><form:label path="discount">
 							<spring:message code="books.discount" />
-						</form:label></td>
-					<td><form:input path="discount" id="discount" /><span
-						style="display: none;" class="has-error" id="discount_validation"></span></td>
-				</tr>
-				<tr>
-					<td><form:label path="amountInStock">
+						</form:label><form:input path="discount" id="discount" class="form-control" /><span
+						style="display: none;" class="has-error" id="discount_validation"></span></div>
+				 <div class="form-group">
+				 <form:label path="amountInStock">
 							<spring:message code="books.amount" />
-						</form:label></td>
-					<td><form:input path="amountInStock" id="amountInStock" /><span
+						</form:label><form:input path="amountInStock" id="amountInStock" class="form-control" /><span
 						style="display: none;" class="has-error"
-						id="amountInStock_validation"></span></td>
-				</tr>
-				<tr>
-					<td><form:select multiple="true" path="genres" name="genres">
-							<form:options items="${genre}" />
-						</form:select></td>
-				</tr>
-				<tr>
-					<td colspan="2"><c:if test="${!empty book.title}">
+						id="amountInStock_validation"></span></div>
+				 
+				 <div class="form-group"><form:select multiple="true" path="genres" name="genres">
+							<form:options items="${genre}" class="form-control" />
+						</form:select></div>
+				<div class="form-group">
+				 <c:if test="${!empty book.title}">
 							<input type="submit" value="<spring:message code="books.edit" />" />
-						</c:if> <c:if test="${empty book.title}">
+						</c:if> 
+						<c:if test="${empty book.title}">
 							<input type="submit"
 								value="<spring:message code="books.addbook" />" />
-						</c:if></td>
-				</tr>
-			</table>
+						</c:if>
+				</div>
 		</form:form>
 	</sec:authorize>
 	<br>
+	<div class="form-group">
 	<spring:message code="books.search" />:
 	<c:url var="searchAction" value="/books/search"></c:url>
+	
 	<form action="${searchAction}">
 
 		<input type="text" name="keyword" class="form-control input-lg"
 			placeholder="<spring:message code="books.keyword"/>" tabindex="1">
-		<input type="submit" value="<spring:message code="books.dosearch"/>" />
+		<input type="submit" class="btn btn-primary" value="<spring:message code="books.dosearch"/>" />
 	</form>
-	<br>
-
-
+	</div>
 	<h3>
 		<spring:message code="books.list" />:
 	</h3>
-	<a href="${pageContext.request.contextPath}/books/byrating"><spring:message
+	 <div class="btn-group btn-group-justified">
+	<a href="${pageContext.request.contextPath}/books/byrating" class="btn btn-primary"><spring:message
 			code="books.popular" /></a>
-	<br>
-	<a href="${pageContext.request.contextPath}/books/byorder"><spring:message
+	<a href="${pageContext.request.contextPath}/books/byorder" class="btn btn-primary"><spring:message
 			code="books.recentlyadded" /></a>
-	<br>
 	<sec:authorize access="hasRole('ADMIN')">
-		<a href="${pageContext.request.contextPath}/books/lastcommented"><spring:message
+		<a href="${pageContext.request.contextPath}/books/lastcommented" class="btn btn-primary"><spring:message
 			code="books.lastcommented" /></a>
-	<br>
 	</sec:authorize>
+		<sec:authorize access="hasRole('USER')">
 	<c:if test="${!empty user.inventory }">
-		<a href="${pageContext.request.contextPath}/books/recommended">Show
-			recommended to me</a>
+		<a href="${pageContext.request.contextPath}/books/recommended" class="btn btn-primary"><spring:message
+			code="books.recommended" /></a>
 	</c:if>
-	<br>
+	</sec:authorize>
+	
+	</div>
+	
 
 
 	<c:if test="${!empty foundBooks}">
@@ -177,77 +185,27 @@
 				<tr>
 				<tr>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-						<td rowspan="9">${book.id}</td>
+						<td rowspan="3">${book.id}</td>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER')">
-						<td rowspan="9"><a
+						<td rowspan="3"><a
 							href="${pageContext.request.contextPath}/book/${book.id}"><img
 								src="${pageContext.request.contextPath}/img/books/${book.cover}"
 								width="150px" alt="No picture available" /></a></td>
 					</sec:authorize>
 					<c:if test="${loggedinuser eq 'anonymousUser'}">
-						<td rowspan="9"><a
-							href="${pageContext.request.contextPath}/book/${book.id}"><img
+						<td rowspan="3"><a
+							href="${pageContext.request.contextPath}/book/${book.id}" ><img
 								src="${pageContext.request.contextPath}/img/books/${book.cover}"
-								width="150px" alt="No picture available" /></a></td>
+								width="150px" class="img-thumbnail" alt="No picture available" /></a></td>
 
 					</c:if>
 					<td><spring:message code="books.booktitle" />: <br> <a
 						href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 				</tr>
 				<tr>
-					<td><spring:message code="books.bookauthors" />: <br> <c:forEach
-							items="${book.authors}" var="author">
-							<a
-								href="${pageContext.request.contextPath}/author/${author.name}">${author.name}</a>
-							<br>
-						</c:forEach></td>
-				</tr>
-				<tr>
-
-					<td><spring:message code="books.bookgenres" />: <br> <c:forEach
-							items="${book.genres}" var="genre">
-							<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a>
-							<br>
-						</c:forEach></td>
-				</tr>
-				<sec:authorize access="hasRole('USER')">
-					<tr>
-						<td><spring:message code="books.bookpagenum" />: <br>
-							${book.nbOfPages}</td>
-					</tr>
-				</sec:authorize>
-				<c:if test="${loggedinuser eq 'anonymousUser'}">
-					<tr>
-						<td><spring:message code="books.bookpagenum" />: <br>
-							${book.nbOfPages}</td>
-					</tr>
-				</c:if>
-				<tr>
-					<td>ISBN: <br> ${book.isbn}
-					</td>
-				</tr>
-				<sec:authorize access="hasRole('USER')">
-					<tr>
-						<td><spring:message code="books.bookdescr" />: <br>
-							${book.description}</td>
-					</tr>
-				</sec:authorize>
-				<c:if test="${loggedinuser eq 'anonymousUser'}">
-					<tr>
-						<td><spring:message code="books.bookdescr" />: <br>
-							${book.description}</td>
-					</tr>
-				</c:if>
-
-				<tr>
 					<td><spring:message code="books.bookprice" />: <br>
 						${book.priceWDiscount}</td>
-				</tr>
-				<tr>
-					<td><spring:message code="books.discount" />: <br> <fmt:formatNumber
-							type="percent" maxFractionDigits="0" maxIntegerDigits="2"
-							value="${book.discount}" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="books.bookrating" />: <br> <fmt:formatNumber
@@ -255,47 +213,35 @@
 							value="${book.resultRating}" /> (${book.votes } <spring:message
 							code="books.bookvotes" />)</td>
 				</tr>
-
-				<!--  	<sec:authorize
-					access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
-					<c:choose>
-						<c:when
-							test="${!empty book.amountInStock && book.amountInStock > 0}">
-							<tr>
-								<td><a href="<c:url value='/tobasket/${book.id}' />">Add
-										to basket</a></td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<tr> <td>This book is unavailable at the moment.</td></tr>
-						</c:otherwise></c:choose>						
-				</sec:authorize>-->
-
 				<tr>
 					<sec:authorize access="hasRole('DBA')">
-						<td><a href="<c:url value='/edit/${book.id}' />"><spring:message
-									code="books.edit" /></a> | <a
-							href="<c:url value='/remove/${book.id}' />"><spring:message
-									code="books.delete" /></a></td>
+						<td><a href="<c:url value='/edit/${book.id}' />"><button type="button"
+						class="btn btn-warning"><spring:message
+									code="books.edit" /></button></a> | <a
+							href="<c:url value='/remove/${book.id}' />"><button type="button"
+						class="btn btn-danger"><spring:message
+									code="books.delete" /></button></a></td>
 					</sec:authorize>
 					<sec:authorize access="hasRole('DBA')">
 						<tr>
 							<td><spring:message code="books.amount" />:
-								${book.amountInStock}</td>
+								<span class="badge">${book.amountInStock}</span></td>
 						</tr>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ADMIN')">
 						<tr>
 							<td><spring:message code="books.comments" />:
-								${fn:length(book.comments)}</td>
+								<span class="badge">${fn:length(book.comments)}</span></td>
 						</tr>
 					</sec:authorize>
-
-
 				</tr>
+				
 			</c:forEach>
 		</table>
 	</c:if>
+	
+	<%@include file="footer.jsp"%>
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>

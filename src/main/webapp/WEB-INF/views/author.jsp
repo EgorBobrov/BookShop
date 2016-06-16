@@ -11,9 +11,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>${author.name}'s page</title>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 
 </head>
 <body>
+<%@include file="authheader.jsp"%>
+
 	<table class="tg">
 		<tr>
 			<th width="100"><spring:message code="author.name"/></th>
@@ -23,7 +26,7 @@
 		</tr>
 		<tr>
 			<td>${author.name}</td>
-			<td><img src="/BookList/img/authors/${author.picture}" /></td>
+			<td><img src="/BookList/img/authors/${author.picture}" class="img-circle" /></td>
 			<td><c:forEach items="${author.books}" var="book">
 					<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a><br>
 			</c:forEach></td>
@@ -31,8 +34,6 @@
 
 		</tr>
 	</table>
-	<br>
-	<a href="${pageContext.request.contextPath}/">Go back</a>
 	<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 	<h1>Edit an Author</h1>
 
@@ -64,5 +65,7 @@
         
 	</form:form>
 	</sec:authorize>
+		<%@include file="footer.jsp"%>
+	
 </body>
 </html>

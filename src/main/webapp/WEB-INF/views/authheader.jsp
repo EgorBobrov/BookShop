@@ -1,45 +1,62 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="authbar">
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	<%@ taglib prefix="sec"
-		uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<nav class="navbar navbar-inverse">
 
-	<span class="floatRight"> <sec:authorize
-			access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
+	<div class="container-fluid">
+		<ul class="nav navbar-nav">
+			<li><a href="${pageContext.request.contextPath}/"><spring:message
+						code="bookshop.tomain" /></a></li>
+			<sec:authorize
+				access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 
-			<p>
-				<spring:message code="auth.greeting" />, <strong>${loggedinuser}</strong>!
-			</p>
-			<sec:authorize access="hasRole('USER')">
+				<li><a href="<c:url value='/user/${loggedinuser}' />"><spring:message code="auth.greeting" /> , <strong>${loggedinuser}</strong>!</a></li>
 
-				<a href="<c:url value='/order/${loggedinuser}' />"><spring:message code="auth.basket" />
-					(${user.getBasket().size()})</a>
-				<br>
-				<a href="<c:url value='/user/${loggedinuser}' />"><spring:message code="auth.page" /></a>
-				<br>
+				<sec:authorize access="hasRole('USER')">
+					<li><a href="<c:url value='/order/${loggedinuser}' />"> <spring:message
+								code="auth.basket" /> <span class="badge">${user.getBasket().size()}
+						</span></a></li>
+
+				</sec:authorize>
+				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+					<li><a href="${pageContext.request.contextPath}/login"><spring:message code="auth.userlist" /></a></li>
+				</sec:authorize>
 			</sec:authorize>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><spring:message
+						code="books.chooselang" /> <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a
+						href="${pageContext.request.contextPath}/books?language=en">English</a>
+					</li>
+					<li><a
+						href="${pageContext.request.contextPath}/books?language=ru_RU"><spring:message
+								code="books.lang" /></a></li>
+				</ul></li>
+		</ul>
 
-			<a href="<c:url value="/logout" />"><spring:message code="auth.logout" /></a>
-		</sec:authorize>
-		<p style="font-size: 120%;">
-			<a href="${pageContext.request.contextPath}/login"><c:if
-					test="${loggedinuser eq 'anonymousUser'}"><spring:message code="auth.login"/></c:if> <c:if
-					test="${loggedinuser != 'anonymousUser'}"><spring:message code="auth.userlist"/></c:if></a>
-		</p>
-		<p style="font-size: 120%;">
-			<a href="${pageContext.request.contextPath}/newuser"><spring:message code="auth.newuser"/></a>
-		</p>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="${pageContext.request.contextPath}/newuser"><span
+					class="glyphicon glyphicon-user"></span> <spring:message
+						code="auth.newuser" /></a></li>
 
-		<p>
-			<spring:message code="books.chooselang" />
-			: <br> <a
-				href="${pageContext.request.contextPath}/books?language=en">English</a>
-			| <a href="${pageContext.request.contextPath}/books?language=ru_RU"><spring:message
-					code="books.lang" /></a>
-		</p>
+			<c:if test="${loggedinuser eq 'anonymousUser'}">
+				<li><a href="${pageContext.request.contextPath}/login"><span
+						class="glyphicon glyphicon-log-in"></span> <spring:message
+							code="auth.login" /></a></li>
+			</c:if>
+			<c:if test="${loggedinuser != 'anonymousUser'}">
+				<li><a href="<c:url value="/logout" />"><span
+						class="glyphicon glyphicon-log-in"></span> <spring:message
+							code="auth.logout" /></a></li>
+			</c:if>
 
-	</span>
-</div>
+		</ul>
+
+	</div>
+</nav>
+

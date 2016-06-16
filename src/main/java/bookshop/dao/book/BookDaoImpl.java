@@ -55,7 +55,6 @@ public class BookDaoImpl implements BookDao {
    // Stores a new book:
     public Book persistBook(Book book) {
         Session session = openSession();
-        logger.info("Session opened successfully. Details: " + book);
         session.merge(book);
         logger.info("Book added successfully. Details: " + book);
         return book;
@@ -164,7 +163,6 @@ public class BookDaoImpl implements BookDao {
     public Book getBookById(Integer id) {
     	Session session = openSession();      
         Book b = (Book) session.load(Book.class, id);
-        logger.info("Book loaded successfully, Book details = " + b);
         return b;
     }
     
@@ -181,41 +179,31 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public void rateBook(Integer bookId, Integer rating) {
-		logger.info("Rating book...");
     	Session session = openSession();  
     	Book b = new Book();
     	try {
     		b = (Book) session.load(Book.class, bookId);
-    		logger.info("Book loaded!");
 		} catch (Exception e) {
-			logger.info("Can't load the book...");
 		}
         try {
         	Integer votes = b.getVotes();
-        	logger.info("Votes before voting: " + votes);
         	b.setVotes(votes + 1);
-        	logger.info("Votes after voting: " + b.getVotes());
 		} catch (Exception e) {
 			logger.info("Can't set votes...");
 		}
         try {
         	Integer r = b.getRating();
-        	logger.info("Rating before voting: " + r);
         	b.setRating(r + rating);
-        	logger.info("Rating after voting: " + b.getRating());
 		} catch (Exception e) {
 			logger.info("Can't update rating...");
 		}
         try {
         	Double rr = b.getResultRating();
-        	logger.info("Result Rating before voting: " + rr);
         	b.setResultRating(b.getRating() * 1.0 / b.getVotes());
-        	logger.info("Result Rating after voting: " + b.getResultRating());
 		} catch (Exception e) {
 			logger.info("Can't update rating...");
 		}
         session.update(b);
-        logger.debug("Book rated!");
 	}
 
 	@SuppressWarnings("unchecked")

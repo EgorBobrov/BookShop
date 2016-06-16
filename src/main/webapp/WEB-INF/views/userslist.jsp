@@ -60,7 +60,7 @@
             </div>
         </sec:authorize>
     </div>
-    <p style="font-size:100%;">	<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
-</p>
+    	<%@include file="footer.jsp"%>
+    
 </body>
 </html>

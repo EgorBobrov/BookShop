@@ -14,6 +14,8 @@
 
 </head>
 <body>
+<%@include file="authheader.jsp"%>
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -59,6 +61,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
+		<%@include file="footer.jsp"%>
+	
 </body>
 </html>

@@ -113,21 +113,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public void addBookToBasket(Integer bookId, String ssoId) {
-		// TODO Auto-generated method stub
 		Session session = openSession();
 		Book addedBook = (Book) session.load(Book.class, bookId);
 		User buyer = findBySSO(ssoId);
-		System.out.println("!!! amount of books "+addedBook.getAmountInStock());
 		buyer.addToBasket(addedBook);
-		buyer.getBasket().stream().forEach(System.out::println);
 		addedBook.getBuyers().add(buyer);
-		addedBook.getBuyers().stream().forEach(System.out::println);
 		addedBook.setAmountInStock(addedBook.getAmountInStock() - 1);
-		System.out.println("amount of books "+addedBook.getAmountInStock());
 		session.update(buyer);
 		session.update(addedBook);
 		buyer = findBySSO(ssoId);
-		buyer.getBasket().stream().forEach(System.out::println);
 	}
 
 	@Override

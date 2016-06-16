@@ -9,9 +9,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
+
 <title>Order of ${user.ssoId}</title>
 </head>
 <body>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+<%@include file="authheader.jsp"%>
 
 	<c:choose>
 		<c:when test="${empty user.basket}">
@@ -27,16 +33,23 @@
 				</tr>
 				<c:forEach items="${user.basket}" var="book">
 					<tr>
-						<td>${book.title}</td>
+						<td><a
+						href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 						<td>${book.priceWDiscount}</td>
-						<td><a href="<c:url value='/removeFromBasket/${book.id}' />"><spring:message code="basket.remove" /></a></td>
+						<td><a href="<c:url value='/removeFromBasket/${book.id}' />"><button type="button"
+						class="btn btn-danger"><spring:message code="basket.remove" /></button></a></td>
 					</tr>
 				</c:forEach>
 			</table>
 			
-			<a href="<c:url value='/checkout/${loggedinuser}' />"><spring:message code="basket.checkout" /></a>
+			<a href="<c:url value='/checkout/${loggedinuser}' />"><button type="button"
+						class="btn btn-success"><spring:message code="basket.checkout" /></button></a>
 			</c:otherwise>
 	</c:choose>
+	<footer class="container-fluid text-center">
+  <p><spring:message
+					code="books.title" />, 2016</p>  
+</footer>
 
 </body>
 </html>

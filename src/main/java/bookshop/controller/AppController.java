@@ -170,6 +170,8 @@ public class AppController {
     public String displayAuthor(@PathVariable("author.name") String name, Model model) {
     	model.addAttribute("author", this.bookService.getAuthor(name));
     	model.addAttribute("loggedinuser", getPrincipal());
+    	User user = userService.findBySSO(getPrincipal());
+    	model.addAttribute("user", user);
     	return "author";
     }
    

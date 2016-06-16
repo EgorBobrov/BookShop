@@ -9,7 +9,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
+
 <title>Order of ${user.ssoId}: checkout</title>
+<%@include file="authheader.jsp"%>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 <c:if test="${!empty existingAddresses}">
 	<br>
@@ -100,8 +105,10 @@
 	</div>
 
 	<input type="submit" class="submit" value="<spring:message code="checkout.submit" />">
-	<a href="${pageContext.request.contextPath}/"><spring:message code="bookshop.tomain"/></a>
 </form:form>
+
+	<%@include file="footer.jsp"%>
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>

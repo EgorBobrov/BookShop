@@ -16,9 +16,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>The ${book.title} page</title>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 
 </head>
 <body>
+<div class="container">
 	<table class="tg">
 		<tr>
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
@@ -33,7 +35,7 @@
 			</sec:authorize>
 			<td rowspan="10"><img
 				src="${pageContext.request.contextPath}/img/books/${book.cover}"
-				width="150px" alt="No picture available" /></td>
+				width="150px" class="img-thumbnail" alt="No picture available" /></td>
 			<td><spring:message code="books.booktitle" />: <br>
 				${book.title}</td>
 		</tr>
@@ -120,10 +122,11 @@
 		<c:url var="rateAction" value="/book/${book.id}/rate"></c:url>
 
 		<form:form action="${rateAction}" commandName="book">
+		 <div class="form-group">
 			<form:label path="rating">
 				<spring:message code="book.rate" />
 			</form:label>
-			<form:select path="rating">
+			<form:select path="rating" class="form-control">
 				<form:option value="5" label="5" />
 				<form:option value="4" label="4" />
 				<form:option value="3" label="3" />
@@ -132,45 +135,40 @@
 			</form:select>
 
 			<input type="submit" value="<spring:message code="book.ratebook"/>" />
+			</div>
 		</form:form>
 	</sec:authorize>
-
-	<br>
 	<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
 		<c:url var="postCommentAction" value="/book/${book.id}/postcomment"></c:url>
 
 		<form:form action="${postCommentAction}" commandName="comment"
 			onSubmit="return validateComment();">
-			<tr>
-				<td><form:label path="date" value="CURRENT YEAR">
-						<%-- <spring:message text="Date" /> --%>
-					</form:label></td>
-				<td><form:hidden path="date"
-						value="<%=ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)%>" />
-				</td>
-			</tr>
-			<tr>
-				<td><form:label path="user">
+			<div class="form-group">
+			<form:label path="date" value="CURRENT YEAR">
+					</form:label>
+					<form:hidden path="date"
+						value="<%=ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)%>" class="form-control"/>
+				</div>
+			<div class="form-group">
+			<form:label path="user">
 						<%-- <spring:message text="User" /> --%>
-					</form:label></td>
-				<td><form:hidden path="user" value="${loggedinuser}" /></td>
-			</tr>
+					</form:label>
+				<form:hidden path="user" value="${loggedinuser}" class="form-control" />
+				</div>
 
-			<tr>
-				<td><form:label path="text">
+			<div class="form-group">
+			<form:label path="text">
 						<spring:message code="book.entercomment"/>
-						<br>
-					</form:label></td>
-				<td><form:textarea path="text" id="comm" /><span
-					style="display: none;" class="has-error" id="comment_validation"></span></td>
-			</tr>
-			<br>
+					</form:label>
+					<form:textarea path="text" id="comm" class="form-control" /><span
+					style="display: none;" class="has-error" id="comment_validation" ></span>
+					</div>
 			<input type="submit" value="<spring:message code="book.addcomment"/>" />
 		</form:form>
 	</sec:authorize>
 	<c:if test="${!empty comments}">
 		<h3><spring:message code="book.comments"/></h3>
-		<table>
+		<table class="tg">
 			<tr>
 				<td><spring:message code="book.postdate"/></td>
 				<td><spring:message code="book.commentauthor"/></td>
@@ -185,13 +183,13 @@
 					<td>${comment.text}</td>
 					<td><c:if
 							test="${loggedinuser eq 'anonymousUser' || comment.user eq loggedinuser || comment.isItDislikedByMe(loggedinuser.toString()) eq true}">
-                    ${comment.likes}
+                    <span class="badge">${comment.likes}</span>
                     </c:if> <sec:authorize
 							access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 							<c:if
 								test="${comment.user ne loggedinuser && comment.isItDislikedByMe(loggedinuser.toString()) eq false}">
 								<a
-									href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}">${comment.likes}</a>
+									href="${pageContext.request.contextPath}/like/${book.id}/${comment.id}"><span class="badge">${comment.likes}</span></a>
 							</c:if>
 						</sec:authorize></td>
 
@@ -203,13 +201,14 @@
 							<c:if
 								test="${comment.user ne loggedinuser && comment.isItLikedByMe(loggedinuser.toString()) eq false}">
 								<a
-									href="${pageContext.request.contextPath}/dislike/${book.id}/${comment.id}">${comment.dislikes}</a>
+									href="${pageContext.request.contextPath}/dislike/${book.id}/${comment.id}"><span class="badge">${comment.dislikes}</span></a>
 							</c:if>
 						</sec:authorize></td>
-					<td><sec:authorize access="hasRole('ADMIN')">
+					<sec:authorize access="hasRole('ADMIN')"><td>
 							<a
-								href="${pageContext.request.contextPath}/removecomment/${book.id}/${comment.id}">Delete</a>
-						</sec:authorize></td>
+								href="${pageContext.request.contextPath}/removecomment/${book.id}/${comment.id}"><button type="button"
+						class="btn btn-danger">Delete</button></a>
+						</td></sec:authorize>
 				</tr>
 			</c:forEach>
 		</table>
@@ -226,8 +225,8 @@
 						<td rowspan="9"><a
 							href="${pageContext.request.contextPath}/book/${book.id}"><img
 								src="${pageContext.request.contextPath}/img/books/${book.cover}"
-								width="150px" alt="No picture available" /></a><br> <a
-							href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
+								 class="img-responsive"  alt="No picture available" /></a><div class="bookname"> <a
+							href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></div></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -235,10 +234,9 @@
 	</sec:authorize>
 
 
-	<br>
-	<br>
-	<a href="${pageContext.request.contextPath}/"><spring:message
-			code="bookshop.tomain" /></a>
+	</div>
+	<%@include file="footer.jsp"%>
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/script.js"></script>
 

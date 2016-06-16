@@ -145,7 +145,5 @@
 			</div>
 		</form:form>
 	</div>
-	<a href="${pageContext.request.contextPath}/"><spring:message
-			code="bookshop.tomain" /></a>
 </body>
 </html>
