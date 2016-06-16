@@ -295,11 +295,13 @@ public class AppController {
 	}
     
     //displaying only books with specific genre
-    @RequestMapping(value="/books/{genre}")
+    @RequestMapping(value="/books/genre/{genre}")
 	public String genreFilter(@ModelAttribute("genre") Genre genre, Model model) {
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("book", new Book());
     	model.addAttribute("foundBooks", this.bookService.findBook(genre));
+    	System.out.println("searcnin__");
+    	this.bookService.findBook(genre).stream().forEach(System.out::println);
     	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());
         User user = userService.findBySSO(getPrincipal());

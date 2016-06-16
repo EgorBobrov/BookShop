@@ -207,7 +207,7 @@
 
 					<td><spring:message code="books.bookgenres" />: <br> <c:forEach
 							items="${book.genres}" var="genre">
-							<a href="${pageContext.request.contextPath}/books/${genre}">${genre.toString()}</a>
+							<a href="${pageContext.request.contextPath}/books/genre/${genre}">${genre.toString()}</a>
 							<br>
 						</c:forEach></td>
 				</tr>
