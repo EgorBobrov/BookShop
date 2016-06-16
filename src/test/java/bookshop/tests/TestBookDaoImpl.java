@@ -42,7 +42,6 @@ import static org.hamcrest.Matchers.*;
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")  
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DbUnitTestExecutionListener.class})
-	//TransactionalTestExecutionListener.class})
 //@Transactional
 @DatabaseSetup("/dbxml/books.xml")
 public class TestBookDaoImpl extends AbstractTransactionalJUnit4SpringContextTests { 

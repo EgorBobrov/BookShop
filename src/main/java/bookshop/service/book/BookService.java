@@ -23,5 +23,6 @@ public interface BookService {
 	public List<Book> getFoundBooksByRating();
 	public List<Book> getSimilarBooks(Book b, User u);
 	public List<Book> getLastCommentedBooks();
+	public void clearSearchResults();
 
 }

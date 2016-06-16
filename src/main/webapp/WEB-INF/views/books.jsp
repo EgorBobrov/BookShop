@@ -140,6 +140,9 @@
 		<input type="text" name="keyword" class="form-control input-lg"
 			placeholder="<spring:message code="books.keyword"/>" tabindex="1">
 		<input type="submit" class="btn btn-primary" value="<spring:message code="books.dosearch"/>" />
+		<a href="${pageContext.request.contextPath}/books/search/clear"><button type="button" class="btn btn-warning btn-sm"><spring:message
+			code="books.clearsearch" /></button></a>
+	<br>
 	</form>
 	</div>
 	<h3>
@@ -204,7 +207,7 @@
 						href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a></td>
 				</tr>
 				<tr>
-					<td><spring:message code="books.bookprice" />: <br>
+				<td><spring:message code="books.bookprice" />: <br>
 						${book.priceWDiscount}</td>
 				</tr>
 				<tr>

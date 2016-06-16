@@ -32,7 +32,12 @@
         author_name="William Faulkner"/>
      <COMMENT 
         id = "1"
-        text="What an awesome book"
+        text="Well first I thought it's such an awesome book"
+        date = "Wed, 8 Jun 2016 9:11:01 +0300"
+        user = "alaska"/>
+     <COMMENT 
+        id = "2"
+        text="But then it was kind of meh"
         date = "Wed, 8 Jun 2016 12:11:01 +0300"
         user = "alaska"/>
      <APP_USER
@@ -51,7 +56,10 @@
         email = "chichi@whatever.com"/>
       <BOOK_COMMENT
         book_id = "1"
-        comments_id="1"/>   
+        comments_id="1"/>
+      <BOOK_COMMENT
+        book_id = "1"
+        comments_id="2"/> 
       <USER_INVENTORY
       	user_id = "2"
       	book_id="1"/>
