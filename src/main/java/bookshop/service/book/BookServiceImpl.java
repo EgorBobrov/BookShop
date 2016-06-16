@@ -104,5 +104,11 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getLastCommentedBooks() {
 		return this.bookDao.getLastCommentedBooks();
 	}
+	
+	@Override
+	public void clearSearchResults(){
+		this.bookDao.setGenre(null);
+		this.bookDao.setKeyword(null);
+	}
 
 }

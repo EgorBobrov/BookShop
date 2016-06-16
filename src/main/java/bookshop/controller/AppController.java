@@ -99,6 +99,12 @@ public class AppController {
     	return "books";
     }
     
+    @RequestMapping(value="/books/search/clear", method = RequestMethod.GET)
+    public String clearSearchResults(){
+    	this.bookService.clearSearchResults();
+    	return "redirect:/books";
+    }
+    
     @RequestMapping(value="/books/{order}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String listBooksByOrder(@PathVariable("order") String order, Model model) {

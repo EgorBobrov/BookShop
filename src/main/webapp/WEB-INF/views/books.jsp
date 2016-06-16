@@ -132,6 +132,9 @@
 		<input type="text" name="keyword" class="form-control input-lg"
 			placeholder="<spring:message code="books.keyword"/>" tabindex="1">
 		<input type="submit" value="<spring:message code="books.dosearch"/>" />
+			<br><a href="${pageContext.request.contextPath}/books/search/clear"><spring:message
+			code="books.clearsearch" /></a>
+	<br>
 	</form>
 	<br>
 
