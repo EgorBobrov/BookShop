@@ -133,11 +133,9 @@ public class AppController {
     				recommendedBooks.add(bb);
     			}
     		});
-*/    		
+*/  
     		for (Book b : userBooks) {
     			List<Book> books = this.bookService.getSimilarBooks(b, user);
-    			// using regular foreach loop turns out to be actually a bit faster...
-    			// books.stream().forEach(book -> recommendedBooks.add(book));
     			for (Book bb : books) {
     				if (!userBooks.contains(bb) && !recommendedBooks.contains(bb)){
     					recommendedBooks.add(bb);
@@ -308,7 +306,6 @@ public class AppController {
     	model.addAttribute("loggedinuser", getPrincipal());
     	model.addAttribute("book", new Book());
     	model.addAttribute("foundBooks", this.bookService.findBook(genre));
-    	System.out.println("searcnin__");
     	this.bookService.findBook(genre).stream().forEach(System.out::println);
     	model.addAttribute("genre", Genre.values());
     	model.addAttribute("loggedinuser", getPrincipal());

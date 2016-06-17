@@ -39,8 +39,6 @@ import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.Formula;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import bookshop.model.user.User;
 
 @Entity
@@ -64,7 +62,6 @@ public class Book implements Serializable {
 	@Size(max = 15)
 	private String isbn;
 
-	// TODO: rename to nbOfPages
 	@Column(name = "nb_of_pages")
 	@Min(1)
 	private Integer nbOfPages;
@@ -313,13 +310,12 @@ public class Book implements Serializable {
 		}
 		Book other = (Book) obj;
 		if (isbn != null) {
-			if (!isbn.equals(other.isbn)) {
+			if (!isbn.equals(other.getIsbn())) {
 				return false;
 			}
 		}
-		// TODO: TEMPORARY! until we don't have db with correct isbns
 		if (title!= null) {
-			if (!title.equals(other.title)) {
+			if (!title.equals(other.getTitle())) {
 				return false;
 			}
 		}

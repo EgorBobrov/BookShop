@@ -198,7 +198,6 @@ public class BookDaoImpl implements BookDao {
 			logger.info("Can't update rating...");
 		}
         try {
-        	Double rr = b.getResultRating();
         	b.setResultRating(b.getRating() * 1.0 / b.getVotes());
 		} catch (Exception e) {
 			logger.info("Can't update rating...");
