@@ -165,7 +165,8 @@
 
 
 	<c:if test="${!empty foundBooks}">
-		<table class="tg">
+	<div class = "table-responsive">
+		<table class="table table-striped">
 			<tr>
 				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 					<th width="80"><spring:message code="books.bookid" /></th>
@@ -237,6 +238,7 @@
 				
 			</c:forEach>
 		</table>
+		</div>
 	</c:if>
 	
 	<%@include file="footer.jsp"%>

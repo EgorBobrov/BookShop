@@ -1,7 +1,3 @@
-var lang = navigator.language
-
-console.log(lang);
-
 function ValidateBookAdditionForm() {
 	var desc_input = document.getElementById("desc");
 	var title_input = document.getElementById("ttl");
@@ -129,5 +125,49 @@ function validateCheckout() {
 
 function trim(value) {
     return value.replace(/ /g,"");
+}
+
+function validateAddress() {
+	var valid=true;
+	
+	var name_input = document.getElementById("name");
+	var street_input = document.getElementById("street");
+	var city_input = document.getElementById("city");
+	var region_input = document.getElementById("region");
+	var country_input = document.getElementById("country");
+
+	if (name_input.value == "") {
+		var message = document.getElementById("name_validation");
+		message.innerHTML = "Please enter your name.";
+		message.style.display = "";
+		valid = false;
+	}
+	
+	if (street_input.value == "") {
+		var message = document.getElementById("street_validation");
+		message.innerHTML = "Please enter your street.";
+		message.style.display = "";
+		valid = false;
+	}
+	if (city_input.value == "") {
+		var message = document.getElementById("city_validation");
+		message.innerHTML = "Please enter your city.";
+		message.style.display = "";
+		valid = false;
+	}
+	if (region_input.value == "") {
+		var message = document.getElementById("region_validation");
+		message.innerHTML = "Please enter your region.";
+		message.style.display = "";
+		valid = false;
+	}
+	if (country_input.value == "") {
+		var message = document.getElementById("country_validation");
+		message.innerHTML = "Please enter your country.";
+		message.style.display = "";
+		valid = false;
+	}
+
+	return valid;
 }
 
