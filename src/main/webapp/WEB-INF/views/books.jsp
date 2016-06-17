@@ -11,13 +11,9 @@
 <html>
 <head>
 <title>Book Shop</title>
-<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
-<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
 </head>
 <body>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     
     <div class="jumbotron">
   <div class="container text-center">

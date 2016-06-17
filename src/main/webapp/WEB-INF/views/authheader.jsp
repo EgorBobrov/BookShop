@@ -5,6 +5,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
+<!-- this will actually make the "choose language" dropdown work correctly
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">-->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<link href="<c:url value='/static/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css"></link> 
+
+<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+
 <nav class="navbar navbar-inverse">
 
 	<div class="container-fluid">
