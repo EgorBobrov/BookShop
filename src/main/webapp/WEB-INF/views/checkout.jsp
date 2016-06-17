@@ -33,41 +33,46 @@
 
 <c:url var="addAction" value="/addresses/add"></c:url>
 
-<form:form action="${addAction}" commandName="address">
+<form:form action="${addAction}" commandName="address" onSubmit="return validateAddress();">
 	<h3><spring:message code="checkout.enteraddress" />.</h3>
 	<table>
 		<tr>
 			<td><form:label path="name">
 					<spring:message code="checkout.entername" />
 				</form:label></td>
-			<td><form:input path="name" /></td>
+			<td><form:input path="name" id="name"/><span
+						style="display: none;" class="has-error" id="name_validation"></span></td>
 		</tr>
 		<tr>
 			<td><form:label path="street">
 					<spring:message code="checkout.enterstrt" />
 				</form:label></td>
-			<td><form:input path="street" /></td>
+			<td><form:input path="street" id="street"/><span
+						style="display: none;" class="has-error" id="street_validation"></span></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="city">
 					<spring:message code="checkout.entercity" />
 				</form:label></td>
-			<td><form:input path="city" /></td>
+			<td><form:input path="city" id="city"/><span
+						style="display: none;" class="has-error" id="city_validation"></span></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="region">
 					<spring:message code="checkout.enterregion" />
 				</form:label></td>
-			<td><form:input path="region" /></td>
+			<td><form:input path="region" id="region"/><span
+						style="display: none;" class="has-error" id="region_validation"></span></td>
 		</tr>
 		<tr>
 		<tr>
 			<td><form:label path="country">
 					<spring:message code="checkout.entercountry" />
 				</form:label></td>
-			<td><form:input path="country" /></td>
+			<td><form:input path="country" id="country"/><span
+						style="display: none;" class="has-error" id="country_validation"></span></td>
 		</tr>
 		<tr>
 			<td><c:if test="${empty address.street}">
