@@ -11,7 +11,8 @@
         id = "2"
         isbn = "whatever"
         title="As I Lay Dying"
-        rating = "000000000004"/>
+        rating = "000000000004"
+        amountInStock = "5"/>
      <GENRE_BOOK
      	book_id = "1"
      	genre = "FICTION"/>
@@ -66,4 +67,30 @@
       <USER_INVENTORY
       	user_id = "2"
       	book_id="2"/>
+      <ADDRESS
+      	user_id="1"
+      	id="1"
+      	street="123 Main st."
+      	city="Raleigh"
+      	region="NC"
+      	country="USA"
+      	name="Alaska 5000"/>
+      <USER_BASKET
+      	user_id = "1"
+      	book_id="1"/>
+      <USER_PROFILE
+      	id = "1"
+      	type = "USER"/>
+      <USER_PROFILE
+      	id = "2"
+      	type = "ADMIN"/>
+      <USER_PROFILE
+      	id = "3"
+      	type = "DBA"/>
+      <APP_USER_USER_PROFILE
+      	user_id = "1"
+      	user_profile_id = "1"/>
+      <APP_USER_USER_PROFILE
+      	user_id = "2"
+      	user_profile_id = "1"/>
 </dataset>

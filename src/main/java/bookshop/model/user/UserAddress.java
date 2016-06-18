@@ -96,6 +96,14 @@ public class UserAddress {
 		this.country = country;
 	}
 	
+	public UserAddress(String name, String street, String city, String region, String country){
+	    this.name=name;
+	    this.street = street;
+	    this.city = city;
+	    this.region = region;
+	    this.country = country;
+	}
+	
 	@Override
 	public String toString(){
 		return name +";\n "+ street + "\n " + city + "; "+ region + "\n " + country; 
