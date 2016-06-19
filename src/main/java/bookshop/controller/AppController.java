@@ -95,6 +95,7 @@ public class AppController {
     	model.addAttribute("loggedinuser", getPrincipal());
         User user = userService.findBySSO(getPrincipal());
         model.addAttribute("user", user);
+        model.addAttribute("locale", locale);
         logger.info("Welcome home! The client locale is {}.", locale);
     	return "books";
     }
@@ -156,7 +157,7 @@ public class AppController {
 
     @RequestMapping(value="/book/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String displayBook(@PathVariable("id") Integer id, Model model) {
+    public String displayBook(@PathVariable("id") Integer id, Model model, Locale locale) {
     	model.addAttribute("comment", new Comment());
     	model.addAttribute("book", this.bookService.getBookById(id));
     	model.addAttribute("loggedinuser", getPrincipal());
@@ -167,6 +168,7 @@ public class AppController {
     	Book b = this.bookService.getBookById(id);
     	List<Book> bBooks = this.bookService.getSimilarBooks(b, user);
     	model.addAttribute("similarBooks", bBooks);
+    	model.addAttribute("locale", locale);
     	return "book";
     }
     
@@ -230,11 +232,12 @@ public class AppController {
     }
     
     @RequestMapping(value = { "/checkout/{ssoId}" }, method = RequestMethod.GET)
-    public String showCheckout(@PathVariable String ssoId, ModelMap model) {
+    public String showCheckout(@PathVariable String ssoId, ModelMap model, Locale locale) {
         User user = userService.findBySSO(ssoId);
         model.addAttribute("user", user);
         model.addAttribute("loggedinuser", getPrincipal());
         List<UserAddress> addresses = this.userService.getExistingAddresses(user);
+        model.addAttribute("locale", locale);
         model.addAttribute("existingAddresses", addresses);
         return "checkout";
     }

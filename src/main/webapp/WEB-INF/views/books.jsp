@@ -243,7 +243,17 @@
 	
 	<%@include file="footer.jsp"%>
 	
+			<c:choose>
+				<c:when
+					test="${locale eq 'en'}">
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/script.js"></script>
+				</c:when>
+				<c:otherwise>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/script_ru.js"></script>
+				</c:otherwise>
+			</c:choose>
+	
 </body>
 </html>
