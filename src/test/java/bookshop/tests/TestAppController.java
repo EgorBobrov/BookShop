@@ -2,10 +2,10 @@ package bookshop.tests;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+
 
 public class TestAppController {
 
@@ -111,7 +112,6 @@ public class TestAppController {
                     .andExpect(model().attributeExists("genre"))
                     .andExpect(model().attribute("loggedinuser", is("sam")))
                     .andExpect(model().attribute("foundBooks", hasSize(2)));
-                   //.andExpect(model().attribute("listBooks", is("[Gone with the Wind, Came Back with the Wind]")));
 
             verify(mockBookService, times(1)).getFoundBooks();
             verifyNoMoreInteractions(mockBookService);
@@ -151,11 +151,10 @@ public class TestAppController {
                     .andExpect(model().attributeExists("similarBooks"))
                     .andExpect(model().attribute("loggedinuser", is("sam")))
                     .andExpect(model().attribute("similarBooks", hasSize(0)))
-                    .andExpect(model().attribute("book", hasProperty("title", is("Gone with the Wind"))));;
+                    .andExpect(model().attribute("book", hasProperty("title", is("Gone with the Wind"))));
 	    }
 	    
 	    @Test
-	    @Ignore //failing test, will fix later
 	    public void testDisplayAuthor() throws Exception {
 	    	
 	    	Author author = new Author("Margaret Mitchell");
@@ -163,13 +162,66 @@ public class TestAppController {
 	    	
 	    	when(mockBookService.getAuthor("Margaret Mitchell")).thenReturn(author);
 	    	
-	        mockMvc.perform(get("/author/Margaret%20Mitchell"))
+	        mockMvc.perform(get("/author/Margaret Mitchell"))
 	                .andDo(print())
 	                .andExpect(status().isOk())
 	                .andExpect(view().name("author"))
 	                .andExpect(model().attributeExists("author"))
                     .andExpect(model().attribute("loggedinuser", is("sam")))
-                    .andExpect(model().attribute("author", hasProperty("bio")));;
+                    .andExpect(model().attribute("author", hasProperty("bio",
+                    		is("Margaret Munnerlyn Mitchell (November 8, 1900 – August 16, 1949) was an American author and journalist."))));
+	    }
+	    
+	    @Test
+	    public void testShowUser() throws Exception {
+	    	User user = new User ("scarlett", "qwerty123");
+	    	
+	    	when(mockUserService.findBySSO("scarlett")).thenReturn(user);
+	    	
+	    	mockMvc.perform(get("/user/scarlett"))
+		    	.andDo(print())
+	            .andExpect(status().isOk())
+	            .andExpect(view().name("user"))
+	            .andExpect(model().attributeExists("user"))
+	            .andExpect(model().attribute("loggedinuser", is("sam")))
+	            .andExpect(model().attribute("user", hasProperty("ssoId", is("scarlett"))));
+	    }
+	    
+	    @Test
+	    public void testAddToBasket() throws Exception {
+	    	Set<Author> authors1 = new HashSet<Author>();
+    	    authors1.add(new Author("Margaret Mitchell"));
+    	    Set<Genre> genres1 = new HashSet<Genre>();
+    	    genres1.addAll(Arrays.asList(new Genre[] {Genre.ROMANCE, Genre.FICTION}));
+	    	Book first = new Book("978-1416548942", "Gone with the Wind", 1472, "The best novel to have ever come out of the South...it is unsurpassed in the whole of American writing.", 
+	       			  authors1, genres1, 23, 0.1);
+	    	first.setId(123);
+	    	
+	    	mockMvc.perform(get("/tobasket/123"))
+		    	.andDo(print())
+	            .andExpect(status().isOk())
+	            .andExpect(view().name("book"))
+	            .andExpect(model().attributeExists("comment"))
+	            .andExpect(model().attributeExists("comments"))
+	            .andExpect(model().attribute("loggedinuser", is("sam")));
+	    }
+	    
+	    @Test
+	    public void testUsersList() throws Exception {
+	    	User user1 = new User ("scarlett", "qwerty123");
+	    	User user2 = new User ("william", "qwerty123");
+	    	User user3 = new User ("bonnie", "qwerty12345");
+	    	List <User> users = Arrays.asList(new User[] {user1, user2, user3});
+	    	
+	    	when(mockUserService.findAllUsers()).thenReturn(users);
+	    	
+	    	mockMvc.perform(get("/list"))
+	    		.andDo(print())
+	            .andExpect(status().isOk())
+	            .andExpect(view().name("userslist"))
+	            .andExpect(model().attributeExists("users"))
+	            .andExpect(model().attribute("loggedinuser", is("sam")))
+	            .andExpect(model().attribute("users", is(users)));
 	    }
 	    
 }

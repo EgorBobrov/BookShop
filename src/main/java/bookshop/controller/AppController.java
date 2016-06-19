@@ -460,14 +460,14 @@ public class AppController {
  
     /**
      * This method handles login GET requests.
-     * If users is already logged-in and tries to goto login page again, will be redirected to list page.
+     * If users is already logged-in and tries to goto login page again, will be redirected to books page.
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         if (isCurrentAuthenticationAnonymous()) {
             return "login";
         } else {
-            return "redirect:/list";  
+            return "redirect:/books";  
         }
     }
  
