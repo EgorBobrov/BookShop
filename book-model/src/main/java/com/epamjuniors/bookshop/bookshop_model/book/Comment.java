@@ -1,9 +1,12 @@
 package com.epamjuniors.bookshop.bookshop_model.book;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -178,6 +181,21 @@ public class Comment implements Comparable<Comment> {
 		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);
 		LocalDateTime otherdate = LocalDateTime.parse(other.getDate(), formatter);
 	    return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
+	}
+	
+	public static Long getLastCommentDate(List<Comment> comments) {
+		java.util.Collections.sort(comments);
+		java.util.Collections.reverse(comments);
+		if(comments.size() > 0) {
+			Comment last = comments.get(0);
+
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
+			LocalDateTime thisdate = LocalDateTime.parse(last.getDate(), formatter);
+			ZonedDateTime zdt = thisdate.atZone(ZoneId.systemDefault());
+			return zdt.toEpochSecond();
+		}
+		return 0l;
 	}
 
 }
