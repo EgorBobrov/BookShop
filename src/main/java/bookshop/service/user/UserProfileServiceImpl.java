@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import bookshop.dao.user.UserProfileDao;
+import com.epamjuniors.bookshop.bookshop_dao.user.UserProfileDao;
 import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
  
  

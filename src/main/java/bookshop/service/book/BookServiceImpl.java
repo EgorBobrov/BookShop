@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.epamjuniors.bookshop.bookshop_dao.book.BookDao;
 import com.epamjuniors.bookshop.bookshop_model.book.Author;
 import com.epamjuniors.bookshop.bookshop_model.book.Book;
 import com.epamjuniors.bookshop.bookshop_model.book.Genre;
 import com.epamjuniors.bookshop.bookshop_model.user.User;
-
-import bookshop.dao.book.BookDao;
 
 @Service
 @Transactional

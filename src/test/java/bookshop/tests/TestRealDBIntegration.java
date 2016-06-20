@@ -14,7 +14,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.configuration.AppConfig;
-import bookshop.dao.book.BookDao;
+
+import com.epamjuniors.bookshop.bookshop_dao.book.BookDao;
 import com.epamjuniors.bookshop.bookshop_model.book.Book;
 
 @WebAppConfiguration

@@ -16,8 +16,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import bookshop.dao.book.CommentDao;
-import bookshop.dao.user.UserDao;
+import com.epamjuniors.bookshop.bookshop_dao.book.CommentDao;
+import com.epamjuniors.bookshop.bookshop_dao.user.UserDao;
 import com.epamjuniors.bookshop.bookshop_model.book.Comment;
 import com.epamjuniors.bookshop.bookshop_model.user.User;
 import bookshop.tests.configuration.TestHibernateConfiguration;

@@ -3,7 +3,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- TODO: fix groupId -->
 	<groupId>com.epamjuniors.bookshop</groupId>
 	<artifactId>TheBookmazingBookShoppe</artifactId>
 	<name>The Bookmazing Book Shoppe</name>
@@ -29,7 +28,11 @@
   		<artifactId>bookshop-model</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
-	
+	<dependency>
+	  <groupId>com.epamjuniors.bookshop</groupId>
+  <artifactId>bookshop-dao</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+	</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -320,8 +323,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>

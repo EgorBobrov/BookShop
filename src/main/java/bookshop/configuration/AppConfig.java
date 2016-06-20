@@ -31,7 +31,7 @@ import bookshop.converter.RoleToUserProfileConverter;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = "bookshop")
+@ComponentScan(basePackages = "bookshop, com.epamjuniors.bookshop.bookshop_dao")
 public class AppConfig extends WebMvcConfigurerAdapter{
 
 

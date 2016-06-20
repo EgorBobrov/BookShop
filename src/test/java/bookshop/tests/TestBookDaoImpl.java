@@ -23,8 +23,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import bookshop.dao.book.BookDao;
-import bookshop.dao.user.UserDao;
+import com.epamjuniors.bookshop.bookshop_dao.book.BookDao;
+import com.epamjuniors.bookshop.bookshop_dao.user.UserDao;
 import com.epamjuniors.bookshop.bookshop_model.book.Author;
 import com.epamjuniors.bookshop.bookshop_model.book.Book;
 import com.epamjuniors.bookshop.bookshop_model.book.Genre;
