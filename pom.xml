@@ -4,12 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- TODO: fix groupId -->
-	<groupId>com.journaldev.spring</groupId>
+	<groupId>com.epamjuniors.bookshop</groupId>
 	<artifactId>TheBookmazingBookShoppe</artifactId>
 	<name>The Bookmazing Book Shoppe</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
+	
+	
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>4.3.0.RELEASE</org.springframework-version>
@@ -21,6 +23,13 @@
 	</properties>
 
 	<dependencies>
+	<!-- Our project -->
+	<dependency>
+		<groupId>com.epamjuniors.bookshop</groupId>
+  		<artifactId>bookshop-model</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

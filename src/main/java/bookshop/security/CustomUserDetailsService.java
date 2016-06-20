@@ -19,8 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
-import bookshop.model.user.User;
-import bookshop.model.user.UserProfile;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
 import bookshop.service.user.UserService;
  
  

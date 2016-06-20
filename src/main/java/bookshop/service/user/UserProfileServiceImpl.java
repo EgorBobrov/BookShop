@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.dao.user.UserProfileDao;
-import bookshop.model.user.UserProfile;
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
  
  
 @Service("userProfileService")

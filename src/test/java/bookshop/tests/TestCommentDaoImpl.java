@@ -18,8 +18,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import bookshop.dao.book.CommentDao;
 import bookshop.dao.user.UserDao;
-import bookshop.model.book.Comment;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Comment;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 import bookshop.tests.configuration.TestHibernateConfiguration;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;

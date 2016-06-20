@@ -19,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bookshop.dao.AbstractDao;
-import bookshop.model.book.Book;
-import bookshop.model.user.User;
-import bookshop.model.user.UserAddress;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserAddress;
  
  
  

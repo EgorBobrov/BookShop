@@ -8,7 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import bookshop.dao.AbstractDao;
-import bookshop.model.user.UserProfile;
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
  
  
  

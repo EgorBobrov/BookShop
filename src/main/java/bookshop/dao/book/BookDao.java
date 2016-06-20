@@ -2,10 +2,10 @@ package bookshop.dao.book;
 
 import java.util.List;
 
-import bookshop.model.book.Author;
-import bookshop.model.book.Book;
-import bookshop.model.book.Genre;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Author;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.book.Genre;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 
 public interface BookDao {
 	public Book persistBook(Book book);

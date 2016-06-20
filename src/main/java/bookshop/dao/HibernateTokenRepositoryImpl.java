@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
  
 import bookshop.dao.AbstractDao;
-import bookshop.model.PersistentLogin;
+import com.epamjuniors.bookshop.bookshop_model.PersistentLogin;
  
 @Repository("tokenRepositoryDao")
 @Transactional

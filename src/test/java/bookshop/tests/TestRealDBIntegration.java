@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.configuration.AppConfig;
 import bookshop.dao.book.BookDao;
-import bookshop.model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)  

@@ -2,8 +2,8 @@ package bookshop.dao.user;
 
 import java.util.List;
 
-import bookshop.model.user.User;
-import bookshop.model.user.UserAddress;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserAddress;
  
  
 public interface UserDao {

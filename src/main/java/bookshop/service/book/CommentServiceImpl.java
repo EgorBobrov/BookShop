@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookshop.dao.book.CommentDao;
-import bookshop.model.book.Comment;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Comment;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 
 @Service
 @Transactional

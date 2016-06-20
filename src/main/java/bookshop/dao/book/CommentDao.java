@@ -1,9 +1,10 @@
 package bookshop.dao.book;
 
-import bookshop.model.book.Comment;
-import bookshop.model.user.User;
 
 import java.util.List;
+
+import com.epamjuniors.bookshop.bookshop_model.book.Comment;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 
 public interface CommentDao {
 	List<Comment> getAll(Integer bookId);

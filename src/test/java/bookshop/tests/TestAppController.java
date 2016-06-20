@@ -21,11 +21,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import bookshop.controller.AppController;
-import bookshop.model.book.Author;
-import bookshop.model.book.Book;
-import bookshop.model.book.Genre;
-import bookshop.model.user.User;
-import bookshop.model.user.UserProfile;
+import com.epamjuniors.bookshop.bookshop_model.book.Author;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.book.Genre;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
 import bookshop.service.book.BookService;
 import bookshop.service.book.CommentService;
 import bookshop.service.user.UserProfileService;

@@ -1,9 +1,10 @@
 package bookshop.service.user;
 
-import bookshop.model.user.User;
-import bookshop.model.user.UserAddress;
 
-import java.util.List; 
+import java.util.List;
+
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserAddress; 
  
 public interface UserService {
      

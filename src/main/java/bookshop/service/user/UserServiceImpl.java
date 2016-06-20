@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.dao.user.UserDao;
-import bookshop.model.user.User;
-import bookshop.model.user.UserAddress;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.user.UserAddress;
 
 import java.util.List;
 

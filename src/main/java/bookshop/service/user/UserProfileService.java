@@ -1,6 +1,7 @@
 package bookshop.service.user;
 import java.util.List;
-import bookshop.model.user.UserProfile;
+
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
 
 public interface UserProfileService {
 	

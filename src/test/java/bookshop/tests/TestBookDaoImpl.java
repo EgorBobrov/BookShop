@@ -25,10 +25,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import bookshop.dao.book.BookDao;
 import bookshop.dao.user.UserDao;
-import bookshop.model.book.Author;
-import bookshop.model.book.Book;
-import bookshop.model.book.Genre;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Author;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.book.Genre;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 import bookshop.tests.configuration.TestHibernateConfiguration;
 
 import static org.hamcrest.Matchers.*;

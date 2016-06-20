@@ -1,7 +1,7 @@
 <%@page import="java.time.ZonedDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
-<%@page import="bookshop.model.user.User"%>
+<%@page import="com.epamjuniors.bookshop.bookshop_model.user.User"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"

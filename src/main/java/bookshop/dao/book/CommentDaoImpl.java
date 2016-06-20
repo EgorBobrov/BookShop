@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import bookshop.model.book.Book;
-import bookshop.model.book.Comment;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Book;
+import com.epamjuniors.bookshop.bookshop_model.book.Comment;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {

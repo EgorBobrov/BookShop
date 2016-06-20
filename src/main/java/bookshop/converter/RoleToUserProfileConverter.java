@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
  
-import bookshop.model.user.UserProfile;
+import com.epamjuniors.bookshop.bookshop_model.user.UserProfile;
 import bookshop.service.user.UserProfileService;
  
 @Component

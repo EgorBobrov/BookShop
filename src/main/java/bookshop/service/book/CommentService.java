@@ -2,8 +2,8 @@ package bookshop.service.book;
 
 import java.util.List;
 
-import bookshop.model.book.Comment;
-import bookshop.model.user.User;
+import com.epamjuniors.bookshop.bookshop_model.book.Comment;
+import com.epamjuniors.bookshop.bookshop_model.user.User;
 
 public interface CommentService {
 	List<Comment> getAll(Integer bookId);
