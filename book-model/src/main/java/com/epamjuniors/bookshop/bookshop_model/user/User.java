@@ -1,6 +1,6 @@
 /*
  * In MVC paradigm this class would be the Model.
- * 
+ * User represents any user of our website - regular user, admin or DBA.  
  */
 
 package com.epamjuniors.bookshop.bookshop_model.user;
@@ -230,10 +230,7 @@ public class User implements Serializable{
         return true;
     }
  
-    /*
-     * DO-NOT-INCLUDE passwords in toString function.
-     * It is done here just for convenience purpose.
-     */
+    // password is included just for convenience (in case we forget it)
     @Override
     public String toString() {
         return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password

@@ -12,7 +12,6 @@ public interface BookService {
 	public void persistBook(Book book);
 	public void updateBook(Book book);
 	public List<Book> getAllBooks();
-	public List<Book> getBooksSortedByRating();
 	public Book getBookById(Integer id);
 	public void delete(Integer id);
 	public List<Book> findBook(String keyword);

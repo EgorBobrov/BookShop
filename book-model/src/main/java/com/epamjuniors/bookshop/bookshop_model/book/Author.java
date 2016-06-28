@@ -1,3 +1,7 @@
+/*
+ * Author entity represents author of the book(s)
+ */
+
 package com.epamjuniors.bookshop.bookshop_model.book;
 
 import java.util.HashSet;
@@ -14,11 +18,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="AUTHOR")
-//@Proxy(lazy=false) 
 public class Author {
 
     // attributes
-
 	@Id
     @Column(length = 50, name = "name", nullable = false)
     @NotNull
@@ -112,7 +114,7 @@ public class Author {
         return this.name;
     }
     
-    //handling jsp string input which is meent to be a set of authors
+    // converting string from form input to a set of authors
     public static Set<Author> toAuthor (String text){
     	String[] authors = text.replaceAll("\\[|\\]", "").split(",");
     	Set<Author> setAuthors = new HashSet<Author>();

@@ -1,3 +1,8 @@
+/*
+ * We use AOP to log some methods execution and its results. 
+ * Pointcuts are made to log all service and DAO methods. 
+ */
+
 package bookshop.aspect;
 
 import org.aspectj.lang.annotation.AfterReturning;

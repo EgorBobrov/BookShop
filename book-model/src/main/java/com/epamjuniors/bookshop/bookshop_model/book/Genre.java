@@ -1,3 +1,8 @@
+/*
+ * Enumeration describing all possible user book genres.
+ */
+
+
 package com.epamjuniors.bookshop.bookshop_model.book;
 
 public enum Genre {

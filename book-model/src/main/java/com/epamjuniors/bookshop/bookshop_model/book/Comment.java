@@ -1,3 +1,9 @@
+/*
+ * In MVC paradigm this class would be the Model representing a comment/review.
+ * A user can write, see and upvote/downvote comments.
+ * An admin can write and delete comments.  
+ */
+
 package com.epamjuniors.bookshop.bookshop_model.book;
 
 import java.time.LocalDateTime;
@@ -175,7 +181,6 @@ public class Comment implements Comparable<Comment> {
 	//comparing comments by the time thay've been written on
 	
 	public int compareTo (Comment other){
-	//	it might be worth changing this ti "EEE, dd MMM yyyy HH:mm:ss '+0300'" if it starts failing :(
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
 				.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
 		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);

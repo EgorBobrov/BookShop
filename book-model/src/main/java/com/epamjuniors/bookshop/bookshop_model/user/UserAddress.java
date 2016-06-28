@@ -1,6 +1,8 @@
-package com.epamjuniors.bookshop.bookshop_model.user;
+/*
+ * Entity for storing user address
+ */
 
-//import java.util.Locale;
+package com.epamjuniors.bookshop.bookshop_model.user;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +41,6 @@ public class UserAddress {
 	
 	@NotEmpty
 	@Column(name="country")
-//[TBD]	private Locale country;
 	private String country;
 	
 	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REFRESH})

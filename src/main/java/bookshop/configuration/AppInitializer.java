@@ -1,4 +1,4 @@
-// the Spring Intializer class 
+// the Spring Initializer class 
 
 package bookshop.configuration;
 

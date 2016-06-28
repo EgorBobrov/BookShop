@@ -1,5 +1,6 @@
 /*
- * The purpose of this class is to map User class of the application to the User class of Spring Security
+ * The purpose of this class is to map User class of the application 
+ * to the User class of Spring Security
  */
 
 

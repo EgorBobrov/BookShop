@@ -39,8 +39,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	RoleToUserProfileConverter roleToUserProfileConverter;
 
 
-	/**
-	 * Configure ViewResolvers to deliver preferred views.
+	/*
+	 * ViewResolvers add suffixes and prefixes to JSP files names.
+	 * Suffixes == path to the files, prefixes == file extension.
 	 */
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -52,8 +53,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		registry.viewResolver(viewResolver);
 	}
 
-	/**
-	 * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
+	/*
+	 * ResourceHandlers to point to the locations of our static resources 
+	 * CSS, pictures and Javascript files
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -62,9 +64,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
 	}
 
-	/**
-	 * Configure Converter to be used.
-	 * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp
+	/*
+	 * Configuring the Converter
+	 * We need it to convert string values of User Roles to UserProfile types
 	 */
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
@@ -72,8 +74,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	}
 
 
-	/**
-	 * Configure MessageSource to lookup any validation/error message in internationalized property files
+	/*
+	 * MessageSource is used to lookup 
+	 * messages in internationalized property files
 	 */
 	@Bean
 	public MessageSource messageSource() {
@@ -82,7 +85,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
-
+	/*
+	 * Registering beans which allow locale support and change
+	 */
 	 @Bean(name = "localeResolver")
 	 public LocaleResolver sessionLocaleResolver(){
 	     SessionLocaleResolver localeResolver=new SessionLocaleResolver();
@@ -102,8 +107,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	     registry.addInterceptor(localeChangeInterceptor());
 	 }
 	 
-	 /**Optional. It's only required when handling '.' in @PathVariables which otherwise ignore everything after last '.' in @PathVaidables argument.
-	 * It's a known bug in Spring [https://jira.spring.io/browse/SPR-6164], still present in Spring 4.1.7.
+	 /* Required when handling '.' in @PathVariables which otherwise ignore everything after last '.' in @PathVaidables argument.
+	 * It's a known bug in Spring [https://jira.spring.io/browse/SPR-6164], still present in Spring 4.
 	 * This is a workaround for this issue.
 	 */
 	@Override
@@ -111,6 +116,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		matcher.setUseRegisteredSuffixPatternMatch(true);
 	}
 	
+	/*
+	 * Adding our aspect class to the configuration
+	 */
 	 @Bean
 	 public LoggingAspect loggingAspect(){
 		 LoggingAspect loggingAspect = new LoggingAspect();

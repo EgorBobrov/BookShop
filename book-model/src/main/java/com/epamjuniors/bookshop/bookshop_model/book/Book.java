@@ -1,5 +1,5 @@
 /*
- * In MVC paradigm this class would be the Model.
+ * In MVC paradigm this class would be the Model representing a book.
  * 
  */
 
@@ -44,19 +44,14 @@ import com.epamjuniors.bookshop.bookshop_model.user.User;
 @Entity
 @Table(name="BOOK")
 public class Book implements Serializable {
-	//a universal version identifier for a Serializable class 
-	//Deserialization uses this number to ensure that a loaded class corresponds exactly to a serialized object
 	private static final long serialVersionUID = 2L;
 
 	// Persistent Fields:
 	@Id 
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	//had to change type to integer (from long) as it is Integer in db, not BIGINT
 	Integer id;
 
-	//By default, all fields of the class are mapped to table columns with the same name. 
-	//Use the @Column annotation when the field and column names differ
 	@Column(name = "isbn", length = 15) 
 	@NotNull
 	@Size(max = 15)
@@ -172,7 +167,6 @@ public class Book implements Serializable {
 	protected Set<Genre> genres= new HashSet<Genre>();
 
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comment.class)
-	//@OrderColumn(name = "comments_id")
 	private Set<Comment> comments = new HashSet<Comment>();
 
 	public Set<Comment> getComments() {

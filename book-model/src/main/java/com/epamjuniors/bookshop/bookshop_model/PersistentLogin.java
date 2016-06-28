@@ -1,4 +1,8 @@
-// an Entity [PersistentLogin] mapped to persistent_logins table
+/*
+ * An Entity mapped to persistent_logins table
+ * Used for a custom implementation of PersistentTokenRepository
+ */
+
 
 package com.epamjuniors.bookshop.bookshop_model;
 

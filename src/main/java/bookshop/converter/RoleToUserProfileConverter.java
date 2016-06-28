@@ -1,4 +1,4 @@
-/**
+/*
  * A converter class used in views to map id's to actual userProfile objects.
  */
 package bookshop.converter;
@@ -20,9 +20,8 @@ public class RoleToUserProfileConverter implements Converter<Object, UserProfile
     @Autowired
     UserProfileService userProfileService;
  
-    /**
+    /*
      * Gets UserProfile by Id
-     * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
      */
     public UserProfile convert(Object element) {
         Integer id = Integer.parseInt((String)element);

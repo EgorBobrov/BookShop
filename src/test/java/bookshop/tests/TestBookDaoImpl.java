@@ -89,16 +89,6 @@ public class TestBookDaoImpl extends AbstractTransactionalJUnit4SpringContextTes
 	}
 	
 	@Test
-    public void testGetBooksSortedByRating() {
-		List <Book> bookList = bookDao.getBooksSortedByRating();
-		assertThat("sorted by rating", bookList.get(1).getRating(), greaterThan(bookList.get(0).getId()));
-		//will change rating and see whether the changes are reflected
-		bookList.get(1).setRating(2);
-		bookDao.updateBook(bookList.get(1));
-		assertThat("sorted by rating", bookList.get(0).getRating(), greaterThan(bookList.get(1).getId()));	
-    }
-	
-	@Test
 	 public void testFindByGenre() {
 		List <Book> bookList = bookDao.doSearch(Genre.COMEDY);
 		assertTrue("only <as I lay dying> is returned", bookList.get(0).getId().equals(2));	

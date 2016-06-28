@@ -23,31 +23,26 @@ public class BookServiceImpl implements BookService {
     }
 	
 	@Override
-	//@Transactional
 	public void persistBook(Book book) {
 		this.bookDao.persistBook(book);
 	}
 
 	@Override
-	//@Transactional
 	public void updateBook(Book book) {
 		this.bookDao.updateBook(book);
 	}
 	
 	@Override
-	//@Transactional
 	public void updateAuthor(Author author) {
 		this.bookDao.updateAuthor(author);
 	}
 
 	@Override
-	//@Transactional
 	public List<Book> getAllBooks() {
 		return this.bookDao.getAllBooks();
 	}
 
 	@Override
-	//@Transactional
 	public Book getBookById(Integer id) {
 		return this.bookDao.getBookById(id);
 	}
@@ -83,11 +78,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void rateBook(Integer id, Integer rating) {
 		this.bookDao.rateBook(id, rating);
-	}
-
-	@Override
-	public List<Book> getBooksSortedByRating()  {
-		return bookDao.getBooksSortedByRating();
 	}
 
 	@Override
