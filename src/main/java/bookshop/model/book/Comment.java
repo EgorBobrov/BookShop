@@ -1,11 +1,14 @@
 package bookshop.model.book;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,7 +60,7 @@ public class Comment implements Comparable<Comment> {
     private int dislikesCount;
 
     public String toString() {
-    	return this.text + " posted by " + this.user + " on " + this.date;
+    	return this.text   +" posted by "  + this.user +  " on " +  this.date;
     }
     
     public Integer getId() {
@@ -172,12 +175,27 @@ public class Comment implements Comparable<Comment> {
 	//comparing comments by the time thay've been written on
 	@Override
 	public int compareTo(Comment other){
-	//	it might be worth changing this ti "EEE, dd MMM yyyy HH:mm:ss '+0300'" if it starts failing :(
+	//	it might be worth changing this ti "EEE, dd MMM yyyy HH:mm:ss ' 0300'" if it starts failing :(
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
-				.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
+				.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss ' 0300'")).toFormatter().withLocale(Locale.ENGLISH);
 		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);
 		LocalDateTime otherdate = LocalDateTime.parse(other.getDate(), formatter);
 	    return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
 	}
+	
+	public static Long getLastCommentDate(List<Comment> comments) {
+		java.util.Collections.sort(comments);
+  		java.util.Collections.reverse(comments);
+  		if(comments.size() > 0) {
+  			Comment last = comments.get(0);
+  
+  			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+  					.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss ' 0300'")).toFormatter().withLocale(Locale.ENGLISH);
+  			LocalDateTime thisdate = LocalDateTime.parse(last.getDate(), formatter);
+  			ZonedDateTime zdt = thisdate.atZone(ZoneId.systemDefault());
+  			return zdt.toEpochSecond();
+  		}
+  		return 0l;
+  	}
 
 }

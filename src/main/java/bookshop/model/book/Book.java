@@ -6,15 +6,9 @@
 package bookshop.model.book;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -281,21 +275,6 @@ public class Book implements Serializable {
 
 	public Boolean removeComment(Comment c){
 		return this.comments.remove(c);
-	}
-
-	public Long getLastCommentDate(List<Comment> comments) {
-		java.util.Collections.sort(comments);
-		java.util.Collections.reverse(comments);
-		if(comments.size() > 0) {
-			Comment last = comments.get(0);
-
-			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
-					.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
-			LocalDateTime thisdate = LocalDateTime.parse(last.getDate(), formatter);
-			ZonedDateTime zdt = thisdate.atZone(ZoneId.systemDefault());
-			return zdt.toEpochSecond();
-		}
-		return 0l;
 	}
 
 	// hash, equals, toString
