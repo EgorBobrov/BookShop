@@ -64,6 +64,7 @@ public class Book implements Serializable {
 	@Column(name = "title")
 	private String title;
 
+	//link to book cover
 	@Column(name = "cover")
 	private String cover;
 

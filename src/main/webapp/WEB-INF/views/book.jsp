@@ -64,9 +64,7 @@
 		</tr>
 		<tr>
 			<td><spring:message code="books.bookdescr" />: <br>
-				${book.description} <%-- ${XMLUtil.encodeChars(book.description)} 
-			 Does not seem to work with UTF-8
-			 Why is it necessary? - EB --%></td>
+				${book.description} </td>
 		</tr>
 		<tr>
 			<td><spring:message code="books.bookprice" />: <br>
@@ -222,7 +220,7 @@
 			<table class="tg">
 				<c:forEach items="${similarBooks}" var="book">
 					<tr>
-						<td rowspan="9"><a
+						<td rowspan="6"><a
 							href="${pageContext.request.contextPath}/book/${book.id}"><img
 								src="${pageContext.request.contextPath}/img/books/${book.cover}"
 								 class="img-responsive"  alt="No picture available" /></a><div class="bookname"> <a

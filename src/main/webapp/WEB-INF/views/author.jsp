@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td>${author.name}</td>
-			<td><img src="/BookList/img/authors/${author.picture}" class="img-circle" /></td>
+			<td><img src="${pageContext.request.contextPath}/img/authors/${author.picture}" class="img-circle"  alt="No picture available"/></td>
 			<td><c:forEach items="${author.books}" var="book">
 					<a href="${pageContext.request.contextPath}/book/${book.id}">${book.title}</a><br>
 			</c:forEach></td>

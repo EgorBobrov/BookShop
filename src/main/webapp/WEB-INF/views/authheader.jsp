@@ -20,7 +20,7 @@
 			<sec:authorize
 				access="hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')">
 
-				<li><a href="<c:url value='/user/${loggedinuser}' />"><spring:message code="auth.greeting" /> , <strong>${loggedinuser}</strong>!</a></li>
+				<li><a href="<c:url value='/user/${loggedinuser}' />"><spring:message code="auth.greeting" />, <strong>${loggedinuser}</strong>!</a></li>
 
 				<sec:authorize access="hasRole('USER')">
 					<li><a href="<c:url value='/order/${loggedinuser}' />"> <spring:message
@@ -29,7 +29,7 @@
 
 				</sec:authorize>
 				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-					<li><a href="${pageContext.request.contextPath}/login"><spring:message code="auth.userlist" /></a></li>
+					<li><a href="${pageContext.request.contextPath}/list"><spring:message code="auth.userlist" /></a></li>
 				</sec:authorize>
 			</sec:authorize>
 			<li class="dropdown"><a class="dropdown-toggle"

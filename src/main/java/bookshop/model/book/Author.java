@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="AUTHOR")
-//@Proxy(lazy=false) 
 public class Author {
 
     // attributes
@@ -32,6 +31,7 @@ public class Author {
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<Book>();
     
+    //link to author picture
     @Column(name = "picture")
     private String picture;
     
