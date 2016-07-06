@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -21,8 +22,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import bookshop.converter.RoleToUserProfileConverter;
 import bookshop.model.user.User;
 
 
@@ -58,6 +64,9 @@ public class Comment implements Comparable<Comment> {
     
     @Column(name = "dislikes")
     private int dislikesCount;
+    
+    @Transient
+	private static Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 
     public String toString() {
     	return this.text   +" posted by "  + this.user +  " on " +  this.date;
@@ -172,15 +181,25 @@ public class Comment implements Comparable<Comment> {
 		return false;
 	}
 	
+	//converting date from string to actual comparable format. will return min date if formatting errors.
+	private static LocalDateTime formatDate(String date){
+		try {
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss '+0300'")).toFormatter().withLocale(Locale.ENGLISH);
+			return LocalDateTime.parse(date, formatter);
+		} catch (DateTimeParseException e){
+			logger.error("formatting error when casting "+date.toString()+": "+e.getStackTrace());
+		}
+		return LocalDateTime.MIN;
+	}
+	
 	//comparing comments by the time thay've been written on
 	@Override
 	public int compareTo(Comment other){
-	//	it might be worth changing this ti "EEE, dd MMM yyyy HH:mm:ss ' 0300'" if it starts failing :(
-		DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
-				.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss ' 0300'")).toFormatter().withLocale(Locale.ENGLISH);
-		LocalDateTime thisdate = LocalDateTime.parse(this.date, formatter);
-		LocalDateTime otherdate = LocalDateTime.parse(other.getDate(), formatter);
-	    return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
+		LocalDateTime thisdate = formatDate(this.date);
+		LocalDateTime otherdate = formatDate(other.getDate());
+			
+		return thisdate.isBefore(otherdate) ? -1 : (thisdate.isAfter(otherdate)? 1 :0);
 	}
 	
 	public static Long getLastCommentDate(List<Comment> comments) {
@@ -188,11 +207,7 @@ public class Comment implements Comparable<Comment> {
   		java.util.Collections.reverse(comments);
   		if(comments.size() > 0) {
   			Comment last = comments.get(0);
-  
-  			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
-  					.append(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss ' 0300'")).toFormatter().withLocale(Locale.ENGLISH);
-  			LocalDateTime thisdate = LocalDateTime.parse(last.getDate(), formatter);
-  			ZonedDateTime zdt = thisdate.atZone(ZoneId.systemDefault());
+  			ZonedDateTime zdt = formatDate(last.getDate()).atZone(ZoneId.systemDefault());
   			return zdt.toEpochSecond();
   		}
   		return 0l;
